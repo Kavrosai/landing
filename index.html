@@ -151,6 +151,36 @@
         </div>
     </section>
 
+    <!-- Workflow Example Strip -->
+    <section id="workflow-example" class="py-20 px-6 border-t border-slate-800">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-4">A governed workflow, end to end</h2>
+            <p class="text-slate-400 text-center max-w-2xl mx-auto mb-12">What "describe a request" looks like when every step is governed — here is a nightly revenue report, from prompt to audit-ready artifact.</p>
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="bg-darkcard p-6 rounded-xl border border-slate-800">
+                    <p class="text-xs font-mono text-brand mb-2">STEP 1</p>
+                    <h3 class="text-base font-bold text-white mb-2">Describe the request</h3>
+                    <p class="text-sm text-slate-400">"Pull this week's revenue by region from the approved database and produce a chart." The graph builder turns it into agent, skill, and output nodes.</p>
+                </div>
+                <div class="bg-darkcard p-6 rounded-xl border border-slate-800">
+                    <p class="text-xs font-mono text-brand mb-2">STEP 2</p>
+                    <h3 class="text-base font-bold text-white mb-2">Approve the revision</h3>
+                    <p class="text-sm text-slate-400">A reviewer approves; the revision is Ed25519-signed. The schedule is bound to that exact revision — edits create a new revision, never a silent change.</p>
+                </div>
+                <div class="bg-darkcard p-6 rounded-xl border border-slate-800">
+                    <p class="text-xs font-mono text-brand mb-2">STEP 3</p>
+                    <h3 class="text-base font-bold text-white mb-2">Run under governance</h3>
+                    <p class="text-sm text-slate-400">The scheduled run executes in your VPC. The governed query respects row caps and allowed columns; the Excel output passes DLP before it is stored.</p>
+                </div>
+                <div class="bg-darkcard p-6 rounded-xl border border-slate-800">
+                    <p class="text-xs font-mono text-brand mb-2">STEP 4</p>
+                    <h3 class="text-base font-bold text-white mb-2">Get the evidence</h3>
+                    <p class="text-sm text-slate-400">The run's timeline, decisions, DLP results, token cost, and the downloadable chart land in run history — exportable, hash-chained, audit-ready.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Enforcement Loop Section -->
     <section id="products" class="py-20 px-6 border-t border-slate-800">
         <div class="max-w-5xl mx-auto">
@@ -198,8 +228,16 @@
                     <p class="text-sm text-slate-400">Model allowlists, automatic provider fallback, cost-aware least-expensive routing, and per-model daily spend limits to keep your bill predictable.</p>
                 </div>
                 <div class="bg-darkcard p-8 rounded-xl border border-slate-800 hover:border-brand/50 transition">
+                    <h3 class="text-xl font-bold text-white mb-2">Governed workflows</h3>
+                    <p class="text-sm text-slate-400">Describe a task as a graph of agent steps, skills, and file outputs. Revisions are approved and signed, schedules run with claim alerting, and every run leaves a complete evidence trail.</p>
+                </div>
+                <div class="bg-darkcard p-8 rounded-xl border border-slate-800 hover:border-brand/50 transition">
                     <h3 class="text-xl font-bold text-white mb-2">Evidence</h3>
-                    <p class="text-sm text-slate-400">Hash-chained exports for audit workflows: incident timelines, policy approvals, and enclave attestation records you can verify yourself.</p>
+                    <p class="text-sm text-slate-400">Hash-chained exports for audit workflows: incident timelines, policy approvals, and enclave attestation records you can verify yourself. SOC 2-style exports and framework evidence packs assemble what your auditor asks for.</p>
+                </div>
+                <div class="bg-darkcard p-8 rounded-xl border border-slate-800 hover:border-brand/50 transition">
+                    <h3 class="text-xl font-bold text-white mb-2">Kill switch</h3>
+                    <p class="text-sm text-slate-400">Halt any workload instantly: egress blocks at the data plane, a critical incident opens with the reason and actor, and resuming restores service — every step hash-chained in the audit log.</p>
                 </div>
             </div>
         </div>
@@ -254,7 +292,7 @@
 
             <div class="mt-12 text-center">
                 <h3 class="text-2xl font-bold text-white mb-4">Developer Integration</h3>
-                <p class="text-slate-400 mb-8 max-w-2xl mx-auto">Choose the integration that fits your stack: use the <code class="font-mono text-brand">@kavrosai/cli</code> for scripts, smoke tests, and bundle verification, call the stable JSON HTTP contract from any language, or use the Python hook for zero-code interception of requests and httpx traffic.</p>
+                <p class="text-slate-400 mb-8 max-w-2xl mx-auto">Choose the integration that fits your stack: use the <code class="font-mono text-brand">@kavrosai/cli</code> for scripts, smoke tests, and bundle verification, call the stable JSON HTTP contract from any language, use the Python hook for zero-code interception of requests and httpx traffic, or expose governed skills to MCP clients through the typed MCP facade.</p>
                 
                 <div class="flex flex-col md:flex-row justify-center gap-4 text-sm">
                     <span class="bg-slate-800 px-4 py-2 rounded-md text-slate-300 border border-slate-700">Any Language via HTTP</span>
@@ -293,7 +331,7 @@
                 </div>
                 <div class="p-6">
                     <h4 class="text-lg font-bold text-white mb-2">Granular RBAC</h4>
-                    <p class="text-sm text-slate-400">Super Admin, Org Admin, and Auditor roles with hash-chained audit trails and tamper-evident integrity verification to support compliance workflows.</p>
+                    <p class="text-sm text-slate-400">Super Admin, Org Admin, and Auditor roles with hash-chained audit trails and tamper-evident integrity verification. SSO, SCIM provisioning, and MFA ship built-in for enterprise identity stacks.</p>
                 </div>
                 <div class="p-6">
                     <h4 class="text-lg font-bold text-white mb-2">Signed Policy Enforcement</h4>
