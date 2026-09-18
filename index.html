@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kavros — The governance plane for enterprise AI agents</title>
-    <meta name="description" content="Kavros pre-approves what AI agents can touch, enforces it in your AWS VPC, and proves what happened — signed policies, DLP, metering, and audit evidence for agents and employee AI access.">
-    <meta property="og:title" content="Kavros — The governance plane for enterprise AI agents">
-    <meta property="og:description" content="Pre-approve what AI can touch. Enforce it in your VPC. Prove what happened.">
+    <title>Kavros — Govern every way your company uses AI</title>
+    <meta name="description" content="Kavros is the governance plane for your AI agents, employee AI chat, and AI workflows — enforcing signed policy, DLP before anything leaves, and cryptographic proof of execution, self-hosted in your AWS VPC.">
+    <meta property="og:title" content="Kavros — Govern every way your company uses AI">
+    <meta property="og:description" content="Agents, employee chat, and workflows: signed policy, DLP, and cryptographic proof of execution in your VPC.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://kavros.ai/">
     <script type="application/ld+json">
@@ -14,7 +14,7 @@
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": "Kavros",
-      "alternateName": ["Kavros AI governance", "Kavros agent governance"],
+      "alternateName": ["Kavros AI governance", "Kavros agent governance", "Kavros governed workflows", "Kavros employee AI"],
       "url": "https://kavros.ai",
       "sameAs": [
         "https://github.com/Kavrosai"
@@ -56,6 +56,7 @@
             </a>
             <!-- Desktop Menu -->
             <div class="hidden md:flex space-x-8 text-sm items-center">
+                <a href="#surfaces" class="hover:text-white transition">Surfaces</a>
                 <a href="#products" class="hover:text-white transition">Products</a>
                 <a href="#problem" class="hover:text-white transition">The Problem</a>
                 <a href="#solution" class="hover:text-white transition">Solution</a>
@@ -73,6 +74,7 @@
         </div>
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden flex-col space-y-3 px-6 pb-4 text-sm">
+            <a href="#surfaces" class="block hover:text-white transition">Surfaces</a>
             <a href="#products" class="block hover:text-white transition">Products</a>
             <a href="#problem" class="block hover:text-white transition">The Problem</a>
             <a href="#solution" class="block hover:text-white transition">Solution</a>
@@ -89,12 +91,12 @@
     <section class="pt-40 pb-20 px-6 text-center relative overflow-hidden">
         <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-[600px] h-[600px] bg-brand/10 rounded-full blur-3xl"></div>
         <div class="relative max-w-4xl mx-auto">
-            <span class="inline-block bg-slate-800 text-brand text-xs font-mono px-3 py-1 rounded-full mb-6 border border-slate-700">Kavros · Signed policies · Enclave-attested · Self-hosted</span>
+            <span class="inline-block bg-slate-800 text-brand text-xs font-mono px-3 py-1 rounded-full mb-6 border border-slate-700">Kavros · Agents · Employee chat · Workflows</span>
             <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-6">
-                The governance plane for enterprise AI agents
+                Govern every way your company uses AI
             </h1>
             <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10">
-                Pre-approve what AI can touch. Enforce it in your VPC. Prove what happened.
+                One governance plane for AI agents, employee AI chat, and AI workflows — signed policy, DLP before anything leaves, and cryptographic proof of execution. In your VPC.
             </p>
             <div class="flex justify-center gap-4">
                 <a href="#proof" class="bg-brand hover:bg-blue-500 text-white px-8 py-3 rounded-md font-bold text-lg transition shadow-lg shadow-brand/20">Run the interactive demo</a>
@@ -105,11 +107,83 @@
         </div>
     </section>
 
+    <!-- Surfaces Section -->
+    <section id="surfaces" class="py-20 px-6 border-t border-slate-800">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-4">Three ways AI enters your company. One way it's governed.</h2>
+            <p class="text-slate-400 text-center max-w-2xl mx-auto mb-12">Whether AI acts, answers, or runs unattended, Kavros enforces the same three guarantees — pre-approved scope, DLP before anything leaves, and cryptographic proof of execution.</p>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-darkcard p-8 rounded-xl border border-slate-800 hover:border-brand/50 transition flex flex-col">
+                    <h3 class="text-xl font-bold text-white mb-1">AI agents</h3>
+                    <p class="text-xs text-slate-500 mb-5">AI that acts — tool calls, egress, autonomous work</p>
+                    <ul class="text-sm text-slate-400 space-y-3 mb-8">
+                        <li><span class="text-brand font-bold">Policy:</span> typed capabilities and signed allowlists decide which targets an agent may touch — nothing else.</li>
+                        <li><span class="text-brand font-bold">DLP:</span> payloads are inspected before egress; PII and secrets are blocked from leaving.</li>
+                        <li><span class="text-brand font-bold">Proof:</span> every decision carries an enclave attestation document and lands in the hash-chained audit trail.</li>
+                    </ul>
+                    <a href="#proof" class="mt-auto text-brand hover:text-blue-300 text-sm font-semibold">See a blocked injection →</a>
+                </div>
+                <div class="bg-darkcard p-8 rounded-xl border border-slate-800 hover:border-brand/50 transition flex flex-col">
+                    <h3 class="text-xl font-bold text-white mb-1">Employee AI chat</h3>
+                    <p class="text-xs text-slate-500 mb-5">AI that answers — approved models, governed access</p>
+                    <ul class="text-sm text-slate-400 space-y-3 mb-8">
+                        <li><span class="text-brand font-bold">Policy:</span> model allowlists, provider routing, and per-team access replace shadow AI with approved paths.</li>
+                        <li><span class="text-brand font-bold">DLP:</span> prompts and completions are scanned both ways — your data doesn't leak into prompts, and sensitive replies are caught before they spread.</li>
+                        <li><span class="text-brand font-bold">Proof:</span> the same audit trail covers every conversation — who used what model, what was scanned, what was blocked.</li>
+                    </ul>
+                    <a href="#workflow-example" class="mt-auto text-brand hover:text-blue-300 text-sm font-semibold">See governed chat in the flow →</a>
+                </div>
+                <div class="bg-darkcard p-8 rounded-xl border border-slate-800 hover:border-brand/50 transition flex flex-col">
+                    <h3 class="text-xl font-bold text-white mb-1">AI workflows</h3>
+                    <p class="text-xs text-slate-500 mb-5">AI that runs unattended — scheduled, repeatable, auditable</p>
+                    <ul class="text-sm text-slate-400 space-y-3 mb-8">
+                        <li><span class="text-brand font-bold">Policy:</span> every workflow revision is approved and Ed25519-signed; schedules pin to that exact revision — edits can't silently change what runs.</li>
+                        <li><span class="text-brand font-bold">DLP:</span> outputs (queries, Excel, CSV, JSON) pass DLP before they're stored or delivered.</li>
+                        <li><span class="text-brand font-bold">Proof:</span> each run's timeline, decisions, and cost land in run history — exportable, hash-chained, audit-ready.</li>
+                    </ul>
+                    <a href="#start-simple" class="mt-auto text-brand hover:text-blue-300 text-sm font-semibold">Start with a workflow, no agents →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section id="problem" class="py-20 px-6 border-t border-slate-800">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-4">Each surface fails differently</h2>
+            <p class="text-slate-400 text-center max-w-2xl mx-auto mb-12">Generic AI safety advice doesn't survive contact with production. These are the real failure modes your security review will ask about.</p>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-darkcard p-8 rounded-xl border border-slate-800 hover:border-red-500/50 transition">
+                    <div class="text-red-500 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Agents: hijacked actions</h3>
+                    <p class="text-sm text-slate-400">Attackers hide instructions in data feeds; the agent obeys and tries to drain funds or change configuration — and compromised agents route PII to external servers.</p>
+                </div>
+                <div class="bg-darkcard p-8 rounded-xl border border-slate-800 hover:border-red-500/50 transition">
+                    <div class="text-red-500 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 7"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Chat: well-meant leakage</h3>
+                    <p class="text-sm text-slate-400">Employees paste customer data into unapproved models, sensitive output spreads, and spend grows in the dark — nobody's malicious, everyone's exposed.</p>
+                </div>
+                <div class="bg-darkcard p-8 rounded-xl border border-slate-800 hover:border-red-500/50 transition">
+                    <div class="text-red-500 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Workflows: silent drift</h3>
+                    <p class="text-sm text-slate-400">Unattended runs quietly keep yesterday's permissions, outputs go ungoverned, and a failed nightly job surfaces as a surprise — not an incident.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Proof Section -->
     <section id="proof" class="py-20 px-6 border-t border-slate-800">
         <div class="max-w-5xl mx-auto">
             <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-4">See the decision, not just the claim</h2>
-            <p class="text-slate-400 text-center max-w-2xl mx-auto mb-12">Three real failure modes, each showing the attack, the enforcement decision, and the evidence it leaves behind. The full interactive version lives in the sandbox.</p>
+            <p class="text-slate-400 text-center max-w-2xl mx-auto mb-12">Three real failure modes across the three surfaces, each showing the attack, the enforcement decision, and the evidence it leaves behind. The full interactive version lives in the sandbox.</p>
             <div class="grid md:grid-cols-3 gap-8">
                 <div class="bg-darkcard rounded-xl border border-slate-800 hover:border-brand/50 transition overflow-hidden">
                     <div class="p-6 border-b border-slate-800">
@@ -243,44 +317,12 @@
         </div>
     </section>
 
-    <!-- Problem Section -->
-    <section id="problem" class="py-20 px-6 border-t border-slate-800">
-        <div class="max-w-5xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-4">Why LLMs Are Vulnerable</h2>
-            <p class="text-slate-400 text-center max-w-2xl mx-auto mb-12">AI risk has two surfaces: agents can take unauthorized actions, while employees need productive access without unmanaged models, data exposure, or runaway spend.</p>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-darkcard p-8 rounded-xl border border-slate-800 hover:border-red-500/50 transition">
-                    <div class="text-red-500 mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-2">Prompt Injection</h3>
-                    <p class="text-sm text-slate-400">Attackers trick the LLM by hiding malicious instructions in data feeds, forcing the agent to drain funds or change configurations.</p>
-                </div>
-                <div class="bg-darkcard p-8 rounded-xl border border-slate-800 hover:border-red-500/50 transition">
-                    <div class="text-red-500 mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 7"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-2">Data Exfiltration</h3>
-                    <p class="text-sm text-slate-400">Compromised agents route PII and sensitive customer data to external servers, bypassing standard network controls.</p>
-                </div>
-                <div class="bg-darkcard p-8 rounded-xl border border-slate-800 hover:border-red-500/50 transition">
-                    <div class="text-red-500 mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-2">Insider Tampering</h3>
-                    <p class="text-sm text-slate-400">Rogue employees or compromised DevOps engineers can alter runtime policies to bypass security controls.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Solution Section -->
     <section id="solution" class="py-20 px-6 bg-slate-900/50 border-t border-slate-800">
         <div class="max-w-5xl mx-auto">
             <div class="text-center mb-12">
                 <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">One Enforcement Boundary</h2>
-                <p class="text-slate-400 max-w-2xl mx-auto">Kavros evaluates agent egress and employee Chat traffic against the policies, model controls, usage limits, and provider configuration your organization defines.</p>
+                <p class="text-slate-400 max-w-2xl mx-auto">Kavros evaluates every AI surface against the policies, model controls, usage limits, and provider configuration your organization defines — agents, employee chat, and workflows all flow through the same boundary.</p>
             </div>
 
             <div class="bg-darkbg p-8 rounded-xl border border-slate-800 font-mono text-sm text-slate-400 overflow-x-auto">
@@ -348,6 +390,37 @@
                 <div class="p-6">
                     <h4 class="text-lg font-bold text-white mb-2">Self-Hosted in Your VPC</h4>
                     <p class="text-sm text-slate-400">The control plane and data plane run inside your AWS account. Customer traffic is governed by your network, provider, retention, and access configuration.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Start Simple: no agents required -->
+    <section id="start-simple" class="py-20 px-6 border-t border-slate-800">
+        <div class="max-w-4xl mx-auto">
+            <span class="inline-block bg-slate-800 text-brand text-xs font-mono px-3 py-1 rounded-full mb-6 border border-slate-700">No agents required</span>
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">You don't need to build AI agents to need Kavros</h2>
+            <p class="text-slate-400 mb-10">Want to understand your own data? Connect Kavros to your database and run governed workflows that ask questions, generate reports, and hand you answers with the evidence attached. That's a complete, useful deployment on day one — agent governance is there when you're ready for it.</p>
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="bg-darkcard p-6 rounded-xl border border-slate-800">
+                    <p class="text-xs font-mono text-brand mb-2">1</p>
+                    <h3 class="text-base font-bold text-white mb-2">Connect your database</h3>
+                    <p class="text-sm text-slate-400">Register the source with allowed columns and row caps — the scope is typed and enforced, not a password in a prompt.</p>
+                </div>
+                <div class="bg-darkcard p-6 rounded-xl border border-slate-800">
+                    <p class="text-xs font-mono text-brand mb-2">2</p>
+                    <h3 class="text-base font-bold text-white mb-2">Describe the workflow</h3>
+                    <p class="text-sm text-slate-400">"Summarize churn by segment weekly and produce a chart." The graph builder turns it into governed steps.</p>
+                </div>
+                <div class="bg-darkcard p-6 rounded-xl border border-slate-800">
+                    <p class="text-xs font-mono text-brand mb-2">3</p>
+                    <h3 class="text-base font-bold text-white mb-2">Approve once</h3>
+                    <p class="text-sm text-slate-400">A reviewer signs the revision; the schedule then runs it on repeat — DLP-checked outputs, metered cost, zero night-time surprises.</p>
+                </div>
+                <div class="bg-darkcard p-6 rounded-xl border border-slate-800">
+                    <p class="text-xs font-mono text-brand mb-2">4</p>
+                    <h3 class="text-base font-bold text-white mb-2">Trust the answers</h3>
+                    <p class="text-sm text-slate-400">Every report ships with its run timeline and evidence — you know which query ran, what was scanned, and what it cost.</p>
                 </div>
             </div>
         </div>
