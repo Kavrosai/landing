@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sandbox | Kavros — Interactive demos</title>
-    <meta name="description" content="Interactive demos of Kavros blocking prompt injection and unauthorized actions against autonomous AI agents, in real time.">
+    <meta name="description" content="Interactive demos of Kavros enforcing policy, DLP, and cryptographic proof across AI agents, employee chat, and scheduled workflows — in real time.">
     <meta property="og:title" content="Sandbox | Kavros">
-    <meta property="og:description" content="See Kavros block prompt injection and unauthorized actions against AI agents in an interactive demo.">
+    <meta property="og:description" content="See Kavros block agent hijacks, chat leakage, and workflow drift — attack, decision, and evidence in interactive demos.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://kavros.ai/sandbox.html">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -43,9 +43,9 @@
             </a>
             <!-- Desktop Menu -->
             <div class="hidden md:flex space-x-8 text-sm items-center">
-                <a href="index.html#products" class="hover:text-white transition">Products</a>
-                <a href="index.html#problem" class="hover:text-white transition">The Problem</a>
-                <a href="index.html#solution" class="hover:text-white transition">Solution</a>
+                <a href="index.html#surfaces" class="hover:text-white transition">Surfaces</a>
+                <a href="index.html#proof" class="hover:text-white transition">Proof</a>
+                <a href="index.html#pricing" class="hover:text-white transition">Pricing</a>
                 <a href="sandbox.html" class="text-brand font-bold transition">Sandbox</a>
                 <a href="blog.html" class="hover:text-white transition">Blog</a>
                 <a href="security.html" class="hover:text-white transition">Security</a>
@@ -58,9 +58,9 @@
         </div>
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden flex-col space-y-3 px-6 pb-4 text-sm">
-            <a href="index.html#products" class="block hover:text-white transition">Products</a>
-            <a href="index.html#problem" class="block hover:text-white transition">The Problem</a>
-            <a href="index.html#solution" class="block hover:text-white transition">Solution</a>
+            <a href="index.html#surfaces" class="block hover:text-white transition">Surfaces</a>
+            <a href="index.html#proof" class="block hover:text-white transition">Proof</a>
+            <a href="index.html#pricing" class="block hover:text-white transition">Pricing</a>
             <a href="sandbox.html" class="text-brand font-bold transition">Sandbox</a>
             <a href="blog.html" class="block hover:text-white transition">Blog</a>
             <a href="security.html" class="block hover:text-white transition">Security</a>
@@ -73,13 +73,16 @@
         <div class="max-w-3xl mx-auto">
             <span class="inline-block bg-slate-800 text-brand text-xs font-mono px-3 py-1 rounded-full mb-6 border border-slate-700">Interactive Demos</span>
             <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-4">Attack Scenarios & Defenses</h1>
-            <p class="text-lg text-slate-400">Watch how autonomous AI agents are tricked by prompt injection, and how Kavros's hardware-enforced TEE blocks the attacks in real-time.</p>
+            <p class="text-lg text-slate-400">Watch Kavros enforce policy, DLP, and cryptographic proof across all three AI surfaces — hijacked agents, leaking chats, and drifting workflows — in real time.</p>
         </div>
     </section>
 
-    <!-- Video Grid -->
-    <section class="pb-20 px-6">
-        <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <!-- Scenario Track 1: AI agents -->
+    <section class="pb-8 px-6">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">AI agents — hijacked actions</h2>
+            <p class="text-slate-400 mb-8 max-w-2xl">Recorded attacks against autonomous agents. The signed allowlist and DLP stop them before the target is reached.</p>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             
             <!-- Video 1: Wallet Hack -->
             <div class="bg-darkcard rounded-xl border border-slate-800 overflow-hidden flex flex-col">
@@ -117,14 +120,57 @@
                 </div>
             </div>
 
+            </div>
         </div>
     </section>
 
-    <!-- CTA Section -->
+    <!-- Scenario Track 2: Employee AI chat -->
+    <section class="pb-8 px-6">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">Employee AI chat — well-meant leakage</h2>
+            <p class="text-slate-400 mb-8 max-w-2xl">Nobody's malicious: an employee pastes a customer record into a prompt to get a reply drafted faster. DLP scans the prompt before it leaves — run it.</p>
+            <div class="bg-darkcard p-6 rounded-xl border border-slate-800">
+                <div class="flex items-center gap-2 mb-4 border-b border-slate-700 pb-2">
+                    <span class="h-3 w-3 bg-red-500 rounded-full"></span>
+                    <span class="h-3 w-3 bg-yellow-500 rounded-full"></span>
+                    <span class="h-3 w-3 bg-green-500 rounded-full"></span>
+                    <span class="ml-2 text-slate-500 text-xs">kavros-chat · governed employee AI</span>
+                </div>
+                <div id="chat-output" class="h-64 overflow-y-auto space-y-3 mb-4 text-sm">
+                    <p class="text-slate-500 text-xs font-mono">// Click "Run scenario" to see the DLP stop a leak.</p>
+                </div>
+                <button id="run-chat-btn" class="w-full bg-brand hover:bg-blue-500 text-white py-2 rounded-md font-bold transition">
+                    Run scenario
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scenario Track 3: AI workflows -->
+    <section class="pb-20 px-6">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">AI workflows — silent drift</h2>
+            <p class="text-slate-400 mb-8 max-w-2xl">A nightly workflow runs unattended. Someone edits its data scope directly — without an approval. Watch the 02:00 run catch it.</p>
+            <div class="bg-darkcard p-6 rounded-xl border border-slate-800 text-left font-mono text-sm">
+                <div class="flex items-center gap-2 mb-4 border-b border-slate-700 pb-2">
+                    <span class="h-3 w-3 bg-red-500 rounded-full"></span>
+                    <span class="h-3 w-3 bg-yellow-500 rounded-full"></span>
+                    <span class="h-3 w-3 bg-green-500 rounded-full"></span>
+                    <span class="ml-2 text-slate-500 text-xs">kavros-scheduler · nightly-revenue-report</span>
+                </div>
+                <div id="wf-output" class="h-64 overflow-y-auto text-slate-400 mb-4">
+                    <p>// Click "Run scenario" to see the tamper attempt caught.</p>
+                </div>
+                <button id="run-wf-btn" class="w-full bg-brand hover:bg-blue-500 text-white py-2 rounded-md font-bold transition">
+                    Run scenario
+                </button>
+            </div>
+        </div>
+    </section>
     <section class="py-20 px-6 border-t border-slate-800">
         <div class="max-w-3xl mx-auto text-center">
-            <h2 class="text-3xl font-bold text-white mb-6">Want to test your own agents?</h2>
-            <p class="text-slate-400 mb-8">Become a Design Partner and get 3 months free to try Kavros against your own specific attack vectors.</p>
+            <h2 class="text-3xl font-bold text-white mb-6">Want to test Kavros against your own traffic?</h2>
+            <p class="text-slate-400 mb-8">Run the 15-business-day paid proof in your own VPC: a fixed $7,500 Business-tier pilot against your specific attack vectors — credited in full if you sign an annual contract within 30 days.</p>
             <a href="https://calendly.com/anoop-kulkarni/30min" target="_blank" class="bg-brand hover:bg-blue-500 text-white px-8 py-3 rounded-md font-bold text-lg transition shadow-lg shadow-brand/20">Apply to the Program</a>
         </div>
     </section>
@@ -134,6 +180,58 @@
             const menu = document.getElementById('mobile-menu');
             menu.classList.toggle('hidden');
             menu.classList.toggle('flex');
+        });
+
+        // Shared typing engine: renders steps sequentially into a container.
+        function playSteps(containerId, steps, doneLabel, btn) {
+            const output = document.getElementById(containerId);
+            output.innerHTML = '';
+            btn.disabled = true;
+            btn.innerText = 'Running...';
+            let i = 0;
+            function typeStep() {
+                if (i < steps.length) {
+                    const p = document.createElement('p');
+                    p.className = steps[i].color;
+                    p.innerText = steps[i].text;
+                    output.appendChild(p);
+                    output.scrollTop = output.scrollHeight;
+                    i++;
+                    setTimeout(typeStep, 650);
+                } else {
+                    btn.disabled = false;
+                    btn.innerText = doneLabel;
+                }
+            }
+            typeStep();
+        }
+
+        // Chat-leak scenario.
+        document.getElementById('run-chat-btn').addEventListener('click', function() {
+            playSteps('chat-output', [
+                { text: 'Sarah (support): “Draft a reply to Mr. Alvarez about his disputed charge.”', color: 'text-slate-300' },
+                { text: 'Sarah pastes the ticket: name, email, card ending 4412, balance…', color: 'text-slate-400' },
+                { text: '[Kavros DLP] Scanning prompt before egress…', color: 'text-blue-400' },
+                { text: '[Kavros DLP] Match: rule "customer_pii" — card number pattern (Luhn-valid).', color: 'text-yellow-400' },
+                { text: 'Prompt blocked at the gateway. Nothing reached the model.', color: 'text-red-500 font-bold' },
+                { text: 'Sarah sees: “Removed 1 card number. Re-run without it? The reply only needs the dispute text.”', color: 'text-slate-300' },
+                { text: '✅ Sarah re-runs redacted. Reply drafted. Customer PII never left the company.', color: 'text-green-400 font-bold' },
+                { text: 'Evidence: DLP event logged — rule, actor, timestamp — in the hash-chained audit trail.', color: 'text-slate-400' }
+            ], 'Run again', this);
+        });
+
+        // Workflow-drift scenario.
+        document.getElementById('run-wf-btn').addEventListener('click', function() {
+            playSteps('wf-output', [
+                { text: '> 02:00 — scheduled run: nightly-revenue-report (revision 7, signed)', color: 'text-slate-400' },
+                { text: '> Verifying workflow revision signature… OK (Ed25519, key sha256:71c28434…)', color: 'text-blue-400' },
+                { text: '> Comparing effective data scope against approved revision 7…', color: 'text-blue-400' },
+                { text: '> [DRIFT] Detected: allowed_columns changed — "customer_emails" added outside approval.', color: 'text-yellow-400' },
+                { text: '> Revision 7 does not include this scope. The workflow cannot self-approve.', color: 'text-red-500 font-bold' },
+                { text: '> Run halted before any query executed. Incident opened (critical) with the diff.', color: 'text-red-500' },
+                { text: '> 07:14 — reviewer approves remediation: scope reverted to revision 7.', color: 'text-slate-400' },
+                { text: '✅ Next 02:00 run: clean. Evidence: policy event + run timeline, hash-chained.', color: 'text-green-400 font-bold' }
+            ], 'Run again', this);
         });
     </script>
 
