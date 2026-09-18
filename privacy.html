@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy | Enclavia</title>
-    <meta name="description" content="Enclavia privacy overview for the public website, employee Chat, and customer deployments.">
+    <title>Privacy | Kavros</title>
+    <meta name="description" content="Kavros privacy overview for the public website, employee Chat, and customer deployments.">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = { theme: { extend: {
@@ -17,22 +17,22 @@
 <body class="bg-darkbg text-slate-300 font-sans antialiased">
     <nav class="sticky top-0 bg-darkbg/90 backdrop-blur-md z-50 border-b border-slate-800">
         <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
-            <a href="index.html" class="text-lg font-bold text-white">Enclavia <span class="text-brand font-mono text-xs font-normal">OS</span></a>
-            <div class="flex items-center gap-5 text-sm"><a href="index.html" class="hover:text-white">Home</a><a href="security.html" class="hover:text-white">Security</a><a href="https://docs.enclavia.xyz" class="hover:text-white">Docs</a></div>
+            <a href="index.html" class="text-lg font-bold text-white">Kavros</a>
+            <div class="flex items-center gap-5 text-sm"><a href="index.html" class="hover:text-white">Home</a><a href="security.html" class="hover:text-white">Security</a><a href="https://docs.kavros.ai" class="hover:text-white">Docs</a></div>
         </div>
     </nav>
     <main class="max-w-3xl mx-auto px-6 py-16">
         <h1 class="text-4xl font-extrabold text-white mb-4">Privacy overview</h1>
-        <p class="text-slate-400 mb-10">This public overview explains the main data categories handled by Enclavia. Customer-specific terms and deployment configuration are established during onboarding.</p>
+        <p class="text-slate-400 mb-10">This public overview explains the main data categories handled by Kavros. Customer-specific terms and deployment configuration are established during onboarding.</p>
         <div class="space-y-8 text-sm leading-relaxed text-slate-400">
-            <section><h2 class="text-xl font-bold text-white mb-2">Public website</h2><p>The public website may collect basic request metadata through GoatCounter analytics, such as page path, referrer, screen size, and browser bot indicators. Contact requests may include the information you choose to send to Enclavia.</p></section>
+            <section><h2 class="text-xl font-bold text-white mb-2">Public website</h2><p>The public website may collect basic request metadata through GoatCounter analytics, such as page path, referrer, screen size, and browser bot indicators. Contact requests may include the information you choose to send to Kavros.</p></section>
             <section><h2 class="text-xl font-bold text-white mb-2">Self-hosted deployments</h2><p>In a self-hosted deployment, the control plane, database, data plane, and enclave run in the customer AWS account. The customer controls the associated data, provider configuration, retention settings, backups, access roles, and network boundaries.</p></section>
             <section><h2 class="text-xl font-bold text-white mb-2">Employee Chat</h2><p>Chat messages and metadata are stored in the customer control-plane database to provide chat history and usage attribution. Organization administrators can configure unlimited retention or a supported inactivity window of 7, 30, 90, 365, or 730 days. Expired chats and their messages are deleted server-side. Usage records remain for metering and audit purposes.</p></section>
             <section><h2 class="text-xl font-bold text-white mb-2">Model providers</h2><p>When a customer configures Anthropic, OpenAI, or another supported provider, requests may be sent to that provider according to the customer’s configuration. Customers are responsible for reviewing provider terms, data-use settings, residency, and retention before enabling a model.</p></section>
-            <section><h2 class="text-xl font-bold text-white mb-2">Contact</h2><p>For privacy questions or a customer data request, contact <a class="text-blue-400 hover:text-white" href="mailto:privacy@enclavia.xyz">privacy@enclavia.xyz</a>. For security vulnerabilities, contact <a class="text-blue-400 hover:text-white" href="mailto:security@enclavia.xyz">security@enclavia.xyz</a>.</p></section>
+            <section><h2 class="text-xl font-bold text-white mb-2">Contact</h2><p>For privacy questions or a customer data request, contact <a class="text-blue-400 hover:text-white" href="mailto:privacy@kavros.ai">privacy@kavros.ai</a>. For security vulnerabilities, contact <a class="text-blue-400 hover:text-white" href="mailto:security@kavros.ai">security@kavros.ai</a>.</p></section>
             <p class="text-xs text-slate-600">Last updated: August 22, 2026. This page is an overview and should be supplemented by customer-specific contractual terms before production use.</p>
         </div>
     </main>
-    <footer class="py-8 px-6 border-t border-slate-800 text-center text-sm text-slate-500">© 2026 Enclavia. All rights reserved.</footer>
+    <footer class="py-8 px-6 border-t border-slate-800 text-center text-sm text-slate-500">© 2026 Kavros. All rights reserved.</footer>
 </body>
 </html>

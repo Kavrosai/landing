@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sandbox | Enclavia — Enclavia Attest Demos</title>
-    <meta name="description" content="Interactive demos of Enclavia Attest blocking prompt injection and unauthorized actions against autonomous AI agents, in real time.">
-    <meta property="og:title" content="Sandbox | Enclavia">
-    <meta property="og:description" content="See Enclavia Attest block prompt injection and unauthorized actions against AI agents in an interactive demo.">
+    <title>Sandbox | Kavros — Interactive demos</title>
+    <meta name="description" content="Interactive demos of Kavros blocking prompt injection and unauthorized actions against autonomous AI agents, in real time.">
+    <meta property="og:title" content="Sandbox | Kavros">
+    <meta property="og:description" content="See Kavros block prompt injection and unauthorized actions against AI agents in an interactive demo.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.enclavia.xyz/sandbox.html">
+    <meta property="og:url" content="https://kavros.ai/sandbox.html">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -39,7 +39,7 @@
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <a href="index.html" class="flex items-center gap-2 text-xl font-bold text-white">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                Enclavia <span class="text-brand font-mono text-sm font-normal ml-1">OS</span>
+                Kavros
             </a>
             <!-- Desktop Menu -->
             <div class="hidden md:flex space-x-8 text-sm items-center">
@@ -49,7 +49,7 @@
                 <a href="sandbox.html" class="text-brand font-bold transition">Sandbox</a>
                 <a href="blog.html" class="hover:text-white transition">Blog</a>
                 <a href="security.html" class="hover:text-white transition">Security</a>
-                <a href="https://app.enclavia.xyz" class="bg-brand hover:bg-blue-500 text-white px-4 py-2 rounded-md font-medium transition">Live Dashboard</a>
+                <a href="sandbox.html" class="bg-brand hover:bg-blue-500 text-white px-4 py-2 rounded-md font-medium transition">Interactive Demo</a>
             </div>
             <!-- Mobile Hamburger Button -->
             <button id="menu-btn" class="md:hidden text-slate-300 focus:outline-none">
@@ -64,7 +64,7 @@
             <a href="sandbox.html" class="text-brand font-bold transition">Sandbox</a>
             <a href="blog.html" class="block hover:text-white transition">Blog</a>
             <a href="security.html" class="block hover:text-white transition">Security</a>
-            <a href="https://app.enclavia.xyz" class="bg-brand hover:bg-blue-500 text-white px-4 py-2 rounded-md font-medium transition text-center">Live Dashboard</a>
+            <a href="sandbox.html" class="bg-brand hover:bg-blue-500 text-white px-4 py-2 rounded-md font-medium transition text-center">Interactive Demo</a>
         </div>
     </nav>
 
@@ -73,7 +73,7 @@
         <div class="max-w-3xl mx-auto">
             <span class="inline-block bg-slate-800 text-brand text-xs font-mono px-3 py-1 rounded-full mb-6 border border-slate-700">Interactive Demos</span>
             <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-4">Attack Scenarios & Defenses</h1>
-            <p class="text-lg text-slate-400">Watch how autonomous AI agents are tricked by prompt injection, and how Enclavia's hardware-enforced TEE blocks the attacks in real-time.</p>
+            <p class="text-lg text-slate-400">Watch how autonomous AI agents are tricked by prompt injection, and how Kavros's hardware-enforced TEE blocks the attacks in real-time.</p>
         </div>
     </section>
 
@@ -88,7 +88,7 @@
                 </div>
                 <div class="p-6 flex-grow flex flex-col">
                     <h3 class="text-xl font-bold text-white mb-2">Scenario 1: Treasury Drain</h3>
-                    <p class="text-sm text-slate-400 mb-4 flex-grow">An AI agent is tricked via a corrupted data feed to transfer $100,000 in ETH to a malicious wallet (0xH4CK3R). Enclavia intercepts the egress traffic and blocks the unauthorized target.</p>
+                    <p class="text-sm text-slate-400 mb-4 flex-grow">An AI agent is tricked via a corrupted data feed to transfer $100,000 in ETH to a malicious wallet (0xH4CK3R). Kavros intercepts the egress traffic and blocks the unauthorized target.</p>
                     <span class="text-xs font-mono text-red-400 bg-red-900/20 px-2 py-1 rounded self-start">Target: Web3 / DeFi</span>
                 </div>
             </div>
@@ -100,7 +100,7 @@
                 </div>
                 <div class="p-6 flex-grow flex flex-col">
                     <h3 class="text-xl font-bold text-white mb-2">Scenario 2: PII Exfiltration</h3>
-                    <p class="text-sm text-slate-400 mb-4 flex-grow">An agent processing customer support tickets is manipulated into dumping SSNs and balances to an external API. Enclavia detects the PII regex and blocks the payload.</p>
+                    <p class="text-sm text-slate-400 mb-4 flex-grow">An agent processing customer support tickets is manipulated into dumping SSNs and balances to an external API. Kavros detects the PII regex and blocks the payload.</p>
                     <span class="text-xs font-mono text-red-400 bg-red-900/20 px-2 py-1 rounded self-start">Target: Healthcare / Fintech</span>
                 </div>
             </div>
@@ -112,7 +112,7 @@
                 </div>
                 <div class="p-6 flex-grow flex flex-col">
                     <h3 class="text-xl font-bold text-white mb-2">Scenario 3: Resource Hijacking</h3>
-                    <p class="text-sm text-slate-400 mb-4 flex-grow">A DevOps bot is instructed to scale infrastructure immediately by spinning up 10,000 compute instances for an attacker. Enclavia enforces a strict policy limit and paralyzes the request.</p>
+                    <p class="text-sm text-slate-400 mb-4 flex-grow">A DevOps bot is instructed to scale infrastructure immediately by spinning up 10,000 compute instances for an attacker. Kavros enforces a strict policy limit and blocks the request.</p>
                     <span class="text-xs font-mono text-red-400 bg-red-900/20 px-2 py-1 rounded self-start">Target: DevOps / Cloud Infra</span>
                 </div>
             </div>
@@ -124,7 +124,7 @@
     <section class="py-20 px-6 border-t border-slate-800">
         <div class="max-w-3xl mx-auto text-center">
             <h2 class="text-3xl font-bold text-white mb-6">Want to test your own agents?</h2>
-            <p class="text-slate-400 mb-8">Become a Design Partner and get 3 months free to try Enclavia against your own specific attack vectors.</p>
+            <p class="text-slate-400 mb-8">Become a Design Partner and get 3 months free to try Kavros against your own specific attack vectors.</p>
             <a href="https://calendly.com/anoop-kulkarni/30min" target="_blank" class="bg-brand hover:bg-blue-500 text-white px-8 py-3 rounded-md font-bold text-lg transition shadow-lg shadow-brand/20">Apply to the Program</a>
         </div>
     </section>
@@ -138,7 +138,7 @@
     </script>
 
 <!-- Goat counter analytics -->
-<script data-goatcounter="https://stats.enclavia.xyz/count"
+<script data-goatcounter="https://stats.kavros.ai/count"
        async src="/count.js"></script>
 
 </body>
