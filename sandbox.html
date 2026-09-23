@@ -82,7 +82,7 @@
         <div class="max-w-6xl mx-auto">
             <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">AI agents — hijacked actions</h2>
             <p class="text-slate-400 mb-8 max-w-2xl">Recorded attacks against autonomous agents. The signed allowlist and DLP stop them before the target is reached.</p>
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8">
             
             <!-- Video 1: Wallet Hack -->
             <div class="bg-darkcard rounded-xl border border-slate-800 overflow-hidden flex flex-col">
@@ -120,15 +120,26 @@
                 </div>
             </div>
 
+            <!-- Video 4: Kill switch (product recording, 0.2.x) -->
+            <div class="bg-darkcard rounded-xl border border-slate-800 overflow-hidden flex flex-col">
+                <div class="aspect-video">
+                    <iframe class="w-full h-full" loading="lazy" src="https://www.youtube-nocookie.com/embed/8OvXGIUfFU0" title="Kavros kill switch: halt and resume a live agent" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="p-6 flex-grow flex flex-col">
+                    <h3 class="text-xl font-bold text-white mb-2">Scenario 4: The Kill Switch</h3>
+                    <p class="text-sm text-slate-400 mb-4 flex-grow">A governed agent misbehaves. The operator halts it with a reason on the record — every request is then refused outside the agent, quoting that reason, until an admin resumes it. Watch the full halt → evidence → resume loop.</p>
+                    <span class="text-xs font-mono text-red-400 bg-red-900/20 px-2 py-1 rounded self-start">Control: halt / resume</span>
+                </div>
+            </div>
+
             </div>
         </div>
     </section>
-
-    <!-- Scenario Track 2: Employee AI chat -->
     <section class="pb-8 px-6">
         <div class="max-w-4xl mx-auto">
             <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">Employee AI chat — well-meant leakage</h2>
-            <p class="text-slate-400 mb-8 max-w-2xl">Nobody's malicious: an employee pastes a customer record into a prompt to get a reply drafted faster. DLP scans the prompt before it leaves — run it.</p>
+            <p class="text-slate-400 mb-8 max-w-2xl">Nobody's malicious: an employee pastes a customer record into a prompt to get a reply drafted faster. DLP scans the prompt before it leaves — run it, or watch the real product beside it.</p>
+            <div class="grid md:grid-cols-2 gap-8 items-start">
             <div class="bg-darkcard p-6 rounded-xl border border-slate-800">
                 <div class="flex items-center gap-2 mb-4 border-b border-slate-700 pb-2">
                     <span class="h-3 w-3 bg-red-500 rounded-full"></span>
@@ -143,6 +154,12 @@
                     Run scenario
                 </button>
             </div>
+            <div class="bg-darkcard rounded-xl border border-slate-800 overflow-hidden">
+                <div class="aspect-video">
+                    <iframe class="w-full h-full" loading="lazy" src="https://www.youtube-nocookie.com/embed/nNberNcdJ94" title="Employee AI chat: DLP blocking a card number and AWS key before the model" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+            </div>
         </div>
     </section>
 
@@ -150,7 +167,8 @@
     <section class="pb-20 px-6">
         <div class="max-w-4xl mx-auto">
             <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">AI workflows — silent drift</h2>
-            <p class="text-slate-400 mb-8 max-w-2xl">A nightly workflow runs unattended. Someone edits its data scope directly — without an approval. Watch the 02:00 run catch it.</p>
+            <p class="text-slate-400 mb-8 max-w-2xl">A nightly workflow runs unattended. Someone edits its data scope directly — without an approval. Watch the 02:00 run catch it, or watch the real product beside it.</p>
+            <div class="grid md:grid-cols-2 gap-8 items-start">
             <div class="bg-darkcard p-6 rounded-xl border border-slate-800 text-left font-mono text-sm">
                 <div class="flex items-center gap-2 mb-4 border-b border-slate-700 pb-2">
                     <span class="h-3 w-3 bg-red-500 rounded-full"></span>
@@ -164,6 +182,12 @@
                 <button id="run-wf-btn" class="w-full bg-brand hover:bg-blue-500 text-white py-2 rounded-md font-bold transition">
                     Run scenario
                 </button>
+            </div>
+            <div class="bg-darkcard rounded-xl border border-slate-800 overflow-hidden">
+                <div class="aspect-video">
+                    <iframe class="w-full h-full" loading="lazy" src="https://www.youtube-nocookie.com/embed/7Vi70LcwagM" title="Governed AI workflow: from database to summarized Excel with proof of execution" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
             </div>
         </div>
     </section>
