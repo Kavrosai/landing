@@ -53,6 +53,10 @@
   the launch technical brief — the four questions security reviews ask,
   the propose→approve→sign→enforce→meter→prove chain, and an explicit
   claims/non-claims section.
+- [CVE-2026-21852 case study](https://kavros.ai/cve-2026-21852.html):
+  how Cursor's agent mode was compromised via prompt injection, why
+  traditional security controls miss it (the lethal trifecta), and the
+  architectural shift required to stop it.
 - [Documentation](https://docs.kavros.ai): deployment, integration (HTTP
   contract, CLI, Python hook), policy model, evidence exports.
 
