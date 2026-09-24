@@ -81,54 +81,31 @@
     <section class="pb-8 px-6">
         <div class="max-w-6xl mx-auto">
             <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">AI agents — hijacked actions</h2>
-            <p class="text-slate-400 mb-8 max-w-2xl">Recorded attacks against autonomous agents. The signed allowlist and DLP stop them before the target is reached.</p>
-            <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-8">
-            
-            <!-- Video 1: Wallet Hack -->
-            <div class="bg-darkcard rounded-xl border border-slate-800 overflow-hidden flex flex-col">
-                <div class="aspect-video">
-                    <iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/pVeIGlmZaC8" title="ETH Wallet Prompt Injection Hack" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-                <div class="p-6 flex-grow flex flex-col">
-                    <h3 class="text-xl font-bold text-white mb-2">Scenario 1: Treasury Drain</h3>
-                    <p class="text-sm text-slate-400 mb-4 flex-grow">An AI agent is tricked via a corrupted data feed to transfer $100,000 in ETH to a malicious wallet (0xH4CK3R). Kavros intercepts the egress traffic and blocks the unauthorized target.</p>
-                    <span class="text-xs font-mono text-red-400 bg-red-900/20 px-2 py-1 rounded self-start">Target: Web3 / DeFi</span>
-                </div>
-            </div>
+            <p class="text-slate-400 mb-8 max-w-2xl">Watch the kill switch halt a live agent on camera — and the attack playbook the signed policy stops before the target is reached.</p>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
-            <!-- Video 2: PII Hack -->
-            <div class="bg-darkcard rounded-xl border border-slate-800 overflow-hidden flex flex-col">
-                <div class="aspect-video">
-                    <iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/pJhnUHarpX0" title="PII Prompt Injection Hack" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-                <div class="p-6 flex-grow flex flex-col">
-                    <h3 class="text-xl font-bold text-white mb-2">Scenario 2: PII Exfiltration</h3>
-                    <p class="text-sm text-slate-400 mb-4 flex-grow">An agent processing customer support tickets is manipulated into dumping SSNs and balances to an external API. Kavros detects the PII regex and blocks the payload.</p>
-                    <span class="text-xs font-mono text-red-400 bg-red-900/20 px-2 py-1 rounded self-start">Target: Healthcare / Fintech</span>
-                </div>
-            </div>
-
-            <!-- Video 3: Compute Hack -->
-            <div class="bg-darkcard rounded-xl border border-slate-800 overflow-hidden flex flex-col">
-                <div class="aspect-video">
-                    <iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/3Qc5DJFuRLw" title="Compute Prompt Injection Hack" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-                <div class="p-6 flex-grow flex flex-col">
-                    <h3 class="text-xl font-bold text-white mb-2">Scenario 3: Resource Hijacking</h3>
-                    <p class="text-sm text-slate-400 mb-4 flex-grow">A DevOps bot is instructed to scale infrastructure immediately by spinning up 10,000 compute instances for an attacker. Kavros enforces a strict policy limit and blocks the request.</p>
-                    <span class="text-xs font-mono text-red-400 bg-red-900/20 px-2 py-1 rounded self-start">Target: DevOps / Cloud Infra</span>
-                </div>
-            </div>
-
-            <!-- Video 4: Kill switch (product recording, 0.2.x) -->
+            <!-- Kill switch (live product recording) -->
             <div class="bg-darkcard rounded-xl border border-slate-800 overflow-hidden flex flex-col">
                 <div class="aspect-video">
                     <iframe class="w-full h-full" loading="lazy" src="https://www.youtube-nocookie.com/embed/8OvXGIUfFU0" title="Kavros kill switch: halt and resume a live agent" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
                 <div class="p-6 flex-grow flex flex-col">
-                    <h3 class="text-xl font-bold text-white mb-2">Scenario 4: The Kill Switch</h3>
+                    <h3 class="text-xl font-bold text-white mb-2">The kill switch</h3>
                     <p class="text-sm text-slate-400 mb-4 flex-grow">A governed agent misbehaves. The operator halts it with a reason on the record — every request is then refused outside the agent, quoting that reason, until an admin resumes it. Watch the full halt → evidence → resume loop.</p>
                     <span class="text-xs font-mono text-red-400 bg-red-900/20 px-2 py-1 rounded self-start">Control: halt / resume</span>
+                </div>
+            </div>
+
+            <!-- Attack playbook (text card) -->
+            <div class="bg-darkcard rounded-xl border border-slate-800 overflow-hidden flex flex-col">
+                <div class="p-6 flex-grow flex flex-col">
+                    <h3 class="text-xl font-bold text-white mb-2">The attack playbook</h3>
+                    <p class="text-sm text-slate-400 mb-4 flex-grow">Recorded attack classes against autonomous agents — and the control that stops each one:</p>
+                    <ul class="space-y-3 text-sm text-slate-400">
+                        <li><span class="text-red-400 font-mono text-xs">treasury drain</span> — a tricked agent transfers $100,000 in ETH to an attacker wallet. <span class="text-slate-300">Stopped by: signed allowlist — unapproved target.</span></li>
+                        <li><span class="text-red-400 font-mono text-xs">PII exfiltration</span> — an agent dumps customer SSNs to an external API. <span class="text-slate-300">Stopped by: DLP pattern before egress.</span></li>
+                        <li><span class="text-red-400 font-mono text-xs">runaway compute</span> — a manipulated bot spins up 10,000 instances. <span class="text-slate-300">Stopped by: policy limits.</span></li>
+                    </ul>
                 </div>
             </div>
 
