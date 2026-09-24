@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Can you prove what your AI agent touched? | Kavros</title>
+    <meta name="description" content="The four questions every security review asks about AI agents — and the architecture that answers them with signed policies, DLP before egress, and cryptographic evidence. Includes what we do NOT claim.">
+    <meta property="og:title" content="Can you prove what your AI agent touched?">
+    <meta property="og:description" content="Signed policies, DLP before egress, a kill switch enforced outside the agent — and the section most vendors skip: what this architecture does not claim.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://kavros.ai/prove-what-your-agent-touched.html">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: '#3b82f6',
+                        darkbg: '#020617',
+                        darkcard: '#0f172a'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Menlo', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233b82f6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'></path></svg>">
+    <link rel="canonical" href="https://kavros.ai/prove-what-your-agent-touched.html">
+    <meta property="og:image" content="https://kavros.ai/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://kavros.ai/og-image.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>body { background-color: #020617; }</style>
+</head>
+
+<body class="text-slate-300 font-sans antialiased">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full bg-darkbg/80 backdrop-blur-md z-50 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2 text-xl font-bold text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                Kavros
+            </a>
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 text-sm items-center">
+                <a href="index.html#products" class="hover:text-white transition">Products</a>
+                <a href="index.html#problem" class="hover:text-white transition">The Problem</a>
+                <a href="index.html#solution" class="hover:text-white transition">Solution</a>
+                <a href="sandbox.html" class="hover:text-white transition">Sandbox</a>
+                <a href="blog.html" class="text-brand font-bold transition">Blog</a>
+                <a href="security.html" class="hover:text-white transition">Security</a>
+                <a href="sandbox.html" class="bg-brand hover:bg-blue-500 text-white px-4 py-2 rounded-md font-medium transition">Interactive Demo</a>
+            </div>
+            <!-- Mobile Hamburger Button -->
+            <button id="menu-btn" class="md:hidden text-slate-300 focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden flex-col space-y-3 px-6 pb-4 text-sm">
+            <a href="index.html#products" class="block hover:text-white transition">Products</a>
+            <a href="index.html#problem" class="block hover:text-white transition">The Problem</a>
+            <a href="index.html#solution" class="block hover:text-white transition">Solution</a>
+            <a href="sandbox.html" class="block hover:text-white transition">Sandbox</a>
+            <a href="blog.html" class="text-brand font-bold transition">Blog</a>
+            <a href="security.html" class="block hover:text-white transition">Security</a>
+            <a href="sandbox.html" class="bg-brand hover:bg-blue-500 text-white px-4 py-2 rounded-md font-medium transition text-center">Interactive Demo</a>
+        </div>
+    </nav>
+
+    <!-- Article Header -->
+    <section class="pt-40 pb-10 px-6 text-center">
+        <div class="max-w-3xl mx-auto">
+            <span class="text-xs font-mono text-brand bg-blue-900/20 px-2 py-1 rounded">Technical Brief</span>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-white mt-6 mb-4 leading-tight">Can you prove what your AI agent touched?</h1>
+            <p class="text-lg text-slate-400">The four questions every security review asks about AI agents — and the architecture that answers them with evidence, not screenshots.</p>
+            <div class="flex items-center justify-center text-xs text-slate-500 mt-8 border-b border-slate-800 pb-8">
+                <span>14 min read</span>
+                <span class="mx-2">•</span>
+                <span>September 2026</span>
+                <span class="mx-2">•</span>
+                <span>Covers release 0.2.15</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Article Body -->
+    <article class="pb-16 px-6">
+        <div class="max-w-3xl mx-auto space-y-6 text-slate-400 leading-relaxed">
+
+            <p class="text-lg text-slate-300">Somewhere in your organization an AI agent holds legitimate credentials and takes actions: reads a database, calls a payment API, posts to a customer ticket, emails a report. When your security review, auditor, or incident commander asks the four questions, most teams can answer none of them with evidence:</p>
+            <ol class="list-decimal list-inside space-y-2 ml-4 text-slate-300">
+                <li><strong class="text-white">What was this agent allowed to touch, and who approved that?</strong></li>
+                <li><strong class="text-white">What did it actually touch — and what was inspected before it left?</strong></li>
+                <li><strong class="text-white">Can you stop it right now, without touching the application?</strong></li>
+                <li><strong class="text-white">What proof do you have, after the fact, that all of the above happened?</strong></li>
+            </ol>
+            <p>Network controls can't answer these — agent traffic looks like the application's own TLS. Appliance logs can't — they see endpoints, not intent or approval. LLM-provider logs can't — they see prompts after the fact, not the boundary. And screenshots of a dashboard are not evidence.</p>
+            <p>This is the Kavros answer: a self-hosted governance plane that sits at the enforcement boundary for AI agents, employee AI chat, and scheduled AI workflows — pre-approving what AI can touch, inspecting what leaves, and producing cryptographic evidence of every decision. It also states plainly what Kavros does <em>not</em> claim, because a governance vendor whose pitch is honesty about boundaries should be held to that standard.</p>
+
+            <h2 class="text-3xl font-bold text-white pt-8">Why the controls you already have don't answer the question</h2>
+            <p><strong class="text-white">Observability is not enforcement.</strong> Tracing and logging tools record what happened. They cannot stop a request that shouldn't happen. By the time a dashboard shows the exfiltration, the data is gone.</p>
+            <p><strong class="text-white">The agent's credentials are legitimate.</strong> The agent uses real API keys and real database access. From the network's point of view, a manipulated agent is indistinguishable from the application it runs in. Trusting the host process is trusting the thing most likely to be manipulated — untrusted content (a ticket, a web page, a document) is exactly what steers agents.</p>
+            <p><strong class="text-white">Prompt logging creates a second problem.</strong> Copying every prompt and response into an observability pipeline centralizes your most sensitive data in a new place — now with its own access problem, retention problem, and compliance problem.</p>
+            <p><strong class="text-white">Dashboards are not evidence.</strong> A screenshot has no signature, no chain of custody, no way to show what policy version was in force at decision time.</p>
+            <p>The gap is a dedicated boundary: something between the AI and the world that can say <strong class="text-white">no</strong>, and prove <strong class="text-white">why</strong>.</p>
+
+            <h2 class="text-3xl font-bold text-white pt-8">The chain: propose → approve → sign → enforce → meter → prove</h2>
+            <div class="bg-slate-950 p-4 rounded-lg border border-slate-800 text-xs text-green-400 overflow-x-auto my-6 font-mono">
+<pre> intent            governance                 enforcement               evidence
+┌────────┐   ┌───────────────────────┐   ┌──────────────────┐   ┌──────────────┐
+│ agent / │   │ control plane         │   │ data plane       │   │ audit trail  │
+│ chat /  ├──▶│ propose capability ──▶│──▶│ Nitro Enclave    ├──▶│ hash-chained,│
+│ workflow│   │ human approval        │   │  policy verify   │   │ exportable,  │
+│         │   │ Ed25519 signature     │   │  DLP inspection  │   │ attested     │
+└────────┘   │ revision pinned       │   │  allowlist match │   └──────────────┘
+             └───────────────────────┘   │  metering        │
+                                         └──────────────────┘</pre>
+            </div>
+            <ol class="list-decimal list-inside space-y-2 ml-4">
+                <li><strong class="text-white">Propose.</strong> A capability (a tool, a database surface, an egress target) is proposed — by an engineer, or by the workflow generator itself. Proposals are metadata: never raw credentials, never free-form SQL.</li>
+                <li><strong class="text-white">Approve.</strong> A human approves. Approvals attach to the capability and are audited with actor, time, and hash-chain entry. An agent cannot approve itself, and a workflow cannot widen its own scope.</li>
+                <li><strong class="text-white">Sign.</strong> The approved runtime policy is signed with <strong class="text-white">Ed25519</strong>. The signing key lives on the control plane; the fingerprint is verifiable by any client, offline.</li>
+                <li><strong class="text-white">Enforce.</strong> The data plane's <strong class="text-white">AWS Nitro Enclave</strong> verifies the signature against its baked trust anchor, checks the target against the allowlist, and runs DLP inspection on content <strong class="text-white">before any bytes leave</strong>. Denied means denied: nothing reaches the target, and blocked content is never forwarded or stored.</li>
+                <li><strong class="text-white">Meter.</strong> Every allowed call is attributed — workload, user, team, run, model, cost. Spend attribution and usage quotas are enforcement primitives, not analytics afterthoughts.</li>
+                <li><strong class="text-white">Prove.</strong> Decisions, approvals, DLP events, halt/resume actions, and attestation documents land in a hash-chained audit trail with exportable evidence packs.</li>
+            </ol>
+
+            <h2 class="text-3xl font-bold text-white pt-8">Signed policies, human approvals, no self-approval</h2>
+            <p>The runtime policy is the contract: which targets, which data surfaces, which limits. Three properties make it trustworthy:</p>
+            <p><strong class="text-white">Ed25519-signed.</strong> The enclave verifies the signature before enforcing a policy. An unsigned or tampered policy — including one edited by a rogue insider with database access — is rejected outright. Policy signing keys are generated per deployment; the public key is what your team pins. The Kavros CLI verifies any policy or workflow bundle against it, offline:</p>
+            <div class="bg-slate-950 p-4 rounded-lg border border-slate-800 text-xs text-green-400 overflow-x-auto my-4 font-mono">
+<pre>$ kavros verify-bundle workflow.kavros-bundle.json \
+    --public-key "$CP_POLICY_PUBLIC_KEY"
+Signature valid (Ed25519, key sha256:71c28434…)</pre>
+            </div>
+            <p><strong class="text-white">Revision-pinned.</strong> Every published tool and workflow is a numbered revision. What ran is recorded against the exact revision that was approved — so "what was in force at decision time" has a precise answer.</p>
+            <p><strong class="text-white">Human-gated.</strong> Approvals are audited actor+time and cannot be issued by the workload itself. This matters most for agentic workflows: a chat-generated workflow enters a draft lifecycle, composes only already-approved capabilities, and cannot elevate its own privileges. Workflow drift is caught by comparing the effective data scope against the signed revision before execution — a scope change outside approval halts the run before any query executes.</p>
+
+            <h2 class="text-3xl font-bold text-white pt-8">The enforcement boundary: an enclave, not a process</h2>
+            <p>The data plane runs its decision engine inside an <strong class="text-white">AWS Nitro Enclave</strong> — a hardened, isolated VM on the same host with no persistent storage, no operator shell, and no network path of its own beyond the request path. The component that says "yes" or "no" to egress is not the same process the agent could influence. It runs from the release-built image, and its identity is measurable.</p>
+            <p><strong class="text-white">Attestation.</strong> Every decision can carry a Nitro attestation document — the COSE structure signed by the Nitro security module, chaining to the AWS certificate, anchoring to the enclave image that your release actually built. In practice: the evidence you export includes proof that the decision was made by the code you shipped, not by whatever is running today.</p>
+            <p><strong class="text-white">DLP before egress.</strong> Content inspection runs inside the boundary before the request leaves: card-number patterns, secrets/key formats, custom rules. Match → block (nothing leaves) or redact (rewritten before send) — per your rules, applied to agent egress, employee-chat prompts, workflow artifacts, and outgoing email alike. DLP evidence records the rule and a redacted match — enough to verify the decision, without storing the sensitive payload.</p>
+            <p><strong class="text-white">The credential story.</strong> Workloads authenticate with a workload API key + ID. Provider API keys never belong to the agent — upstream provider headers are attached only after policy approval on the governed path, or held by the control plane's managed inference. An agent that is fully compromised still holds exactly one revocable credential and can only reach what the signed policy allows.</p>
+
+            <h2 class="text-3xl font-bold text-white pt-8">The kill switch, and the evidence behind it</h2>
+            <p>Halting is enforced <strong class="text-white">outside the agent</strong>: the data plane refuses every request from a halted workload — quoting the operator's stated reason — until an administrator resumes it. No application redeploy, no key scavenger hunt, no "hope it behaves."</p>
+            <p>A halt produces a critical incident, an audited action (actor + hash-chain entry), and block events for every request the workload attempts while halted. Resume is equally audited. In our deployment rehearsal this full loop — register → allowed call → halt with reason → blocked attempt → resume → evidence read-back — completed in one sitting with every artifact verified afterward.</p>
+            <p>The same identity state covers <strong class="text-white">usage-quarantine</strong> (a workload over its policy limits stops at the boundary) and <strong class="text-white">revocation</strong> (a leaked key stops working everywhere, immediately). Block responses carry a plain-language reason naming what actually happened — "halted by admin@yourco: &lt;reason&gt;", not a generic error — because an on-call engineer who can't tell a halt from a quota trip will route around your controls.</p>
+
+            <h2 class="text-3xl font-bold text-white pt-8">One plane for agents, employee chat, and scheduled workflows</h2>
+            <p><strong class="text-white">Autonomous agents</strong> — the workload contract: signed allowlists, typed capabilities, halt authority, per-run evidence.</p>
+            <p><strong class="text-white">Employee AI chat</strong> — prompts are DLP-inspected before egress (a card number pasted into a chat is blocked or redacted before the model ever sees it), BYOK provider keys are per-team and never held by employees, URL fetches go through the same signed allowlist, and every conversation's usage is attributed to a user and team.</p>
+            <p><strong class="text-white">Scheduled AI workflows</strong> — every workflow runs as a signed revision: pinned data scope (column-level allowlists), governed skill queries (read-only, row-capped), artifacts inspected by DLP before download, destinations (email/Slack/files) delivered through the governed outbox — never by the workflow itself. Scheduled runs are halt-able mid-flight; drift from the approved revision stops the run before any query executes.</p>
+            <p><strong class="text-white">Governed model access</strong> — instead of agents holding provider keys, the control plane routes model calls per workload/team: model allowlist, daily cost limits, fallback and cost-aware routing, Anthropic-compatible API, metered per call.</p>
+
+            <h2 class="text-3xl font-bold text-white pt-8">What Kavros claims — and what it does not</h2>
+            <p class="text-lg text-slate-300">Security buyers should distrust vendors who skip this section.</p>
+            <p class="text-white font-semibold">Kavros claims:</p>
+            <ul class="list-disc list-inside space-y-2 ml-4">
+                <li>Every governed egress decision is evaluated against an Ed25519-signed policy inside a Nitro Enclave, and can carry an attestation document chaining to your release-built enclave image.</li>
+                <li>DLP inspection happens before egress; blocked content is never forwarded or stored by Kavros.</li>
+                <li>Approvals, halts, policy changes, and DLP decisions are recorded in a hash-chained audit trail, exportable as evidence.</li>
+                <li>Halting and revocation are immediate and enforced at the boundary, independent of the agent's own process.</li>
+                <li>The deployment is self-hosted in your VPC, on your AWS account. Data-plane enforcement needs no path to Kavros; there is no SaaS phone-home.</li>
+            </ul>
+            <p class="text-white font-semibold">Kavros does not claim:</p>
+            <ul class="list-disc list-inside space-y-2 ml-4">
+                <li><strong class="text-white">Attestation does not prove your policy is correct</strong> — it proves <em>which code and which policy</em> made the decision. Writing the right policy is your governance process; Kavros makes it enforceable and provable.</li>
+                <li><strong class="text-white">Attestation does not prove an agent is safe</strong> — it proves the boundary behaved. A workload that is <em>authorized</em> to touch a system can still do damage inside that boundary; the allowlist is a ceiling, not a guarantee.</li>
+                <li><strong class="text-white">No compliance certification is claimed or included.</strong> Kavros produces <em>evidence exports</em> that map onto your SOC 2 / ISO 42001 / EU AI Act programs; it does not make you compliant.</li>
+                <li><strong class="text-white">Failover behavior differs by tier.</strong> Business is single-instance by design; Enterprise and Regulated add HA and controlled recovery — including manual/warm-standby promotion where the tier requires a human in the loop. "Automatic failover everywhere" would be a false claim.</li>
+                <li><strong class="text-white">"No data ever leaves" would be a lie.</strong> Approved destinations are the point. What's true: nothing leaves except through an inspected, approved, metered, evidenced path.</li>
+                <li><strong class="text-white">Binary/file delivery and MCP server trust</strong> have explicit, documented boundaries per connector — check the docs page for the connector before you approve it.</li>
+            </ul>
+            <p>Every claim in this article maps to shipped behavior in release 0.2.15 (September 2026), verified during a fresh-account deployment rehearsal whose pass criteria are recorded in our public deployment checklist. Ask us for the link.</p>
+
+            <h2 class="text-3xl font-bold text-white pt-8">Twenty minutes, one workload</h2>
+            <p>The right next step is a 20-minute architecture assessment: bring the one AI workload you'd most want governed — its tools, its data, its egress — and we'll walk exactly what Kavros would and would not protect, what your policy would say, and what your evidence would show.</p>
+            <p class="text-lg text-slate-300">That's the product: everything here is verifiable — the signed release manifests, the attestation chain, the offline CLI. Don't take a vendor's word for it. Ours included.</p>
+
+            <div class="flex flex-col md:flex-row justify-center gap-4 pt-8">
+                <a href="sandbox.html" class="bg-brand hover:bg-blue-500 text-white px-6 py-3 rounded-md font-bold transition">Watch it enforced in the sandbox</a>
+                <a href="https://calendly.com/anoop-kulkarni/30min" target="_blank" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-6 py-3 rounded-md font-bold border border-slate-700 transition">Book the 20-minute assessment</a>
+            </div>
+        </div>
+    </article>
+
+    <script>
+        document.getElementById('menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('flex');
+        });
+    </script>
+
+<!-- Goat counter analytics -->
+<script data-goatcounter="https://stats.kavros.ai/count"
+       async src="/count.js"></script>
+
+</body>
+
+</html>
