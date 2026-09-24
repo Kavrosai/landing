@@ -81,8 +81,24 @@
     <section id="agents" class="pb-8 px-6">
         <div class="max-w-6xl mx-auto">
             <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">AI agents — hijacked actions</h2>
-            <p class="text-slate-400 mb-8 max-w-2xl">Watch the kill switch halt a live agent on camera — and the attack playbook the signed policy stops before the target is reached.</p>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <p class="text-slate-400 mb-8 max-w-2xl">An agent goes rogue mid-task. Run the halt scenario, or watch the real product beside it — then browse the attack classes the signed policy stops before the target is reached.</p>
+            <div class="grid md:grid-cols-2 gap-8 items-start">
+
+            <!-- Interactive halt scenario -->
+            <div class="bg-darkcard p-6 rounded-xl border border-slate-800">
+                <div class="flex items-center gap-2 mb-4 border-b border-slate-700 pb-2">
+                    <span class="h-3 w-3 bg-red-500 rounded-full"></span>
+                    <span class="h-3 w-3 bg-yellow-500 rounded-full"></span>
+                    <span class="h-3 w-3 bg-green-500 rounded-full"></span>
+                    <span class="ml-2 text-slate-500 text-xs">kavros-agent · governed egress</span>
+                </div>
+                <div id="agent-output" class="h-64 overflow-y-auto space-y-3 mb-4 text-sm">
+                    <p class="text-slate-500 text-xs font-mono">// Click "Run scenario" to see the kill switch stop an agent — enforced outside the agent.</p>
+                </div>
+                <button id="run-agent-btn" class="w-full bg-brand hover:bg-blue-500 text-white py-2 rounded-md font-bold transition">
+                    Run scenario
+                </button>
+            </div>
 
             <!-- Kill switch (live product recording) -->
             <div class="bg-darkcard rounded-xl border border-slate-800 overflow-hidden flex flex-col">
@@ -95,21 +111,20 @@
                     <span class="text-xs font-mono text-red-400 bg-red-900/20 px-2 py-1 rounded self-start">Control: halt / resume</span>
                 </div>
             </div>
+            </div>
 
-            <!-- Attack playbook (text card) -->
-            <div class="bg-darkcard rounded-xl border border-slate-800 overflow-hidden flex flex-col">
-                <div class="p-6 flex-grow flex flex-col">
+            <!-- Attack playbook (reference) -->
+            <div class="bg-darkcard rounded-xl border border-slate-800 overflow-hidden mt-8">
+                <div class="p-6">
                     <h3 class="text-xl font-bold text-white mb-2">The attack playbook</h3>
-                    <p class="text-sm text-slate-400 mb-4 flex-grow">Recorded attack classes against autonomous agents — and the control that stops each one:</p>
-                    <ul class="space-y-3 text-sm text-slate-400">
+                    <p class="text-sm text-slate-400 mb-4">Attack classes against autonomous agents — and the control that stops each one:</p>
+                    <ul class="grid gap-4 md:grid-cols-3 text-sm text-slate-400">
                         <li><span class="text-red-400 font-mono text-xs">treasury drain</span> — a tricked agent transfers $100,000 in ETH to an attacker wallet. <span class="text-slate-300">Stopped by: signed allowlist — unapproved target.</span></li>
                         <li><span class="text-red-400 font-mono text-xs">PII exfiltration</span> — an agent dumps customer SSNs to an external API. <span class="text-slate-300">Stopped by: DLP pattern before egress.</span></li>
                         <li><span class="text-red-400 font-mono text-xs">runaway compute</span> — a manipulated bot spins up 10,000 instances. <span class="text-slate-300">Stopped by: policy limits.</span></li>
                     </ul>
                     <a href="index.html#solution" class="inline-block text-brand hover:text-blue-300 text-xs font-mono mt-4">▸ Run the live injection block demo on the homepage</a>
                 </div>
-            </div>
-
             </div>
         </div>
     </section>
@@ -229,6 +244,19 @@
                 { text: 'Sarah sees: “Removed 1 card number. Re-run without it? The reply only needs the dispute text.”', color: 'text-slate-300' },
                 { text: '✅ Sarah re-runs redacted. Reply drafted. Customer PII never left the company.', color: 'text-green-400 font-bold' },
                 { text: 'Evidence: DLP event logged — rule, actor, timestamp — in the hash-chained audit trail.', color: 'text-slate-400' }
+            ], 'Run again', this);
+        });
+
+        // Agent-halt scenario (kill switch).
+        document.getElementById('run-agent-btn').addEventListener('click', function() {
+            playSteps('agent-output', [
+                { text: '> reconciliation-agent: POST https://api.github.com/repos/acme/payments/issues', color: 'text-slate-300' },
+                { text: '> policy v1 (signed): target allowlisted → forwarded with attestation', color: 'text-green-400' },
+                { text: '! Operator halts the agent: "suspected prompt injection"', color: 'text-yellow-400' },
+                { text: '> reconciliation-agent: GET https://api.github.com/notifications', color: 'text-slate-300' },
+                { text: '🚫 BLOCKED at the data plane: Halted by admin@kavros.ai: suspected prompt injection', color: 'text-red-500 font-bold' },
+                { text: '> Evidence: halt + block events in the hash-chained audit trail', color: 'text-slate-400' },
+                { text: '✅ Admin resumes the agent — same signed policy. The halt ran outside the agent, so it could not be bypassed.', color: 'text-green-400 font-bold' }
             ], 'Run again', this);
         });
 
