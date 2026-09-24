@@ -1,0 +1,62 @@
+# Kavros — the governance plane for enterprise AI
+
+> Kavros is a self-hosted governance plane that sits at the enforcement
+> boundary for AI agents, employee AI chat, and scheduled AI workflows:
+> Ed25519-signed policies enforced inside an AWS Nitro Enclave, DLP
+> inspection before egress, a boundary-enforced kill switch, and a
+> hash-chained, attestation-backed evidence trail. Deployed in the
+> customer's own VPC on their own AWS account. kavros.ai · docs.kavros.ai
+
+## What Kavros enforces
+
+- **Signed policies:** every workload runs under an Ed25519-signed runtime
+  policy (approved targets, data surfaces, limits) verified inside the
+  enclave before enforcement. Unsigned or tampered policies are rejected.
+- **DLP before egress:** content is inspected — and blocked or redacted —
+  before anything reaches the model, target API, artifact, or email.
+- **Kill switch:** halting a workload is enforced at the data-plane
+  boundary (not in the application), takes effect immediately, quotes the
+  operator's stated reason, and is fully audited.
+- **Evidence:** every allowed/blocked decision lands in a hash-chained
+  audit trail and can carry a Nitro attestation document chaining to the
+  release-built enclave image. Exports are designed for SOC 2 / ISO 42001 /
+  EU AI Act evidence programs.
+- **Surfaces covered:** autonomous agents, employee AI chat (BYOK, prompts
+  inspected before the model sees them), and scheduled AI workflows (signed
+  revisions, column-level scopes, governed destinations).
+
+## What Kavros does NOT claim
+
+- Attestation proves *which code and which policy* made a decision — not
+  that the policy is correct or the agent is safe.
+- Kavros produces evidence; it does not make anyone compliant.
+- Failover behavior differs by deployment tier (Business is
+  single-instance by design).
+- Nothing leaves the deployment except through an inspected, approved,
+  metered, evidenced path — "no data ever leaves" would be false.
+
+## Pages
+
+- [Home](https://kavros.ai/): product overview, surfaces, pricing
+  (Business $2,500/mo, Enterprise $7,500/mo, Regulated from $18,000/mo),
+  paid 15-business-day proof offer.
+- [Interactive sandbox](https://kavros.ai/sandbox.html): runnable attack
+  scenarios (agent halt, chat DLP leak, workflow drift) with recorded
+  product videos.
+- [Security](https://kavros.ai/security.html): architecture, enforcement
+  boundary, chat privacy model, shared security responsibilities.
+- [Privacy](https://kavros.ai/privacy.html): privacy model for the website,
+  employee chat, and customer deployments.
+- [Blog](https://kavros.ai/blog.html): technical deep dives on agent
+  security and prompt injection.
+- [Can you prove what your AI agent touched?](https://kavros.ai/prove-what-your-agent-touched.html):
+  the launch technical brief — the four questions security reviews ask,
+  the propose→approve→sign→enforce→meter→prove chain, and an explicit
+  claims/non-claims section.
+- [Documentation](https://docs.kavros.ai): deployment, integration (HTTP
+  contract, CLI, Python hook), policy model, evidence exports.
+
+## Contact
+
+- Founder-led inquiries: kavros.ai contact routes.
+- Security research: see security.html for responsible-disclosure guidance.
