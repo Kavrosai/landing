@@ -131,9 +131,14 @@
                     Run scenario
                 </button>
             </div>
-            <div class="bg-darkcard rounded-xl border border-slate-800 overflow-hidden">
+            <div class="bg-darkcard rounded-xl border border-slate-800 overflow-hidden flex flex-col">
                 <div class="aspect-video">
                     <iframe class="w-full h-full" loading="lazy" src="https://www.youtube-nocookie.com/embed/nNberNcdJ94" title="Employee AI chat: DLP blocking a card number and AWS key before the model" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="p-6 flex-grow flex flex-col">
+                    <h3 class="text-lg font-bold text-white mb-1">DLP in production</h3>
+                    <p class="text-sm text-slate-400 mb-3 flex-grow">A card number and an AWS key, blocked before the model ever sees them — with the rule that matched on the record.</p>
+                    <span class="text-xs font-mono text-red-400 bg-red-900/20 px-2 py-1 rounded self-start">Control: DLP before egress</span>
                 </div>
             </div>
             </div>
@@ -144,7 +149,7 @@
     <section class="pb-20 px-6">
         <div class="max-w-4xl mx-auto">
             <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">AI workflows — silent drift</h2>
-            <p class="text-slate-400 mb-8 max-w-2xl">A nightly workflow runs unattended. Someone edits its data scope directly — without an approval. Watch the 02:00 run catch it, or watch the real product beside it.</p>
+            <p class="text-slate-400 mb-8 max-w-2xl">A nightly workflow runs unattended. Someone edits its data scope directly — without an approval. Run the tamper scenario, or watch a real governed run — database to summarized Excel — beside it.</p>
             <div class="grid md:grid-cols-2 gap-8 items-start">
             <div class="bg-darkcard p-6 rounded-xl border border-slate-800 text-left font-mono text-sm">
                 <div class="flex items-center gap-2 mb-4 border-b border-slate-700 pb-2">
@@ -160,9 +165,14 @@
                     Run scenario
                 </button>
             </div>
-            <div class="bg-darkcard rounded-xl border border-slate-800 overflow-hidden">
+            <div class="bg-darkcard rounded-xl border border-slate-800 overflow-hidden flex flex-col">
                 <div class="aspect-video">
                     <iframe class="w-full h-full" loading="lazy" src="https://www.youtube-nocookie.com/embed/7Vi70LcwagM" title="Governed AI workflow: from database to summarized Excel with proof of execution" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="p-6 flex-grow flex flex-col">
+                    <h3 class="text-lg font-bold text-white mb-1">A governed run, end to end</h3>
+                    <p class="text-sm text-slate-400 mb-3 flex-grow">From your database to a summarized Excel — the summary, model, and prompt travel with the file, and every step is signed.</p>
+                    <span class="text-xs font-mono text-red-400 bg-red-900/20 px-2 py-1 rounded self-start">Control: signed revision</span>
                 </div>
             </div>
             </div>
