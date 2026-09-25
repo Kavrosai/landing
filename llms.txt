@@ -61,10 +61,11 @@
   how a non-programmer's request becomes an Ed25519-signed workflow
   revision — composed capabilities instead of credentials, human approval,
   a durable schedule that cannot change anything, and evidence per run.
-- [How drift is caught before any query executes](https://kavros.ai/how-drift-is-caught-before-any-query-executes.html):
-  the workflow tamper case — signature verification plus effective-scope
-  comparison halt a run before the database sees a query, with the diff
-  attached to the incident.
+- [How workflow drift is caught: flagged, gated, suspended](https://kavros.ai/how-workflow-drift-is-caught.html):
+  the workflow drift story told precisely: capability changes after approval
+  are flagged at the publish and schedule gates while runs continue under the
+  signed revision; source schema drift auto-suspends the capability so every
+  call is refused before any query executes. Includes what it does not claim.
 - [Documentation](https://docs.kavros.ai): deployment, integration (HTTP
   contract, CLI, Python hook), policy model, evidence exports.
 
