@@ -121,8 +121,8 @@
             <p><strong class="text-white">The honest edge:</strong> run-time enforcement reads the capability's current approved fields, while the evidence labels the pinned version. So if a change widens the approved surface, the review flag — not a run gate — is what stands between the wider surface and the schedule until a human acts. We say that plainly because we first wrote this paragraph without it. Treating drift flags as real work is part of operating the product; making runs refuse when effective scope exceeds the pinned scope is on our own hardening list.</p>
 
             <figure class="my-8">
-                <div class="bg-darkcard rounded-xl border-2 border-dashed border-slate-700 overflow-hidden">
-                    <img src="assets/screenshots/05-drift-detection.png" alt="Revision panel showing Review: Capability changed from v1 to v2 on a production-approved revision" class="w-full block">
+                <div class="bg-darkcard rounded-xl border border-slate-800 overflow-hidden">
+                    <img src="assets/screenshots/05-drift-detection.png" alt="Revision panel showing Review: Capability changed from v1 to v2 on a production-approved revision" class="w-full block" loading="lazy">
                 </div>
                 <figcaption class="text-xs text-slate-500 mt-2 text-center font-mono">Screenshot 05 — tier 1: the review flag on a production-approved, scheduled revision.</figcaption>
             </figure>
@@ -135,15 +135,15 @@
             <p>A <strong class="text-white">critical incident opens in the Task Inbox</strong> with the reason attached. The next scheduled run doesn't partially execute, and it doesn't guess: the refusal happens before the database is touched. Recovery is ordinary governance — the source is fixed or the capability is re-published against reality, the next clean check clears the suspension, and the incident resolves. The whole episode — drift, suspension, refusal, decision, recovery — lands in the hash-chained trail.</p>
 
             <figure class="my-8">
-                <div class="bg-darkcard rounded-xl border-2 border-dashed border-slate-700 overflow-hidden">
-                    <img src="assets/screenshots/06-incident-diff.png" alt="Critical task inbox incident: capability suspended after source schema drift, with the drift reason" class="w-full block">
+                <div class="bg-darkcard rounded-xl border border-slate-800 overflow-hidden">
+                    <img src="assets/screenshots/06-incident-diff.png" alt="Critical task inbox incident: capability suspended after source schema drift, with the drift reason" class="w-full block" loading="lazy">
                 </div>
                 <figcaption class="text-xs text-slate-500 mt-2 text-center font-mono">Screenshot 06 — tier 2: the critical incident; every call refused until re-approval.</figcaption>
             </figure>
 
             <figure class="my-8">
-                <div class="bg-darkcard rounded-xl border-2 border-dashed border-slate-700 overflow-hidden">
-                    <img src="assets/screenshots/07-remediation-clean-run.png" alt="After re-approval the incident resolves and the next scheduled run is green in run history" class="w-full block">
+                <div class="bg-darkcard rounded-xl border border-slate-800 overflow-hidden">
+                    <img src="assets/screenshots/07-remediation-clean-run.png" alt="After re-approval the incident resolves and the next scheduled run is green in run history" class="w-full block" loading="lazy">
                 </div>
                 <figcaption class="text-xs text-slate-500 mt-2 text-center font-mono">Screenshot 07 — recovery: re-approval clears the suspension; the next 02:00 run is clean.</figcaption>
             </figure>

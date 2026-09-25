@@ -107,8 +107,8 @@
             <p>A skill definition stores an organization-scoped connection ID and source metadata only. Database passwords are encrypted server-side, never returned to the browser, and never included in workflow graphs, skill definitions, or data-plane requests. An engineer who exports the workflow JSON gets a portable definition of <em>intent</em> — not a portable set of keys.</p>
 
             <figure class="my-8">
-                <div class="bg-darkcard rounded-xl border-2 border-dashed border-slate-700 overflow-hidden">
-                    <img src="assets/screenshots/01-workflow-canvas.png" alt="The Kavros workflow canvas: an AI agent node connected to Customers and Email report skills, with the plain-English task in the inspector" class="w-full block">
+                <div class="bg-darkcard rounded-xl border border-slate-800 overflow-hidden">
+                    <img src="assets/screenshots/01-workflow-canvas.png" alt="The Kavros workflow canvas: an AI agent node connected to Customers and Email report skills, with the plain-English task in the inspector" class="w-full block" loading="lazy">
                 </div>
                 <figcaption class="text-xs text-slate-500 mt-2 text-center font-mono">Screenshot 01 — the canvas: agent node, two skills, task instruction. Nothing here holds a credential.</figcaption>
             </figure>
@@ -127,8 +127,8 @@ Signature valid (Ed25519, key sha256:71c28434…)</pre>
             </div>
 
             <figure class="my-8">
-                <div class="bg-darkcard rounded-xl border-2 border-dashed border-slate-700 overflow-hidden">
-                    <img src="assets/screenshots/02-approval-and-signature.png" alt="Approval record and signed revision view: approver, timestamp, revision number, Ed25519 signature fingerprint" class="w-full block">
+                <div class="bg-darkcard rounded-xl border border-slate-800 overflow-hidden">
+                    <img src="assets/screenshots/02-approval-and-signature.png" alt="Approval record and signed revision view: approver, timestamp, revision number, Ed25519 signature fingerprint" class="w-full block" loading="lazy">
                 </div>
                 <figcaption class="text-xs text-slate-500 mt-2 text-center font-mono">Screenshot 02 — the approval record and the signed revision it produced.</figcaption>
             </figure>
@@ -138,8 +138,8 @@ Signature valid (Ed25519, key sha256:71c28434…)</pre>
             <p>What the schedule cannot do is change anything. It runs the <strong class="text-white">saved, signed revision</strong> — whatever graph was approved, exactly as it was approved. A schedule has no edit rights, no scope, and no approval authority. It is a clock bolted onto a contract.</p>
 
             <figure class="my-8">
-                <div class="bg-darkcard rounded-xl border-2 border-dashed border-slate-700 overflow-hidden">
-                    <img src="assets/screenshots/03-schedule-config.png" alt="Schedule configuration: cron expression, timezone, enabled state, next run" class="w-full block">
+                <div class="bg-darkcard rounded-xl border border-slate-800 overflow-hidden">
+                    <img src="assets/screenshots/03-schedule-config.png" alt="Schedule configuration: cron expression, timezone, enabled state, next run" class="w-full block" loading="lazy">
                 </div>
                 <figcaption class="text-xs text-slate-500 mt-2 text-center font-mono">Screenshot 03 — the schedule: a clock on a contract it cannot change.</figcaption>
             </figure>
@@ -155,8 +155,8 @@ Signature valid (Ed25519, key sha256:71c28434…)</pre>
             </ol>
 
             <figure class="my-8">
-                <div class="bg-darkcard rounded-xl border-2 border-dashed border-slate-700 overflow-hidden">
-                    <img src="assets/screenshots/04-run-history.png" alt="Workflow run history: timestamps, status, duration, links to run output and evidence" class="w-full block">
+                <div class="bg-darkcard rounded-xl border border-slate-800 overflow-hidden">
+                    <img src="assets/screenshots/04-run-history.png" alt="Workflow run history: timestamps, status, duration, links to run output and evidence" class="w-full block" loading="lazy">
                 </div>
                 <figcaption class="text-xs text-slate-500 mt-2 text-center font-mono">Screenshot 04 — run history: every run recorded with its revision.</figcaption>
             </figure>
