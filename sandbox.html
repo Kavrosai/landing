@@ -169,7 +169,7 @@
     <section id="workflows" class="pb-20 px-6">
         <div class="max-w-6xl mx-auto">
             <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">AI workflows — silent drift</h2>
-            <p class="text-slate-400 mb-8 max-w-2xl">A nightly workflow runs unattended. Someone edits its data scope directly — without an approval. Run the tamper scenario, or watch a real governed run — database to summarized Excel — beside it.</p>
+            <p class="text-slate-400 mb-8 max-w-2xl">A nightly workflow runs unattended. What happens when a capability it depends on changes after approval — or its source schema moves without re-approval? Run the drift scenario, or watch a real governed run — database to summarized report — beside it.</p>
             <div class="grid md:grid-cols-2 gap-8 items-start">
             <div class="bg-darkcard p-6 rounded-xl border border-slate-800 text-left font-mono text-sm">
                 <div class="flex items-center gap-2 mb-4 border-b border-slate-700 pb-2">
@@ -268,13 +268,13 @@
         document.getElementById('run-wf-btn').addEventListener('click', function() {
             playSteps('wf-output', [
                 { text: '> 02:00 — scheduled run: nightly-revenue-report (revision 7, signed)', color: 'text-slate-400' },
-                { text: '> Verifying workflow revision signature… OK (Ed25519, key sha256:71c28434…)', color: 'text-blue-400' },
-                { text: '> Comparing effective data scope against approved revision 7…', color: 'text-blue-400' },
-                { text: '> [DRIFT] Detected: allowed_columns changed — "customer_emails" added outside approval.', color: 'text-yellow-400' },
-                { text: '> Revision 7 does not include this scope. The workflow cannot self-approve.', color: 'text-red-500 font-bold' },
-                { text: '> Run halted before any query executed. Incident opened (critical) with the diff.', color: 'text-red-500' },
-                { text: '> 07:14 — reviewer approves remediation: scope reverted to revision 7.', color: 'text-slate-400' },
-                { text: '✅ Next 02:00 run: clean. Evidence: policy event + run timeline, hash-chained.', color: 'text-green-400 font-bold' }
+                { text: '> Capability check: "orders" changed from v1 to v2 after approval.', color: 'text-yellow-400' },
+                { text: '> Run continues under signed revision 7. Change flagged for review.', color: 'text-slate-300' },
+                { text: '> Publish + schedule gates now require a human review confirmation.', color: 'text-blue-400' },
+                { text: '> Scenario 2: the source table behind "orders" changes without re-approval…', color: 'text-slate-400' },
+                { text: '🚫 Tool "orders" is suspended pending re-approval (source schema drift)', color: 'text-red-500 font-bold' },
+                { text: '> Run refused before any query executed. Critical incident opened with the reason.', color: 'text-red-500' },
+                { text: '✅ Re-approval clears the suspension. Next 02:00 run: clean — evidence hash-chained.', color: 'text-green-400 font-bold' }
             ], 'Run again', this);
         });
     </script>
