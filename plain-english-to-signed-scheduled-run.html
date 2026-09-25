@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>From plain English to a signed, scheduled run | Kavros</title>
+    <meta name="description" content="How a non-programmer's plain-English request becomes an Ed25519-signed workflow revision with a pinned data scope, a governed schedule, and a hash-chained record — without a line of application code.">
+    <meta property="og:title" content="From plain English to a signed, scheduled run">
+    <meta property="og:description" content="Plain English → composed capabilities → human approval → Ed25519 signature → scheduled governed run. The full chain, step by step.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://kavros.ai/plain-english-to-signed-scheduled-run.html">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: '#3b82f6',
+                        darkbg: '#020617',
+                        darkcard: '#0f172a'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Menlo', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233b82f6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'></path></svg>
+">
+    <link rel="canonical" href="https://kavros.ai/plain-english-to-signed-scheduled-run.html">
+    <meta property="og:image" content="https://kavros.ai/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://kavros.ai/og-image.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>body { background-color: #020617; }</style>
+</head>
+
+<body class="text-slate-300 font-sans antialiased">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full bg-darkbg/80 backdrop-blur-md z-50 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2 text-xl font-bold text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                Kavros
+            </a>
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 text-sm items-center">
+                <a href="index.html#products" class="hover:text-white transition">Products</a>
+                <a href="index.html#problem" class="hover:text-white transition">The Problem</a>
+                <a href="index.html#solution" class="hover:text-white transition">Solution</a>
+                <a href="sandbox.html" class="hover:text-white transition">Sandbox</a>
+                <a href="blog.html" class="text-brand font-bold transition">Blog</a>
+                <a href="security.html" class="hover:text-white transition">Security</a>
+                <a href="sandbox.html" class="bg-brand hover:bg-blue-500 text-white px-4 py-2 rounded-md font-medium transition">Interactive Demo</a>
+            </div>
+            <!-- Mobile Hamburger Button -->
+            <button id="menu-btn" class="md:hidden text-slate-300 focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden flex-col space-y-3 px-6 pb-4 text-sm">
+            <a href="index.html#products" class="block hover:text-white transition">Products</a>
+            <a href="index.html#problem" class="block hover:text-white transition">The Problem</a>
+            <a href="index.html#solution" class="block hover:text-white transition">Solution</a>
+            <a href="sandbox.html" class="block hover:text-white transition">Sandbox</a>
+            <a href="blog.html" class="block hover:text-white transition">Blog</a>
+            <a href="security.html" class="block hover:text-white transition">Security</a>
+            <a href="sandbox.html" class="bg-brand hover:bg-blue-500 text-white px-4 py-2 rounded-md font-medium transition text-center">Interactive Demo</a>
+        </div>
+    </nav>
+
+    <!-- Article Header -->
+    <section class="pt-40 pb-10 px-6 text-center">
+        <div class="max-w-3xl mx-auto">
+            <span class="text-xs font-mono text-brand bg-blue-900/20 px-2 py-1 rounded">Workflows, part 1 of 2</span>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-white mt-6 mb-4 leading-tight">From plain English to a signed, scheduled run</h1>
+            <p class="text-lg text-slate-400">How a non-programmer's plain-English request becomes an Ed25519-signed workflow revision — with a pinned data scope, a governed schedule, and evidence of every run.</p>
+            <div class="flex items-center justify-center text-xs text-slate-500 mt-8 border-b border-slate-800 pb-8">
+                <span>9 min read</span>
+                <span class="mx-2">•</span>
+                <span>October 2026</span>
+                <span class="mx-2">•</span>
+                <span>Covers release 0.2.15</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Article Body -->
+    <article class="pb-16 px-6">
+        <div class="max-w-3xl mx-auto space-y-6 text-slate-400 leading-relaxed">
+
+            <p class="text-lg text-slate-300">"Send me an email report of all new customers and orders received daily."</p>
+            <p>That sentence is a real workflow request — the kind operations, finance, and support people make every week. Today it usually goes one of two ways: a ticket that waits three weeks for an engineer, or a no-code automation someone assembled alone at 11pm with a personal API token and nobody's approval. Both paths share the same gap: <strong class="text-white">the thing touching your production data was never reviewed, and leaves no evidence.</strong></p>
+            <p>This post walks the third path — how Kavros turns that sentence into a governed workflow: what the builder assembles on the canvas, what gets signed and approved before the first run, what the schedule does and does not get to do, and what evidence exists afterward. (The second half of the story — what happens when someone edits the workflow behind approval's back — is part 2.)</p>
+
+            <h2 class="text-3xl font-bold text-white pt-8">Step 1: the builder assembles capabilities, not credentials</h2>
+            <p>The workflow canvas is drag-and-drop: an AI agent node, skill nodes from the palette, a task node with the plain-English instruction, connected left to right. There is no credentials field anywhere. That's the first structural decision:</p>
+            <ul class="list-disc list-inside space-y-2 ml-4">
+                <li>Every skill in the palette is a <strong class="text-white">published registry entry</strong> — a named capability like "Customer records" or "Email report," configured by an admin with an explicit column allowlist and a row cap (200 rows by default). Only published skills appear; drafts don't.</li>
+                <li>The workflow references skills by <strong class="text-white">capability ID and version</strong> — not by table name, and never by connection string. The builder literally cannot wire the workflow to "the customers table"; they wire it to a governed capability that resolves to specific columns of specific approved objects.</li>
+                <li>The agent node is a <strong class="text-white">registered, governed workload</strong> — it carries a team, a spend limit, and an allowed-target list inherited from its signed runtime policy. Model access goes through Kavros's managed inference; the workflow and its author never hold a provider key.</li>
+            </ul>
+            <p>A skill definition stores an organization-scoped connection ID and source metadata only. Database passwords are encrypted server-side, never returned to the browser, and never included in workflow graphs, skill definitions, or data-plane requests. An engineer who exports the workflow JSON gets a portable definition of <em>intent</em> — not a portable set of keys.</p>
+
+            <figure class="my-8">
+                <div class="bg-darkcard rounded-xl border-2 border-dashed border-slate-700 overflow-hidden">
+                    <img src="assets/screenshots/01-workflow-canvas.png" alt="The Kavros workflow canvas: an AI agent node connected to Customers and Email report skills, with the plain-English task in the inspector" class="w-full block">
+                </div>
+                <figcaption class="text-xs text-slate-500 mt-2 text-center font-mono">Screenshot 01 — the canvas: agent node, two skills, task instruction. Nothing here holds a credential.</figcaption>
+            </figure>
+
+            <h2 class="text-3xl font-bold text-white pt-8">Step 2: plain English is bounded by published skills</h2>
+            <p>The task node carries the request verbatim: "Summarize new customers and orders from the last 24 hours." The runner treats that instruction as the task, and treats everything the skills return as <strong class="text-white">data, not instructions</strong> — rows fetched through governed skills are untrusted input, and the runner explicitly instructs the model to ignore instructions found in records. (Our demo dataset plants one, deliberately. Ask for the sandbox.)</p>
+            <p>The plain English can only act through the skills connected to the graph. If the task says "also chase the customers by email" but the workflow has no email skill connected, there is nothing for the model to call — the boundary is the graph, not the prompt. And when the task includes an explicit count ("list 10 customers"), the runner passes that as a per-run limit that can only <em>reduce</em> the published maximum — never raise it.</p>
+
+            <h2 class="text-3xl font-bold text-white pt-8">Step 3: the draft that cannot self-approve</h2>
+            <p>Saving produces a <strong class="text-white">draft</strong>. Drafts run manually for testing, but scheduling is not available until the workflow is approved and published as a signed revision. The proposal is metadata — capability IDs, scope, the graph — never raw credentials or free-form SQL. Approval is a human act on the control plane: actor, time, and decision land in the hash-chained audit trail. The workflow cannot issue its own approval, and neither can the agent node inside it.</p>
+            <p>Publication creates an <strong class="text-white">immutable numbered revision</strong>, signed with <strong class="text-white">Ed25519</strong> by the control plane's policy key. The signature covers the exact graph: the skills, their versions, the pinned data scope, the destinations. Anyone can verify it offline:</p>
+            <div class="bg-slate-950 p-4 rounded-lg border border-slate-800 text-xs text-green-400 overflow-x-auto my-4 font-mono">
+<pre>$ kavros verify-bundle nightly-revenue-report.kavros-bundle.json \
+    --public-key "$CP_POLICY_PUBLIC_KEY"
+Signature valid (Ed25519, key sha256:71c28434…)</pre>
+            </div>
+
+            <figure class="my-8">
+                <div class="bg-darkcard rounded-xl border-2 border-dashed border-slate-700 overflow-hidden">
+                    <img src="assets/screenshots/02-approval-and-signature.png" alt="Approval record and signed revision view: approver, timestamp, revision number, Ed25519 signature fingerprint" class="w-full block">
+                </div>
+                <figcaption class="text-xs text-slate-500 mt-2 text-center font-mono">Screenshot 02 — the approval record and the signed revision it produced.</figcaption>
+            </figure>
+
+            <h2 class="text-3xl font-bold text-white pt-8">Step 4: the schedule is durable — and powerless</h2>
+            <p>"Daily" becomes a schedule stored in <strong class="text-white">Postgres, not browser state</strong> — a cron expression and IANA timezone with enablement state and next/last-run tracking. A separate scheduler worker claims due schedules through the database with <code class="text-slate-300 font-mono text-sm">FOR UPDATE SKIP LOCKED</code> leases, so multiple worker replicas can poll concurrently without double-running anything, and a crashed worker's lease expires and is reclaimed. The schedule survives browser tabs, deploys, and worker restarts — which is what "scheduled" has to mean for an unattended workflow.</p>
+            <p>What the schedule cannot do is change anything. It runs the <strong class="text-white">saved, signed revision</strong> — whatever graph was approved, exactly as it was approved. A schedule has no edit rights, no scope, and no approval authority. It is a clock bolted onto a contract.</p>
+
+            <figure class="my-8">
+                <div class="bg-darkcard rounded-xl border-2 border-dashed border-slate-700 overflow-hidden">
+                    <img src="assets/screenshots/03-schedule-config.png" alt="Schedule configuration: cron expression, timezone, enabled state, next run" class="w-full block">
+                </div>
+                <figcaption class="text-xs text-slate-500 mt-2 text-center font-mono">Screenshot 03 — the schedule: a clock on a contract it cannot change.</figcaption>
+            </figure>
+
+            <h2 class="text-3xl font-bold text-white pt-8">Step 5: the governed run</h2>
+            <p>At run time, the scheduler worker executes the saved revision through the same governed path as a manual run:</p>
+            <ol class="list-decimal list-inside space-y-2 ml-4">
+                <li><strong class="text-white">Scope-locked reads.</strong> Skill rows are fetched through the data plane — the workflow runner never queries business data directly — limited to the allowlisted columns and the row cap.</li>
+                <li><strong class="text-white">Governed inference.</strong> Model calls go through managed inference: model allowlist, per-team daily cost limits, metering. The workflow holds no provider keys.</li>
+                <li><strong class="text-white">Inspected artifacts.</strong> The generated report is an artifact that passes DLP inspection before download — a card number that leaked into a summary from source data is caught at the boundary, not in the recipient's inbox.</li>
+                <li><strong class="text-white">Governed destinations.</strong> The email is delivered through the governed outbox / data-plane egress — the workflow never contacts a provider itself. Destinations are approved targets, not free-form addresses.</li>
+                <li><strong class="text-white">Halt-able mid-flight.</strong> A scheduled run can be halted from the same boundary as any agent: every subsequent step refuses, quoting the operator's reason. Unattended does not mean uncontrollable.</li>
+            </ol>
+
+            <figure class="my-8">
+                <div class="bg-darkcard rounded-xl border-2 border-dashed border-slate-700 overflow-hidden">
+                    <img src="assets/screenshots/04-run-history.png" alt="Workflow run history: timestamps, status, duration, links to run output and evidence" class="w-full block">
+                </div>
+                <figcaption class="text-xs text-slate-500 mt-2 text-center font-mono">Screenshot 04 — run history: every run recorded with its revision.</figcaption>
+            </figure>
+
+            <h2 class="text-3xl font-bold text-white pt-8">What exists afterward</h2>
+            <p>Every run lands in history with timestamps, status, duration, and output — recorded against the exact revision that ran. The audit trail carries the approval chain and every schedule claim. The evidence export assembles the whole story: who approved revision 7, what scope it covered, what ran at 02:00, what the model touched, what left, and who received it. That export is what you hand an auditor or an incident commander — not a screenshot.</p>
+            <p><strong class="text-white">The honest boundary:</strong> none of this makes the workflow <em>correct</em>. Approval proves a human reviewed the scope; it does not prove the summary is right or the prompt is well-written. Kavros makes the boundary enforceable and provable — the quality of what crosses it is still your team's job.</p>
+
+            <h2 class="text-3xl font-bold text-white pt-8">Try it</h2>
+            <p>The sandbox runs this exact scenario — the workflow drift tamper case — as a runnable simulation beside the real product video, and the 20-minute architecture assessment walks <em>your</em> workflow: its data, its destinations, and what its policy would say.</p>
+
+            <div class="flex flex-col md:flex-row justify-center gap-4 pt-8">
+                <a href="sandbox.html#workflows" class="bg-brand hover:bg-blue-500 text-white px-6 py-3 rounded-md font-bold transition">Run the drift scenario in the sandbox</a>
+                <a href="https://calendly.com/anoop-kulkarni/30min" target="_blank" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-6 py-3 rounded-md font-bold border border-slate-700 transition">Book the 20-minute assessment</a>
+            </div>
+
+            <p class="text-sm text-slate-500 pt-8 border-t border-slate-800">Part 2 of this series — <a href="how-drift-is-caught-before-any-query-executes.html" class="text-brand hover:text-blue-300">how drift is caught before any query executes</a> — covers the tamper case: what happens when someone edits an approved workflow's data scope directly, without an approval.</p>
+        </div>
+    </article>
+
+    <script>
+        document.getElementById('menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('flex');
+        });
+    </script>
+
+<!-- Goat counter analytics -->
+<script data-goatcounter="https://stats.kavros.ai/count"
+       async src="/count.js"></script>
+
+</body>
+
+</html>

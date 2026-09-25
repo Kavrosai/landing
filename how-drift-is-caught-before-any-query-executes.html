@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How drift is caught before any query executes | Kavros</title>
+    <meta name="description" content="Someone edits an approved, scheduled AI workflow's data scope directly — no approval, no ticket. The signature check and effective-scope comparison stop the run before the database sees a single query.">
+    <meta property="og:title" content="How drift is caught before any query executes">
+    <meta property="og:description" content="A tampered workflow never touches the database: signature verification and effective-scope comparison halt the run pre-query, with the diff attached to the incident.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://kavros.ai/how-drift-is-caught-before-any-query-executes.html">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: '#3b82f6',
+                        darkbg: '#020617',
+                        darkcard: '#0f172a'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Menlo', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233b82f6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'></path></svg>
+">
+    <link rel="canonical" href="https://kavros.ai/how-drift-is-caught-before-any-query-executes.html">
+    <meta property="og:image" content="https://kavros.ai/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://kavros.ai/og-image.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>body { background-color: #020617; }</style>
+</head>
+
+<body class="text-slate-300 font-sans antialiased">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full bg-darkbg/80 backdrop-blur-md z-50 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2 text-xl font-bold text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                Kavros
+            </a>
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 text-sm items-center">
+                <a href="index.html#products" class="hover:text-white transition">Products</a>
+                <a href="index.html#problem" class="hover:text-white transition">The Problem</a>
+                <a href="index.html#solution" class="hover:text-white transition">Solution</a>
+                <a href="sandbox.html" class="hover:text-white transition">Sandbox</a>
+                <a href="blog.html" class="text-brand font-bold transition">Blog</a>
+                <a href="security.html" class="hover:text-white transition">Security</a>
+                <a href="sandbox.html" class="bg-brand hover:bg-blue-500 text-white px-4 py-2 rounded-md font-medium transition">Interactive Demo</a>
+            </div>
+            <!-- Mobile Hamburger Button -->
+            <button id="menu-btn" class="md:hidden text-slate-300 focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden flex-col space-y-3 px-6 pb-4 text-sm">
+            <a href="index.html#products" class="block hover:text-white transition">Products</a>
+            <a href="index.html#problem" class="block hover:text-white transition">The Problem</a>
+            <a href="index.html#solution" class="block hover:text-white transition">Solution</a>
+            <a href="sandbox.html" class="block hover:text-white transition">Sandbox</a>
+            <a href="blog.html" class="block hover:text-white transition">Blog</a>
+            <a href="security.html" class="block hover:text-white transition">Security</a>
+            <a href="sandbox.html" class="bg-brand hover:bg-blue-500 text-white px-4 py-2 rounded-md font-medium transition text-center">Interactive Demo</a>
+        </div>
+    </nav>
+
+    <!-- Article Header -->
+    <section class="pt-40 pb-10 px-6 text-center">
+        <div class="max-w-3xl mx-auto">
+            <span class="text-xs font-mono text-brand bg-blue-900/20 px-2 py-1 rounded">Workflows, part 2 of 2</span>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-white mt-6 mb-4 leading-tight">How drift is caught before any query executes</h1>
+            <p class="text-lg text-slate-400">Someone edits an approved, scheduled workflow's data scope directly — no approval, no ticket. Here is why the run halts before the database sees a single query.</p>
+            <div class="flex items-center justify-center text-xs text-slate-500 mt-8 border-b border-slate-800 pb-8">
+                <span>8 min read</span>
+                <span class="mx-2">•</span>
+                <span>October 2026</span>
+                <span class="mx-2">•</span>
+                <span>Covers release 0.2.15</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Article Body -->
+    <article class="pb-16 px-6">
+        <div class="max-w-3xl mx-auto space-y-6 text-slate-400 leading-relaxed">
+
+            <p class="text-lg text-slate-300">The scenario is uncomfortable because it needs no attacker.</p>
+            <p>A nightly workflow has been running cleanly for months: <em>nightly-revenue-report</em>, revision 7, signed, scheduled at 02:00, approved scope — customer names, order totals. Then someone on the ops team opens the editor and adds <em>customer_emails</em> to the report "just this once," or swaps in a draft skill that happens to select two more columns. No ticket, no approval — they may genuinely believe they're allowed. The next unattended run now emails a wider data set than any human ever reviewed.</p>
+            <p>Every automation platform has this exposure. Most answers are procedural ("don't do that") or retrospective (an alert after the run, when the email already went out). The Kavros answer is structural: <strong class="text-white">the drift is caught before any query executes</strong> — the database never sees the widened read and the widened report never leaves. This post walks exactly how.</p>
+
+            <h2 class="text-3xl font-bold text-white pt-8">What "drift" means here</h2>
+            <p>Drift is any divergence between the <strong class="text-white">effective data scope</strong> of what is about to run and the <strong class="text-white">signed revision</strong> that was approved. It arrives through two layers, and Kavros catches them at different points:</p>
+            <ul class="list-disc list-inside space-y-2 ml-4">
+                <li><strong class="text-white">The graph itself was edited.</strong> A skill added, removed, or swapped; the task or destination changed. The saved graph no longer matches revision 7's signature — and the signature check fails before anything runs.</li>
+                <li><strong class="text-white">The graph is untouched, but the ground under it moved.</strong> Revision 7's signature still verifies — the workflow is byte-identical to what was approved — but a skill it references was revised underneath it: an admin's new draft widened a column allowlist, a connection profile changed, the resolved rows differ from the approved scope. This is the subtler case: nothing looks edited, yet the effective scope differs from the approved one.</li>
+            </ul>
+            <p>That second layer is why verification can't stop at "signature valid." A valid signature proves the graph matches the approval; it does not prove the world the graph resolves against still does.</p>
+
+            <h2 class="text-3xl font-bold text-white pt-8">The pre-flight: verify, compare, refuse</h2>
+            <p>Before a scheduled (or manual) run executes, the runner performs two checks, in order:</p>
+            <p><strong class="text-white">1. Signature verification.</strong> The workflow revision is verified against the control plane's Ed25519 policy key — inside the governed path, before any skill row is fetched. Tampered graph → invalid signature → the run is refused outright. Nothing was queried.</p>
+            <p><strong class="text-white">2. Effective-scope comparison.</strong> The runner computes what this run would <em>actually</em> touch — resolved skills, their current published versions, the column allowlists in force, the destinations — and compares it against revision 7's pinned scope. Any difference the approval didn't grant is drift:</p>
+            <div class="bg-slate-950 p-4 rounded-lg border border-slate-800 text-xs text-green-400 overflow-x-auto my-4 font-mono">
+<pre>&gt; 02:00 — scheduled run: nightly-revenue-report (revision 7, signed)
+&gt; Verifying workflow revision signature… OK (Ed25519, key sha256:71c28434…)
+&gt; Comparing effective data scope against approved revision 7…
+&gt; [DRIFT] Detected: allowed_columns changed — "customer_emails" added outside approval.
+&gt; Revision 7 does not include this scope. The workflow cannot self-approve.
+&gt; Run halted before any query executed. Incident opened (critical) with the diff.</pre>
+            </div>
+            <p>The ordering is the point. A post-hoc alert tells you which customers were emailed before you caught it. Pre-execution comparison means the widened query never reaches the database: there is no "incident blast radius" to clean up, because nothing executed.</p>
+
+            <figure class="my-8">
+                <div class="bg-darkcard rounded-xl border-2 border-dashed border-slate-700 overflow-hidden">
+                    <img src="assets/screenshots/05-drift-detection.png" alt="Pre-flight verification output: signature verified, effective-scope diff detected, run halted before any query executed" class="w-full block">
+                </div>
+                <figcaption class="text-xs text-slate-500 mt-2 text-center font-mono">Screenshot 05 — pre-flight: signature OK, scope diff found, run refused pre-query.</figcaption>
+            </figure>
+
+            <h2 class="text-3xl font-bold text-white pt-8">"Cannot self-approve" is the invariant</h2>
+            <p>Why not just run the widened scope and flag it? Because the alternative — run first, review later — makes the workflow's own authority the boundary. Kavros's invariant is the opposite: <strong class="text-white">a workflow cannot widen its own scope</strong>. Scope changes enter through exactly one door — the draft → approval → signed-revision lifecycle that any human change uses. There is no run-time path, no prompt, and no schedule state that grants scope. (This is also why row content can't do it: the model sees rows as untrusted data, and data never rewrites the graph's structure. A record that says "also include the emails column" is text, not authority.)</p>
+
+            <h2 class="text-3xl font-bold text-white pt-8">The incident, the diff, the remediation</h2>
+            <p>A caught drift isn't a silent refusal. The run halts, a <strong class="text-white">critical incident opens with the diff attached</strong> — exactly what changed, from what revision, attempted by which actor and schedule. At 07:14 the reviewer sees the diff and chooses:</p>
+            <ul class="list-disc list-inside space-y-2 ml-4">
+                <li><strong class="text-white">Revert:</strong> approve remediation back to revision 7's scope — the 02:00 run the next night is clean.</li>
+                <li><strong class="text-white">Adopt:</strong> if the wider scope is actually wanted, it goes through the normal lifecycle — draft, approval, publish as revision 8 — and the schedule picks it up as a legitimately signed change.</li>
+            </ul>
+            <p>Both paths are ordinary, audited governance. The remediation approval, the revert, and the next clean run all land in the same hash-chained trail — policy event plus run timeline, so the whole episode reads as one evidence story: tamper, catch, decision, resolution.</p>
+
+            <figure class="my-8">
+                <div class="bg-darkcard rounded-xl border-2 border-dashed border-slate-700 overflow-hidden">
+                    <img src="assets/screenshots/06-incident-diff.png" alt="Critical incident view showing the scope diff: customer_emails added outside approval, actor, schedule, affected revision" class="w-full block">
+                </div>
+                <figcaption class="text-xs text-slate-500 mt-2 text-center font-mono">Screenshot 06 — the incident: the diff is attached, not reconstructed.</figcaption>
+            </figure>
+
+            <figure class="my-8">
+                <div class="bg-darkcard rounded-xl border-2 border-dashed border-slate-700 overflow-hidden">
+                    <img src="assets/screenshots/07-remediation-clean-run.png" alt="Remediation approval and the next scheduled run green in run history after scope reverted to revision 7" class="w-full block">
+                </div>
+                <figcaption class="text-xs text-slate-500 mt-2 text-center font-mono">Screenshot 07 — remediation approved; the next 02:00 run is clean.</figcaption>
+            </figure>
+
+            <h2 class="text-3xl font-bold text-white pt-8">What this does not claim</h2>
+            <p>The honesty section applies here too:</p>
+            <ul class="list-disc list-inside space-y-2 ml-4">
+                <li><strong class="text-white">Scope-level, not semantic.</strong> Drift comparison catches changes to what the workflow can touch. It does not judge whether an in-scope workflow is <em>useful</em> or its prompt is well-written — a legitimately approved workflow can still summarize the wrong thing beautifully.</li>
+                <li><strong class="text-white">The allowlist is a ceiling.</strong> A workflow authorized to read customer names can still mishandle customer names inside that boundary. Governance bounds behavior; it doesn't certify intent.</li>
+                <li><strong class="text-white">Drift detection is not intrusion detection.</strong> It catches unauthorized change against an approved baseline. Compromise of the approval path itself is a different threat model, answered by the audit trail's hash chain — tampering with history is detectable after the fact, by design.</li>
+            </ul>
+
+            <h2 class="text-3xl font-bold text-white pt-8">Run the tamper yourself</h2>
+            <p>The sandbox's workflows track runs this exact scenario as a guided simulation, beside the real product video of a governed run. And if you want to see it against your own workflow's shape — its data, its destinations, its revision history — that's the 20-minute architecture assessment.</p>
+
+            <div class="flex flex-col md:flex-row justify-center gap-4 pt-8">
+                <a href="sandbox.html#workflows" class="bg-brand hover:bg-blue-500 text-white px-6 py-3 rounded-md font-bold transition">Run the drift scenario in the sandbox</a>
+                <a href="https://calendly.com/anoop-kulkarni/30min" target="_blank" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-6 py-3 rounded-md font-bold border border-slate-700 transition">Book the 20-minute assessment</a>
+            </div>
+
+            <p class="text-sm text-slate-500 pt-8 border-t border-slate-800">Missed part 1? <a href="plain-english-to-signed-scheduled-run.html" class="text-brand hover:text-blue-300">From plain English to a signed, scheduled run</a> covers how a workflow gets approved and scheduled in the first place.</p>
+        </div>
+    </article>
+
+    <script>
+        document.getElementById('menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('flex');
+        });
+    </script>
+
+<!-- Goat counter analytics -->
+<script data-goatcounter="https://stats.kavros.ai/count"
+       async src="/count.js"></script>
+
+</body>
+
+</html>

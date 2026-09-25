@@ -21,6 +21,16 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://kavros.ai/plain-english-to-signed-scheduled-run.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kavros.ai/how-drift-is-caught-before-any-query-executes.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://kavros.ai/cve-2026-21852.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

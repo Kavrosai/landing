@@ -57,6 +57,14 @@
   how Cursor's agent mode was compromised via prompt injection, why
   traditional security controls miss it (the lethal trifecta), and the
   architectural shift required to stop it.
+- [From plain English to a signed, scheduled run](https://kavros.ai/plain-english-to-signed-scheduled-run.html):
+  how a non-programmer's request becomes an Ed25519-signed workflow
+  revision — composed capabilities instead of credentials, human approval,
+  a durable schedule that cannot change anything, and evidence per run.
+- [How drift is caught before any query executes](https://kavros.ai/how-drift-is-caught-before-any-query-executes.html):
+  the workflow tamper case — signature verification plus effective-scope
+  comparison halt a run before the database sees a query, with the diff
+  attached to the incident.
 - [Documentation](https://docs.kavros.ai): deployment, integration (HTTP
   contract, CLI, Python hook), policy model, evidence exports.
 
