@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How workflow drift is caught: flagged, gated, suspended | Kavros</title>
+    <meta name="description" content="Capability changes after a workflow is approved are flagged for review at the approval and scheduling gates; source schema drift suspends the capability — every call refused before any query executes. Both tiers verified on a live rehearsal deployment.">
+    <meta property="og:title" content="How workflow drift is caught: flagged, gated, suspended">
+    <meta property="og:description" content="Two drift mechanisms with different teeth: review flags at the governance gates for capability changes, hard suspension before any query executes for source schema drift. Verified in rehearsal, honestly told.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://kavros.ai/how-workflow-drift-is-caught.html">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: '#3b82f6',
+                        darkbg: '#020617',
+                        darkcard: '#0f172a'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Menlo', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233b82f6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'></path></svg>
+">
+    <link rel="canonical" href="https://kavros.ai/how-workflow-drift-is-caught.html">
+    <meta property="og:image" content="https://kavros.ai/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://kavros.ai/og-image.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>body { background-color: #020617; }</style>
+</head>
+
+<body class="text-slate-300 font-sans antialiased">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full bg-darkbg/80 backdrop-blur-md z-50 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2 text-xl font-bold text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'></path></svg>
+                Kavros
+            </a>
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 text-sm items-center">
+                <a href="index.html#products" class="hover:text-white transition">Products</a>
+                <a href="index.html#problem" class="hover:text-white transition">The Problem</a>
+                <a href="index.html#solution" class="hover:text-white transition">Solution</a>
+                <a href="sandbox.html" class="hover:text-white transition">Sandbox</a>
+                <a href="blog.html" class="text-brand font-bold transition">Blog</a>
+                <a href="security.html" class="hover:text-white transition">Security</a>
+                <a href="sandbox.html" class="bg-brand hover:bg-blue-500 text-white px-4 py-2 rounded-md font-medium transition">Interactive Demo</a>
+            </div>
+            <!-- Mobile Hamburger Button -->
+            <button id="menu-btn" class="md:hidden text-slate-300 focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden flex-col space-y-3 px-6 pb-4 text-sm">
+            <a href="index.html#products" class="block hover:text-white transition">Products</a>
+            <a href="index.html#problem" class="block hover:text-white transition">The Problem</a>
+            <a href="index.html#solution" class="block hover:text-white transition">Solution</a>
+            <a href="sandbox.html" class="block hover:text-white transition">Sandbox</a>
+            <a href="blog.html" class="block hover:text-white transition">Blog</a>
+            <a href="security.html" class="block hover:text-white transition">Security</a>
+            <a href="sandbox.html" class="bg-brand hover:bg-blue-500 text-white px-4 py-2 rounded-md font-medium transition text-center">Interactive Demo</a>
+        </div>
+    </nav>
+
+    <!-- Article Header -->
+    <section class="pt-40 pb-10 px-6 text-center">
+        <div class="max-w-3xl mx-auto">
+            <span class="text-xs font-mono text-brand bg-blue-900/20 px-2 py-1 rounded">Workflows, part 2 of 2</span>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-white mt-6 mb-4 leading-tight">How workflow drift is caught: flagged, gated, suspended</h1>
+            <p class="text-lg text-slate-400">Someone changes what an approved workflow touches — without touching the workflow. Two mechanisms answer: review flags at the governance gates, and a hard suspension that refuses every call before the database sees a query. This post describes what each one actually does — verified on a live deployment, including the case we first got wrong.</p>
+            <div class="flex items-center justify-center text-xs text-slate-500 mt-8 border-b border-slate-800 pb-8">
+                <span>8 min read</span>
+                <span class="mx-2">•</span>
+                <span>October 2026</span>
+                <span class="mx-2">•</span>
+                <span>Covers release 0.2.15</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Article Body -->
+    <article class="pb-16 px-6">
+        <div class="max-w-3xl mx-auto space-y-6 text-slate-400 leading-relaxed">
+
+            <p class="text-lg text-slate-300">The scenario is uncomfortable because it needs no attacker.</p>
+            <p>A nightly workflow has been running cleanly for months: approved, signed, scheduled at 02:00. Then something underneath it changes — an admin revises a capability it depends on, a new version of a data surface ships, or the database schema itself moves. No ticket touches the workflow. The next unattended run now reflects a data surface no human re-reviewed for <em>this</em> workflow.</p>
+            <p>Every automation platform has this exposure. Most answers are procedural ("don't do that") or retrospective (an alert after the run, when the report already went out). Kavros answers with two mechanisms that have deliberately different teeth — and because a governance vendor's claims should survive contact with its own product, this post describes both as they actually behave in release 0.2.15, verified during our launch rehearsal. One of our own earlier sentences about this was too strong; we fixed the sentence, not the test.</p>
+
+            <h2 class="text-3xl font-bold text-white pt-8">What "drift" means here</h2>
+            <p>Drift is any divergence between what an approved workflow's revision pinned and what the world now resolves to. It arrives at two layers:</p>
+            <ul class="list-disc list-inside space-y-2 ml-4">
+                <li><strong class="text-white">The capability layer moves.</strong> A workflow revision pins capabilities at specific versions with specific approved fields. When an admin publishes a new capability version, the pinned reference no longer matches current reality.</li>
+                <li><strong class="text-white">The ground under the capability moves.</strong> The workflow and the capability are both untouched — but the underlying database object changes: a table is renamed or dropped, a column vanishes, a schema loses approval. The approved definition no longer describes something that exists.</li>
+            </ul>
+            <p>Different layers, different mechanisms. One is a governance flag; the other is a hard stop.</p>
+
+            <h2 class="text-3xl font-bold text-white pt-8">Tier 1 — capability changes: flagged, and runs continue</h2>
+            <p>When a capability a published revision depends on changes version or source, the workflow does not halt. Here is the review line, verbatim from a rehearsal deployment where we revised a capability from v1 to v2 under a production-approved workflow (revision panel, condensed):</p>
+            <div class="bg-slate-950 p-4 rounded-lg border border-slate-800 text-xs text-green-400 overflow-x-auto my-4 font-mono">
+<pre>Capability "orders_2" changed from v1 to v2.</pre>
+            </div>
+            <p>The change is <strong class="text-white">flagged for review</strong>, and the flags attach where decisions get made:</p>
+            <ul class="list-disc list-inside space-y-2 ml-4">
+                <li>The revision panel lists the exact divergence — which capability, from which version to which.</li>
+                <li>The workflow list shows the drift badge ("needs review — capability drift detected").</li>
+                <li>Publishing a new revision through the drift requires an explicit review confirmation — the gate asks, and records the answer.</li>
+                <li>Enabling or re-checking a schedule over a drifted revision hits the same review gate.</li>
+            </ul>
+            <p>Meanwhile, <strong class="text-white">runs continue under the signed revision</strong>. That is a deliberate design, not an oversight: the revision is what a human approved, its signature is what the evidence chain cites, and an unattended schedule dying overnight because an admin published v2 of an unrelated capability would make governance the availability problem. The flag's job is to put a human decision back in the loop before the <em>system</em> re-blesses anything — the workflow cannot silently adopt v2, and it cannot approve the change itself.</p>
+            <p><strong class="text-white">The honest edge:</strong> run-time enforcement reads the capability's current approved fields, while the evidence labels the pinned version. So if a change widens the approved surface, the review flag — not a run gate — is what stands between the wider surface and the schedule until a human acts. We say that plainly because we first wrote this paragraph without it. Treating drift flags as real work is part of operating the product; making runs refuse when effective scope exceeds the pinned scope is on our own hardening list.</p>
+
+            <figure class="my-8">
+                <div class="bg-darkcard rounded-xl border border-slate-800 overflow-hidden">
+                    <img src="assets/screenshots/05-drift-detection.png" alt="Revision panel showing Review: Capability changed from v1 to v2 on a production-approved revision" class="w-full block" loading="lazy">
+                </div>
+                <figcaption class="text-xs text-slate-500 mt-2 text-center font-mono">Screenshot 05 — tier 1: the review flag on a production-approved, scheduled revision.</figcaption>
+            </figure>
+
+            <h2 class="text-3xl font-bold text-white pt-8">Tier 2 — source schema drift: suspended, refused before any query</h2>
+            <p>The second layer is harder, and so is the response. When the underlying source of a published capability no longer matches its approved definition — object gone, columns changed, schema unapproved, connection failing — the scheduled drift check (every 15 minutes, alongside schedule claims) re-derives the live source facts and compares them to the approval. On mismatch, the capability is <strong class="text-white">auto-suspended</strong>: the shared execution core refuses every call — workflow, MCP, editor test — from that moment:</p>
+            <div class="bg-slate-950 p-4 rounded-lg border border-slate-800 text-xs text-green-400 overflow-x-auto my-4 font-mono">
+<pre>Tool "orders" is suspended pending re-approval (source schema drift)</pre>
+            </div>
+            <p>A <strong class="text-white">critical incident opens in the Task Inbox</strong> with the reason attached. The next scheduled run doesn't partially execute, and it doesn't guess: the refusal happens before the database is touched. Recovery is ordinary governance — the source is fixed or the capability is re-published against reality, the next clean check clears the suspension, and the incident resolves. The whole episode — drift, suspension, refusal, decision, recovery — lands in the hash-chained trail.</p>
+
+            <figure class="my-8">
+                <div class="bg-darkcard rounded-xl border border-slate-800 overflow-hidden">
+                    <img src="assets/screenshots/06-incident-diff.png" alt="Critical task inbox incident: capability suspended after source schema drift, with the drift reason" class="w-full block" loading="lazy">
+                </div>
+                <figcaption class="text-xs text-slate-500 mt-2 text-center font-mono">Screenshot 06 — tier 2: the critical incident; every call refused until re-approval.</figcaption>
+            </figure>
+
+            <figure class="my-8">
+                <div class="bg-darkcard rounded-xl border border-slate-800 overflow-hidden">
+                    <img src="assets/screenshots/07-remediation-clean-run.png" alt="After re-approval the incident resolves and the next scheduled run is green in run history" class="w-full block" loading="lazy">
+                </div>
+                <figcaption class="text-xs text-slate-500 mt-2 text-center font-mono">Screenshot 07 — recovery: re-approval clears the suspension; the next 02:00 run is clean.</figcaption>
+            </figure>
+
+            <h2 class="text-3xl font-bold text-white pt-8">The invariant, precisely stated</h2>
+            <p>The property the architecture guarantees is: <strong class="text-white">a workflow cannot grant itself scope.</strong> Graph changes enter only through the draft → approval → signed-revision lifecycle. Capability changes surface as review flags at the publish and schedule gates — a human confirms, on the record. Source-level breakage suspends the capability outright. What the system does <em>not</em> do is auto-halt every run under a version-drifted revision — that trade-off buys availability and evidence stability under the signed baseline, and we think it's the right call. If you disagree, that's a legitimate architecture conversation to have with us before you buy, not after.</p>
+
+            <h2 class="text-3xl font-bold text-white pt-8">What this does not claim</h2>
+            <ul class="list-disc list-inside space-y-2 ml-4">
+                <li><strong class="text-white">Flagged ≠ halted.</strong> Version and source changes under an approved revision are flagged; runs continue under the signed revision until a human re-approves. Only source schema drift produces the hard pre-query refusal.</li>
+                <li><strong class="text-white">Scope-level, not semantic.</strong> Drift detection catches changes to what the workflow can touch. It does not judge whether an in-scope workflow is <em>useful</em> or its prompt is well-written.</li>
+                <li><strong class="text-white">The allowlist is a ceiling.</strong> A workflow authorized to read customer names can still mishandle customer names inside that boundary. Governance bounds behavior; it doesn't certify intent.</li>
+                <li><strong class="text-white">Drift detection is not intrusion detection.</strong> It catches unauthorized change against an approved baseline. Compromise of the approval path itself is a different threat model, answered by the audit trail's hash chain — tampering with history is detectable after the fact, by design.</li>
+            </ul>
+
+            <h2 class="text-3xl font-bold text-white pt-8">Run it yourself</h2>
+            <p>The sandbox's workflows track simulates the drift case, beside the real product video of a governed run. And if you want to see both tiers against your own workflow's shape — its data, its capabilities, its revision history — that's the 20-minute architecture assessment.</p>
+
+            <div class="flex flex-col md:flex-row justify-center gap-4 pt-8">
+                <a href="sandbox.html#workflows" class="bg-brand hover:bg-blue-500 text-white px-6 py-3 rounded-md font-bold transition">Run the drift scenario in the sandbox</a>
+                <a href="https://calendly.com/anoop-kulkarni/30min" target="_blank" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-6 py-3 rounded-md font-bold border border-slate-700 transition">Book the 20-minute assessment</a>
+            </div>
+
+            <p class="text-sm text-slate-500 pt-8 border-t border-slate-800">Missed part 1? <a href="plain-english-to-signed-scheduled-run.html" class="text-brand hover:text-blue-300">From plain English to a signed, scheduled run</a> covers how a workflow gets approved and scheduled in the first place.</p>
+        </div>
+    </article>
+
+    <script>
+        document.getElementById('menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('flex');
+        });
+    </script>
+
+<!-- Goat counter analytics -->
+<script data-goatcounter="https://stats.kavros.ai/count"
+       async src="/count.js"></script>
+
+</body>
+
+</html>
