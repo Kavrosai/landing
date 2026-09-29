@@ -9,7 +9,7 @@
     <meta property="og:image" content="https://kavros.ai/og-image.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://kavros.ai/og-image.png">
-    <meta name="description" content="Understand Kavros's self-hosted architecture, policy enforcement boundary, employee Chat privacy model, and security responsibilities.">
+    <meta name="description" content="Kavros security architecture: enclave-attested policy enforcement, signed releases, a human-approved measurement registry, and coverage views — in your AWS account.">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = { theme: { extend: {
@@ -33,9 +33,9 @@
         </div>
     </nav>
     <main class="max-w-4xl mx-auto px-6 py-16">
-        <span class="inline-block bg-slate-800 text-brand text-xs font-mono px-3 py-1 rounded-full mb-5 border border-slate-700">Enterprise security</span>
+        <span class="inline-block bg-slate-800 text-brand text-xs font-mono px-3 py-1 rounded-full mb-5 border border-slate-700">Enterprise security · reflects release 0.2.22, September 2026</span>
         <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-5">Security boundaries you can inspect</h1>
-        <p class="text-lg text-slate-400 max-w-3xl mb-12">Kavros provides a self-hosted control plane for autonomous agents and employee AI access. Signed policy, isolated evaluation, identity, usage controls, and audit evidence work together inside your AWS environment.</p>
+        <p class="text-lg text-slate-400 max-w-3xl mb-12">Kavros provides a self-hosted control plane for autonomous agents and employee AI access. Every model request Kavros mediates is evaluated inside an AWS Nitro Enclave whose measurement is pinned and human-verified, by code from a signed release, with evidence you can export and check yourself — inside your AWS environment.</p>
 
         <div class="grid md:grid-cols-2 gap-5 mb-12">
             <section class="bg-darkcard p-6 rounded-lg border border-slate-800">
@@ -51,8 +51,11 @@
         <section class="border-t border-slate-800 pt-10 mb-10">
             <h2 class="text-2xl font-bold text-white mb-5">What Kavros provides</h2>
             <ul class="space-y-3 text-sm text-slate-400 list-disc list-inside">
+                <li><strong class="text-slate-300">Enclave-attested enforcement.</strong> Outbound model and tool requests are evaluated inside an AWS Nitro Enclave. Every decision carries an enclave-signed receipt, and the receipt's attestation quote is fully appraised on the request path — signature chain to the AWS Nitro root of trust, fresh one-use challenge binding, and an exact match against the deployment's approved enclave measurement — before any byte is forwarded. A request whose quote fails any check is refused, never forwarded.</li>
+                <li><strong class="text-slate-300">Human-approved measurement registry.</strong> Each release's enclave measurement is registered and approved before deployment — automatically when it matches the measurement the runtime itself pins at deploy time, and routed to administrator review with a comparison gate whenever anything differs. The runtime refuses to trust a quote from any other enclave image.</li>
+                <li><strong class="text-slate-300">Signed releases with provenance.</strong> Release artifacts ship with a signed manifest, SBOM, and build provenance; deployment hosts verify checksums and pull only digest-pinned images from your own registry.</li>
+                <li><strong class="text-slate-300">Model coverage you can see.</strong> A coverage view shows every provider-bound model request Kavros observed, which governed surface sent it, and — explicitly — what Kavros cannot see, so a clean panel is never presented as a no-bypass claim.</li>
                 <li>Runtime policy proposals, two-person approval, signatures, version history, simulation, and rollback requests.</li>
-                <li>AWS Nitro Enclave evaluation with attestation records for protected traffic.</li>
                 <li>Hash-chained administrative audit logs with integrity verification and evidence exports.</li>
                 <li>Workload, team, user, model, and organization-level usage controls.</li>
                 <li>Self-hosted deployment so customer traffic and databases stay in the customer AWS account.</li>
@@ -60,8 +63,8 @@
         </section>
 
         <section class="border-t border-slate-800 pt-10 mb-10">
-            <h2 class="text-2xl font-bold text-white mb-5">What attestation does not prove</h2>
-            <p class="text-sm text-slate-400 mb-4">Attestation provides evidence about enclave measurement and execution context. It does not prove that a customer policy is correct, that an allowed action is safe, that a model provider is trustworthy, or that surrounding customer infrastructure is uncompromised.</p>
+            <h2 class="text-2xl font-bold text-white mb-5">What attestation and coverage do not prove</h2>
+            <p class="text-sm text-slate-400 mb-4">Attestation provides evidence about enclave measurement and execution context. It does not prove that a customer policy is correct, that an allowed action is safe, that a model provider is trustworthy, or that surrounding customer infrastructure is uncompromised. A measured runtime can still be prompt-injected: untrusted content can attempt to redirect a model while every trusted instruction stays byte-for-byte unchanged. Kavros records the boundary truthfully — coverage counts what Kavros observed and labels what it did not.</p>
             <p class="text-sm text-slate-400">Kavros supports compliance evidence collection. It does not make an organization SOC 2 compliant by itself.</p>
         </section>
 
@@ -90,6 +93,8 @@
                         <li>SOC 2 evidence bundle export (JSON) and CSV exports</li>
                         <li>Policy approval history, incident timelines, attestation records</li>
                         <li>Two-person approval with Ed25519-signed policy enforcement</li>
+                        <li>Release measurement registry with approval history and deploy-pin auto-verification</li>
+                        <li>Model-coverage evidence: per-request provenance and explicit coverage gaps</li>
                     </ul>
                 </div>
                 <div class="bg-darkcard p-5 rounded-lg border border-slate-800">
@@ -105,7 +110,8 @@
                     <h3 class="text-sm font-bold text-white mb-2">Deployment</h3>
                     <ul class="text-sm text-slate-400 list-disc list-inside space-y-1">
                         <li>Terraform module with hardened defaults (private hosts, no SSH, RDS deletion protection)</li>
-                        <li>Nitro Enclave evaluation with NSM attestation records</li>
+                        <li>Nitro Enclave evaluation with per-request NSM attestation, verified on-path before forwarding</li>
+                        <li>Signed release manifests with SBOM and provenance assets</li>
                         <li>Policy signing key custody: Kavros-held or customer-held</li>
                         <li>Documented backup, restore, and key-rotation procedures</li>
                     </ul>
