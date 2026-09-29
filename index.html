@@ -123,6 +123,261 @@
                 </a>
             </div>
 
+            <div class="mt-12 text-center">
+                <h3 class="text-2xl font-bold text-white mb-2">Watch every request get governed — live</h3>
+                <p class="text-sm text-slate-400 mb-6">Agents, chat, and workflows send every request through the control plane and the enclave. Some pass. Some get stopped. Every decision lands in the ledger.</p>
+            </div>
+
+            <div class="bg-darkbg p-4 md:p-6 rounded-xl border border-slate-800 mb-10 overflow-x-auto">
+                <svg id="kg-diagram" viewBox="0 0 1150 620" class="min-w-[900px] w-full h-auto" font-family="Inter, sans-serif" role="img" aria-label="Live architecture: agents, chat, and workflows send every request through the Kavros control plane and the air-gapped AWS Nitro Enclave, which enforces signed policy and DLP and blocks violations before providers are reached.">
+                    <style>
+                        .kg-caller rect { fill: #0f172a; stroke: #334155; stroke-width: 1.5; transition: all .3s; }
+                        .kg-caller.active rect { stroke: #3b82f6; fill: #132033; }
+                        .kg-caller text { transition: fill .3s; }
+                        .kg-chipG rect { fill: #0b1222; stroke: #334155; transition: all .3s; }
+                        .kg-chipG.active rect { stroke: #3b82f6; fill: #14243d; }
+                        .kg-chipG text { fill: #94a3b8; transition: fill .3s; }
+                        .kg-chipG.active text { fill: #e2e8f0; }
+                        .kg-provider rect { fill: #0f172a; stroke: #334155; stroke-width: 1.5; transition: all .3s; }
+                        .kg-provider.active rect { stroke: #22c55e; fill: #0f1f16; }
+                        .kg-evband { transition: stroke .3s; }
+                        .kg-evband.active { stroke: #3b82f6; }
+                        #kg-badge { transition: opacity .3s; }
+                        #kg-badge.kg-ok rect { stroke: #22c55e; fill: rgba(34,197,94,.12); }
+                        #kg-badge.kg-ok text { fill: #4ade80; }
+                        #kg-badge.kg-no rect { stroke: #ef4444; fill: rgba(239,68,68,.12); }
+                        #kg-badge.kg-no text { fill: #f87171; }
+                    </style>
+                    <defs>
+                        <marker id="arr-brand" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#3b82f6"/></marker>
+                        <marker id="arr-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#22c55e"/></marker>
+                        <marker id="arr-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker>
+                        <marker id="arr-slate" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker>
+                    </defs>
+
+                    <!-- Identity provider (top) -->
+                    <rect x="365" y="52" width="180" height="48" rx="10" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+                    <text x="455" y="72" text-anchor="middle" fill="#ffffff" font-size="12.5" font-weight="700">Your identity provider</text>
+                    <text x="455" y="90" text-anchor="middle" fill="#94a3b8" font-size="10.5">Okta · OIDC · SAML · SCIM</text>
+                    <line x1="455" y1="100" x2="455" y2="170" stroke="#3b82f6" stroke-width="2" marker-end="url(#arr-brand)"/>
+                    <text x="465" y="140" fill="#64748b" font-size="10">SSO · teams &amp; roles</text>
+
+                    <!-- Callers (left) -->
+                    <text x="155" y="152" text-anchor="middle" fill="#475569" font-size="10" letter-spacing="2">GOVERNED SURFACES</text>
+                    <g id="kg-caller-agent" class="kg-caller">
+                        <rect x="30" y="170" width="250" height="60" rx="10"/>
+                        <text x="155" y="196" text-anchor="middle" fill="#ffffff" font-size="13.5" font-weight="700">AI agents</text>
+                        <text x="155" y="215" text-anchor="middle" fill="#94a3b8" font-size="10.5">workload keys · leases</text>
+                    </g>
+                    <g id="kg-caller-chat" class="kg-caller">
+                        <rect x="30" y="252" width="250" height="60" rx="10"/>
+                        <text x="155" y="278" text-anchor="middle" fill="#ffffff" font-size="13.5" font-weight="700">Employee chat</text>
+                        <text x="155" y="297" text-anchor="middle" fill="#94a3b8" font-size="10.5">SSO users · BYOK models</text>
+                    </g>
+                    <g id="kg-caller-workflow" class="kg-caller">
+                        <rect x="30" y="334" width="250" height="60" rx="10"/>
+                        <text x="155" y="360" text-anchor="middle" fill="#ffffff" font-size="13.5" font-weight="700">Workflows</text>
+                        <text x="155" y="379" text-anchor="middle" fill="#94a3b8" font-size="10.5">approved revisions · schedules</text>
+                    </g>
+                    <line x1="280" y1="200" x2="330" y2="200" stroke="#3b82f6" stroke-width="2" marker-end="url(#arr-brand)"/>
+                    <line x1="280" y1="282" x2="330" y2="282" stroke="#3b82f6" stroke-width="2" marker-end="url(#arr-brand)"/>
+                    <line x1="280" y1="364" x2="330" y2="364" stroke="#3b82f6" stroke-width="2" marker-end="url(#arr-brand)"/>
+
+                    <!-- Control plane (center) -->
+                    <rect x="330" y="170" width="250" height="150" rx="12" fill="#0f172a" stroke="#3b82f6" stroke-width="1.5"/>
+                    <text x="455" y="198" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="700">Kavros control plane</text>
+                    <g id="kg-chip-identity" class="kg-chipG">
+                        <rect x="345" y="212" width="220" height="28" rx="6"/>
+                        <rect x="355" y="222" width="8" height="8" fill="#3b82f6"/>
+                        <text x="371" y="231" font-size="11">Identity · SSO · workload keys</text>
+                    </g>
+                    <g id="kg-chip-policy" class="kg-chipG">
+                        <rect x="345" y="248" width="220" height="28" rx="6"/>
+                        <rect x="355" y="258" width="8" height="8" fill="#f59e0b"/>
+                        <text x="371" y="267" font-size="11">Policy &amp; DLP · Ed25519-signed</text>
+                    </g>
+                    <g id="kg-chip-metering" class="kg-chipG">
+                        <rect x="345" y="284" width="220" height="28" rx="6"/>
+                        <rect x="355" y="294" width="8" height="8" fill="#22c55e"/>
+                        <text x="371" y="303" font-size="11">Metering · quotas · budgets</text>
+                    </g>
+                    
+
+                    <!-- Signed policy + forward arrows -->
+                    <line x1="580" y1="226" x2="650" y2="226" stroke="#22c55e" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arr-green)"/>
+                    <text x="615" y="216" text-anchor="middle" fill="#22c55e" font-size="10">signed policy</text>
+                    <line x1="580" y1="282" x2="650" y2="282" stroke="#3b82f6" stroke-width="2" marker-end="url(#arr-brand)"/>
+                    <text x="615" y="272" text-anchor="middle" fill="#93c5fd" font-size="10">forward</text>
+
+                    <!-- Data plane + enclave (right of center) -->
+                    <rect x="650" y="170" width="250" height="224" rx="12" fill="#0f172a" stroke="#3b82f6" stroke-width="1.5"/>
+                    <text x="775" y="198" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="700">Data plane — your VPC</text>
+                    <rect x="666" y="210" width="218" height="136" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="4 3"/>
+                    <text x="775" y="232" text-anchor="middle" fill="#60a5fa" font-size="12.5" font-weight="700">AWS Nitro Enclave</text>
+                    <g id="kg-chip-allowlist" class="kg-chipG">
+                        <rect x="686" y="242" width="178" height="24" rx="5"/>
+                        <text x="775" y="258" text-anchor="middle" font-size="10.5">Allowlist evaluation</text>
+                    </g>
+                    <g id="kg-chip-dlp" class="kg-chipG">
+                        <rect x="686" y="272" width="178" height="24" rx="5"/>
+                        <text x="775" y="288" text-anchor="middle" font-size="10.5">DLP inspection</text>
+                    </g>
+                    <text x="775" y="316" text-anchor="middle" fill="#cbd5e1" font-size="10">signed receipts · attestation quote · PCR0 pin</text>
+                    <text x="775" y="333" text-anchor="middle" fill="#64748b" font-size="9.5">fail closed before anything forwards</text>
+
+                    <!-- Air-gap badge: no external access -->
+                    <g>
+                        <rect x="686" y="352" width="178" height="34" rx="6" fill="rgba(34,211,238,.06)" stroke="#22d3ee" stroke-width="1" stroke-dasharray="3 3"/>
+                        <rect x="697" y="363" width="11" height="9" rx="1.5" fill="none" stroke="#22d3ee" stroke-width="1.3"/>
+                        <path d="M699.5,363 v-3 a3.5,3.5 0 0 1 7,0 v3" fill="none" stroke="#22d3ee" stroke-width="1.3"/>
+                        <text x="715" y="368" fill="#67e8f9" font-size="9" font-weight="700" letter-spacing="1">NO EXTERNAL ACCESS</text>
+                        <text x="715" y="381" fill="#94a3b8" font-size="9">policy cannot be tampered with</text>
+                    </g>
+
+                    <!-- Providers (right) -->
+                    <text x="1035" y="178" text-anchor="middle" fill="#475569" font-size="10" letter-spacing="2">TARGETS</text>
+                    <g id="kg-provider" class="kg-provider">
+                        <rect x="950" y="190" width="170" height="90" rx="10"/>
+                        <text x="1035" y="224" text-anchor="middle" fill="#ffffff" font-size="13.5" font-weight="700">Model providers</text>
+                        <text x="1035" y="244" text-anchor="middle" fill="#94a3b8" font-size="10.5">Anthropic · OpenAI</text>
+                        <text x="1035" y="262" text-anchor="middle" fill="#94a3b8" font-size="10.5">tools · APIs</text>
+                    </g>
+                    <line x1="900" y1="235" x2="950" y2="235" stroke="#22c55e" stroke-width="2" marker-end="url(#arr-green)"/>
+                    <text x="925" y="223" text-anchor="middle" fill="#22c55e" font-size="10">allow →</text>
+                    <line x1="900" y1="300" x2="940" y2="300" stroke="#ef4444" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arr-red)"/>
+                    <text x="920" y="318" text-anchor="middle" fill="#ef4444" font-size="10">✕ blocked</text>
+
+                    <!-- Verdict badge (dynamic) -->
+                    <g id="kg-badge" opacity="0">
+                        <rect x="688" y="118" width="154" height="32" rx="8" stroke-width="1.5"/>
+                        <text id="kg-badge-text" x="765" y="139" text-anchor="middle" font-size="11.5" font-weight="700" letter-spacing="1"></text>
+                    </g>
+
+                    <!-- Moving message dot -->
+                    <g id="kg-dot-wrap" opacity="0">
+                        <circle r="9" fill="#3b82f6" opacity="0.25"/>
+                        <circle r="4.5" fill="#93c5fd"/>
+                    </g>
+
+                    <!-- Evidence band -->
+                    <rect id="kg-ev-band" class="kg-evband" x="330" y="460" width="570" height="112" rx="12" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+                    <text x="615" y="486" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="700">Audit &amp; evidence</text>
+                    <text x="352" y="508" fill="#475569" font-size="8.5" letter-spacing="1.5">AUDIT LOG — EVERY DECISION</text>
+                    <text id="kg-ev-1" x="352" y="524" font-family="Menlo, monospace" font-size="9" fill="#334155">—</text>
+                    <text id="kg-ev-2" x="352" y="540" font-family="Menlo, monospace" font-size="9" fill="#334155">—</text>
+                    <text id="kg-ev-3" x="352" y="556" font-family="Menlo, monospace" font-size="9" fill="#334155">—</text>
+                    <text x="640" y="524" fill="#94a3b8" font-size="10.5">every decision hash-chained</text>
+                    <text x="640" y="540" fill="#94a3b8" font-size="10.5">metering per workload / team / user / model</text>
+                    <text x="640" y="556" fill="#94a3b8" font-size="10.5">SOC 2-style exports · coverage view · verify it yourself</text>
+                    <line x1="455" y1="320" x2="500" y2="460" stroke="#64748b" stroke-width="2" marker-end="url(#arr-slate)"/>
+                    <line x1="775" y1="394" x2="730" y2="460" stroke="#64748b" stroke-width="2" marker-end="url(#arr-slate)"/>
+                </svg>
+                <div class="flex justify-end mt-2">
+                    <button id="kg-pause" class="text-[10px] font-mono uppercase tracking-wider text-slate-500 hover:text-slate-300 border border-slate-700 rounded px-2 py-1">Pause</button>
+                </div>
+                <script>
+                (function () {
+                    var svg = document.getElementById("kg-diagram");
+                    if (!svg) return;
+                    var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                    var dotWrap = document.getElementById("kg-dot-wrap");
+                    var badge = document.getElementById("kg-badge");
+                    var badgeText = document.getElementById("kg-badge-text");
+                    var provider = document.getElementById("kg-provider");
+                    var evBand = document.getElementById("kg-ev-band");
+                    var audits = [document.getElementById("kg-ev-1"), document.getElementById("kg-ev-2"), document.getElementById("kg-ev-3")];
+                    var chips = { identity: document.getElementById("kg-chip-identity"), policy: document.getElementById("kg-chip-policy"), allowlist: document.getElementById("kg-chip-allowlist"), dlp: document.getElementById("kg-chip-dlp"), metering: document.getElementById("kg-chip-metering") };
+                    var callers = { agent: document.getElementById("kg-caller-agent"), chat: document.getElementById("kg-caller-chat"), workflow: document.getElementById("kg-caller-workflow") };
+                    var paused = false;
+                    var pauseBtn = document.getElementById("kg-pause");
+                    if (pauseBtn) pauseBtn.addEventListener("click", function () { paused = !paused; pauseBtn.textContent = paused ? "Play" : "Pause"; });
+                    function setClass(el, on) { if (!el) return; if (on) el.classList.add("active"); else el.classList.remove("active"); }
+                    function wait(ms) { return new Promise(function (res) { var left = ms; (function tick() { if (!paused) left -= 50; if (left > 0) setTimeout(tick, 50); else res(); })(); }); }
+                    function flash(el, ms) { setClass(el, true); return wait(ms).then(function () { setClass(el, false); }); }
+                    function move(x1, y1, x2, y2, ms) { return new Promise(function (res) { var left = ms; (function step() { if (!paused) left -= 50; var k = Math.min(1, 1 - Math.max(left, 0) / ms); var e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2; var x = x1 + (x2 - x1) * e, y = y1 + (y2 - y1) * e; dotWrap.setAttribute("transform", "translate(" + x + "," + y + ")"); if (left > 0) setTimeout(step, 50); else res(); })(); }); }
+                    function showBadge(text, ok) { badgeText.textContent = text; badge.setAttribute("class", ok ? "kg-ok" : "kg-no"); badge.style.opacity = 1; }
+                    function hideBadge() { badge.style.opacity = 0; }
+                    function pushAudit(line, ok) { audits[0].textContent = audits[1].textContent; audits[1].textContent = audits[2].textContent; audits[2].textContent = line; audits[2].setAttribute("fill", ok ? "#4ade80" : "#f87171"); audits[1].setAttribute("fill", "#64748b"); audits[0].setAttribute("fill", "#334155"); setClass(evBand, true); setTimeout(function () { setClass(evBand, false); }, 700); }
+                    function resetChips() { Object.keys(chips).forEach(function (k) { setClass(chips[k], false); }); Object.keys(callers).forEach(function (k) { setClass(callers[k], false); }); setClass(provider, false); }
+                    var SCEN = [
+                        { c: "chat", y: 282, allow: true, line: "✓ allow · chat → anthropic · metered", badge: "ALLOWED" },
+                        { c: "agent", y: 200, allow: false, line: "✕ block · pii in payload", badge: "BLOCKED · PII" },
+                        { c: "workflow", y: 364, allow: true, line: "✓ allow · workflow → anthropic · metered", badge: "ALLOWED" },
+                        { c: "agent", y: 200, allow: false, line: "✕ block · off-policy target", badge: "BLOCKED · TARGET" }
+                    ];
+                    function runScenario(s, animate) {
+                        resetChips(); hideBadge();
+                        var box = callers[s.c];
+                        setClass(box, true);
+                        if (!animate) {
+                            setClass(chips.identity, true); setClass(chips.policy, true); setClass(chips.allowlist, true); setClass(chips.dlp, true); setClass(chips.metering, true);
+                            pushAudit("✓ allow · chat → anthropic", true);
+                            if (s.allow) setClass(provider, true);
+                            showBadge("ALLOWED", true);
+                            return Promise.resolve();
+                        }
+                        dotWrap.style.opacity = 1;
+                        return move(275, s.y, 455, s.y, 700)
+                            .then(function () { return flash(chips.identity, 550); })
+                            .then(function () { return flash(chips.policy, 650); })
+                            .then(function () { return move(455, s.y, 580, 282, 450); })
+                            .then(function () { return move(580, 282, 660, 282, 350); })
+                            .then(function () { return flash(chips.allowlist, 500); })
+                            .then(function () { return flash(chips.dlp, 500); })
+                            .then(function () { showBadge(s.badge, s.allow); return wait(500); })
+                            .then(function () {
+                                if (s.allow) {
+                                    return move(660, 282, 935, 235, 700)
+                                        .then(function () { setClass(provider, true); return wait(450); })
+                                        .then(function () { return flash(chips.metering, 550); })
+                                        .then(function () { pushAudit(s.line, true); });
+                                }
+                                pushAudit(s.line, false);
+                                return wait(400).then(function () { dotWrap.style.opacity = 0; return wait(500); });
+                            })
+                            .then(function () { dotWrap.style.opacity = 0; setClass(box, false); return wait(1000); });
+                    }
+                    var i = 0;
+                    if (reduced) { runScenario(SCEN[0], false); }
+                    else { (function loop() { var s = SCEN[i % SCEN.length]; i++; runScenario(s, true).then(function () { setTimeout(loop, 150); }); })(); }
+                })();
+                </script>
+
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
+                <div class="bg-darkcard p-5 rounded-xl border border-slate-800">
+                    <p class="text-brand font-mono text-xs mb-1">01</p>
+                    <h4 class="text-sm font-bold text-white mb-1">Sign in with your IdP</h4>
+                    <p class="text-xs text-slate-400">People use Okta/OIDC/SSO — no new passwords. Agents authenticate with workload keys or short-lived leases under their own identity.</p>
+                </div>
+                <div class="bg-darkcard p-5 rounded-xl border border-slate-800">
+                    <p class="text-brand font-mono text-xs mb-1">02</p>
+                    <h4 class="text-sm font-bold text-white mb-1">Approve policy &amp; DLP</h4>
+                    <p class="text-xs text-slate-400">An admin proposes, a super admin approves. Rules are Ed25519-signed, versioned, and rollback-able — nobody edits the enclave by hand.</p>
+                </div>
+                <div class="bg-darkcard p-5 rounded-xl border border-slate-800">
+                    <p class="text-brand font-mono text-xs mb-1">03</p>
+                    <h4 class="text-sm font-bold text-white mb-1">Agents, chat &amp; workflows</h4>
+                    <p class="text-xs text-slate-400">Every governed request — CLI egress, employee chat, scheduled workflow — enters through the control plane with identity attached.</p>
+                </div>
+                <div class="bg-darkcard p-5 rounded-xl border border-slate-800">
+                    <p class="text-brand font-mono text-xs mb-1">04</p>
+                    <h4 class="text-sm font-bold text-white mb-1">The enclave decides</h4>
+                    <p class="text-xs text-slate-400">Inside the Nitro Enclave, the exact action, target, and content are checked against the signed allowlist and DLP rules in isolated memory.</p>
+                </div>
+                <div class="bg-darkcard p-5 rounded-xl border border-slate-800">
+                    <p class="text-brand font-mono text-xs mb-1">05</p>
+                    <h4 class="text-sm font-bold text-white mb-1">Fail closed, then forward</h4>
+                    <p class="text-xs text-slate-400">The receipt and its attestation quote are verified — challenge binding, AWS root chain, PCR0 pin — before forwarding. Blocked requests never reach the target.</p>
+                </div>
+                <div class="bg-darkcard p-5 rounded-xl border border-slate-800">
+                    <p class="text-brand font-mono text-xs mb-1">06</p>
+                    <h4 class="text-sm font-bold text-white mb-1">Everything lands in evidence</h4>
+                    <p class="text-xs text-slate-400">Metering per workload, team, user, and model. Hash-chained audit, exports, and the model-coverage view your auditor can check.</p>
+                </div>
+            </div>
+
             <!-- Product tour: recorded on the shipped release (0.2.x), final brand. -->
             <div class="mt-12 bg-darkcard rounded-xl border border-slate-800 overflow-hidden shadow-2xl shadow-brand/10">
                 <div class="aspect-video">
@@ -288,253 +543,8 @@
     <section id="products" class="py-20 px-6 border-t border-slate-800">
         <div class="max-w-5xl mx-auto">
             <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-4">One enforcement loop</h2>
-            <p class="text-slate-400 text-center max-w-2xl mx-auto mb-12">Every governed action — agent egress, employee chat, workflow step — runs the same loop, in your VPC. Nothing reaches a target without passing it.</p>
-            <div class="bg-darkbg p-4 md:p-6 rounded-xl border border-slate-800 mb-10 overflow-x-auto">
-                <svg id="kg-diagram" viewBox="0 0 1150 620" class="min-w-[900px] w-full h-auto" font-family="Inter, sans-serif" role="img" aria-label="Live architecture: agents, chat, and workflows send every request through the Kavros control plane and the air-gapped AWS Nitro Enclave, which enforces signed policy and DLP and blocks violations before providers are reached.">
-                    <style>
-                        .kg-caller rect { fill: #0f172a; stroke: #334155; stroke-width: 1.5; transition: all .3s; }
-                        .kg-caller.active rect { stroke: #3b82f6; fill: #132033; }
-                        .kg-caller text { transition: fill .3s; }
-                        .kg-chipG rect { fill: #0b1222; stroke: #334155; transition: all .3s; }
-                        .kg-chipG.active rect { stroke: #3b82f6; fill: #14243d; }
-                        .kg-chipG text { fill: #94a3b8; transition: fill .3s; }
-                        .kg-chipG.active text { fill: #e2e8f0; }
-                        .kg-provider rect { fill: #0f172a; stroke: #334155; stroke-width: 1.5; transition: all .3s; }
-                        .kg-provider.active rect { stroke: #22c55e; fill: #0f1f16; }
-                        #kg-badge { transition: opacity .3s; }
-                        #kg-badge.kg-ok rect { stroke: #22c55e; fill: rgba(34,197,94,.12); }
-                        #kg-badge.kg-ok text { fill: #4ade80; }
-                        #kg-badge.kg-no rect { stroke: #ef4444; fill: rgba(239,68,68,.12); }
-                        #kg-badge.kg-no text { fill: #f87171; }
-                    </style>
-                    <defs>
-                        <marker id="arr-brand" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#3b82f6"/></marker>
-                        <marker id="arr-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#22c55e"/></marker>
-                        <marker id="arr-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker>
-                        <marker id="arr-slate" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker>
-                    </defs>
-
-                    <!-- Identity provider (top) -->
-                    <rect x="365" y="52" width="180" height="48" rx="10" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
-                    <text x="455" y="72" text-anchor="middle" fill="#ffffff" font-size="12.5" font-weight="700">Your identity provider</text>
-                    <text x="455" y="90" text-anchor="middle" fill="#94a3b8" font-size="10.5">Okta · OIDC · SAML · SCIM</text>
-                    <line x1="455" y1="100" x2="455" y2="170" stroke="#3b82f6" stroke-width="2" marker-end="url(#arr-brand)"/>
-                    <text x="465" y="140" fill="#64748b" font-size="10">SSO · teams &amp; roles</text>
-
-                    <!-- Callers (left) -->
-                    <text x="155" y="152" text-anchor="middle" fill="#475569" font-size="10" letter-spacing="2">GOVERNED SURFACES</text>
-                    <g id="kg-caller-agent" class="kg-caller">
-                        <rect x="30" y="170" width="250" height="60" rx="10"/>
-                        <text x="155" y="196" text-anchor="middle" fill="#ffffff" font-size="13.5" font-weight="700">AI agents</text>
-                        <text x="155" y="215" text-anchor="middle" fill="#94a3b8" font-size="10.5">workload keys · leases</text>
-                    </g>
-                    <g id="kg-caller-chat" class="kg-caller">
-                        <rect x="30" y="252" width="250" height="60" rx="10"/>
-                        <text x="155" y="278" text-anchor="middle" fill="#ffffff" font-size="13.5" font-weight="700">Employee chat</text>
-                        <text x="155" y="297" text-anchor="middle" fill="#94a3b8" font-size="10.5">SSO users · BYOK models</text>
-                    </g>
-                    <g id="kg-caller-workflow" class="kg-caller">
-                        <rect x="30" y="334" width="250" height="60" rx="10"/>
-                        <text x="155" y="360" text-anchor="middle" fill="#ffffff" font-size="13.5" font-weight="700">Workflows</text>
-                        <text x="155" y="379" text-anchor="middle" fill="#94a3b8" font-size="10.5">approved revisions · schedules</text>
-                    </g>
-                    <line x1="280" y1="200" x2="330" y2="200" stroke="#3b82f6" stroke-width="2" marker-end="url(#arr-brand)"/>
-                    <line x1="280" y1="282" x2="330" y2="282" stroke="#3b82f6" stroke-width="2" marker-end="url(#arr-brand)"/>
-                    <line x1="280" y1="364" x2="330" y2="364" stroke="#3b82f6" stroke-width="2" marker-end="url(#arr-brand)"/>
-
-                    <!-- Control plane (center) -->
-                    <rect x="330" y="170" width="250" height="224" rx="12" fill="#0f172a" stroke="#3b82f6" stroke-width="1.5"/>
-                    <text x="455" y="198" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="700">Kavros control plane</text>
-                    <g id="kg-chip-identity" class="kg-chipG">
-                        <rect x="345" y="212" width="220" height="28" rx="6"/>
-                        <rect x="355" y="222" width="8" height="8" fill="#3b82f6"/>
-                        <text x="371" y="231" font-size="11">Identity · SSO · workload keys</text>
-                    </g>
-                    <g id="kg-chip-policy" class="kg-chipG">
-                        <rect x="345" y="248" width="220" height="28" rx="6"/>
-                        <rect x="355" y="258" width="8" height="8" fill="#f59e0b"/>
-                        <text x="371" y="267" font-size="11">Policy &amp; DLP · Ed25519-signed</text>
-                    </g>
-                    <g id="kg-chip-metering" class="kg-chipG">
-                        <rect x="345" y="284" width="220" height="28" rx="6"/>
-                        <rect x="355" y="294" width="8" height="8" fill="#22c55e"/>
-                        <text x="371" y="303" font-size="11">Metering · quotas · budgets</text>
-                    </g>
-                    <g>
-                        <rect x="345" y="322" width="220" height="60" rx="6" fill="#0b1222" stroke="#1e293b"/>
-                        <text x="353" y="336" fill="#475569" font-size="8.5" letter-spacing="1.5">AUDIT LOG — EVERY DECISION</text>
-                        <text id="kg-audit-1" x="353" y="350" font-family="Menlo, monospace" font-size="9" fill="#334155">—</text>
-                        <text id="kg-audit-2" x="353" y="362" font-family="Menlo, monospace" font-size="9" fill="#334155">—</text>
-                        <text id="kg-audit-3" x="353" y="374" font-family="Menlo, monospace" font-size="9" fill="#334155">—</text>
-                    </g>
-
-                    <!-- Signed policy + forward arrows -->
-                    <line x1="580" y1="226" x2="650" y2="226" stroke="#22c55e" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arr-green)"/>
-                    <text x="615" y="216" text-anchor="middle" fill="#22c55e" font-size="10">signed policy</text>
-                    <line x1="580" y1="282" x2="650" y2="282" stroke="#3b82f6" stroke-width="2" marker-end="url(#arr-brand)"/>
-                    <text x="615" y="272" text-anchor="middle" fill="#93c5fd" font-size="10">forward</text>
-
-                    <!-- Data plane + enclave (right of center) -->
-                    <rect x="650" y="170" width="250" height="224" rx="12" fill="#0f172a" stroke="#3b82f6" stroke-width="1.5"/>
-                    <text x="775" y="198" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="700">Data plane — your VPC</text>
-                    <rect x="666" y="210" width="218" height="136" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="4 3"/>
-                    <text x="775" y="232" text-anchor="middle" fill="#60a5fa" font-size="12.5" font-weight="700">AWS Nitro Enclave</text>
-                    <g id="kg-chip-allowlist" class="kg-chipG">
-                        <rect x="686" y="242" width="178" height="24" rx="5"/>
-                        <text x="775" y="258" text-anchor="middle" font-size="10.5">Allowlist evaluation</text>
-                    </g>
-                    <g id="kg-chip-dlp" class="kg-chipG">
-                        <rect x="686" y="272" width="178" height="24" rx="5"/>
-                        <text x="775" y="288" text-anchor="middle" font-size="10.5">DLP inspection</text>
-                    </g>
-                    <text x="775" y="316" text-anchor="middle" fill="#cbd5e1" font-size="10">signed receipts · attestation quote · PCR0 pin</text>
-                    <text x="775" y="333" text-anchor="middle" fill="#64748b" font-size="9.5">fail closed before anything forwards</text>
-
-                    <!-- Air-gap badge: no external access -->
-                    <g>
-                        <rect x="686" y="352" width="178" height="34" rx="6" fill="rgba(34,211,238,.06)" stroke="#22d3ee" stroke-width="1" stroke-dasharray="3 3"/>
-                        <rect x="697" y="363" width="11" height="9" rx="1.5" fill="none" stroke="#22d3ee" stroke-width="1.3"/>
-                        <path d="M699.5,363 v-3 a3.5,3.5 0 0 1 7,0 v3" fill="none" stroke="#22d3ee" stroke-width="1.3"/>
-                        <text x="715" y="368" fill="#67e8f9" font-size="9" font-weight="700" letter-spacing="1">NO EXTERNAL ACCESS</text>
-                        <text x="715" y="381" fill="#94a3b8" font-size="9">policy cannot be tampered with</text>
-                    </g>
-
-                    <!-- Providers (right) -->
-                    <text x="1035" y="178" text-anchor="middle" fill="#475569" font-size="10" letter-spacing="2">TARGETS</text>
-                    <g id="kg-provider" class="kg-provider">
-                        <rect x="950" y="190" width="170" height="90" rx="10"/>
-                        <text x="1035" y="224" text-anchor="middle" fill="#ffffff" font-size="13.5" font-weight="700">Model providers</text>
-                        <text x="1035" y="244" text-anchor="middle" fill="#94a3b8" font-size="10.5">Anthropic · OpenAI</text>
-                        <text x="1035" y="262" text-anchor="middle" fill="#94a3b8" font-size="10.5">tools · APIs</text>
-                    </g>
-                    <line x1="900" y1="235" x2="950" y2="235" stroke="#22c55e" stroke-width="2" marker-end="url(#arr-green)"/>
-                    <text x="925" y="223" text-anchor="middle" fill="#22c55e" font-size="10">allow →</text>
-                    <line x1="900" y1="300" x2="940" y2="300" stroke="#ef4444" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arr-red)"/>
-                    <text x="920" y="318" text-anchor="middle" fill="#ef4444" font-size="10">✕ blocked</text>
-
-                    <!-- Verdict badge (dynamic) -->
-                    <g id="kg-badge" opacity="0">
-                        <rect x="688" y="118" width="154" height="32" rx="8" stroke-width="1.5"/>
-                        <text id="kg-badge-text" x="765" y="139" text-anchor="middle" font-size="11.5" font-weight="700" letter-spacing="1"></text>
-                    </g>
-
-                    <!-- Moving message dot -->
-                    <g id="kg-dot-wrap" opacity="0">
-                        <circle r="9" fill="#3b82f6" opacity="0.25"/>
-                        <circle r="4.5" fill="#93c5fd"/>
-                    </g>
-
-                    <!-- Evidence band -->
-                    <rect x="330" y="470" width="570" height="84" rx="12" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
-                    <text x="615" y="502" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="700">Audit &amp; evidence</text>
-                    <text x="615" y="524" text-anchor="middle" fill="#94a3b8" font-size="11">every decision hash-chained · metering per workload / team / user / model</text>
-                    <text x="615" y="542" text-anchor="middle" fill="#94a3b8" font-size="11">SOC 2-style exports · model-coverage view · verify it yourself</text>
-                    <line x1="455" y1="394" x2="510" y2="470" stroke="#64748b" stroke-width="2" marker-end="url(#arr-slate)"/>
-                    <line x1="775" y1="394" x2="720" y2="470" stroke="#64748b" stroke-width="2" marker-end="url(#arr-slate)"/>
-                </svg>
-                <div class="flex justify-end mt-2">
-                    <button id="kg-pause" class="text-[10px] font-mono uppercase tracking-wider text-slate-500 hover:text-slate-300 border border-slate-700 rounded px-2 py-1">Pause</button>
-                </div>
-                <script>
-                (function () {
-                    var svg = document.getElementById("kg-diagram");
-                    if (!svg) return;
-                    var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-                    var dotWrap = document.getElementById("kg-dot-wrap");
-                    var badge = document.getElementById("kg-badge");
-                    var badgeText = document.getElementById("kg-badge-text");
-                    var provider = document.getElementById("kg-provider");
-                    var audits = [document.getElementById("kg-audit-1"), document.getElementById("kg-audit-2"), document.getElementById("kg-audit-3")];
-                    var chips = { identity: document.getElementById("kg-chip-identity"), policy: document.getElementById("kg-chip-policy"), allowlist: document.getElementById("kg-chip-allowlist"), dlp: document.getElementById("kg-chip-dlp") };
-                    var callers = { agent: document.getElementById("kg-caller-agent"), chat: document.getElementById("kg-caller-chat"), workflow: document.getElementById("kg-caller-workflow") };
-                    var paused = false;
-                    var pauseBtn = document.getElementById("kg-pause");
-                    if (pauseBtn) pauseBtn.addEventListener("click", function () { paused = !paused; pauseBtn.textContent = paused ? "Play" : "Pause"; });
-                    function setClass(el, on) { if (!el) return; if (on) el.classList.add("active"); else el.classList.remove("active"); }
-                    function wait(ms) { return new Promise(function (res) { var left = ms; (function tick() { if (!paused) left -= 50; if (left > 0) setTimeout(tick, 50); else res(); })(); }); }
-                    function flash(el, ms) { setClass(el, true); return wait(ms).then(function () { setClass(el, false); }); }
-                    function move(x1, y1, x2, y2, ms) { return new Promise(function (res) { var left = ms; (function step() { if (!paused) left -= 50; var k = Math.min(1, 1 - Math.max(left, 0) / ms); var e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2; var x = x1 + (x2 - x1) * e, y = y1 + (y2 - y1) * e; dotWrap.setAttribute("transform", "translate(" + x + "," + y + ")"); if (left > 0) setTimeout(step, 50); else res(); })(); }); }
-                    function showBadge(text, ok) { badgeText.textContent = text; badge.setAttribute("class", ok ? "kg-ok" : "kg-no"); badge.style.opacity = 1; }
-                    function hideBadge() { badge.style.opacity = 0; }
-                    function pushAudit(line, ok) { audits[0].textContent = audits[1].textContent; audits[1].textContent = audits[2].textContent; audits[2].textContent = line; audits[2].setAttribute("fill", ok ? "#4ade80" : "#f87171"); audits[1].setAttribute("fill", "#64748b"); audits[0].setAttribute("fill", "#334155"); }
-                    function resetChips() { Object.keys(chips).forEach(function (k) { setClass(chips[k], false); }); Object.keys(callers).forEach(function (k) { setClass(callers[k], false); }); setClass(provider, false); }
-                    var SCEN = [
-                        { c: "chat", y: 282, allow: true, line: "✓ allow · chat → anthropic", badge: "ALLOWED" },
-                        { c: "agent", y: 200, allow: false, line: "✕ block · pii in payload", badge: "BLOCKED · PII" },
-                        { c: "workflow", y: 364, allow: true, line: "✓ allow · workflow → anthropic", badge: "ALLOWED" },
-                        { c: "agent", y: 200, allow: false, line: "✕ block · off-policy target", badge: "BLOCKED · TARGET" }
-                    ];
-                    function runScenario(s, animate) {
-                        resetChips(); hideBadge();
-                        var box = callers[s.c];
-                        setClass(box, true);
-                        if (!animate) {
-                            setClass(chips.identity, true); setClass(chips.policy, true); setClass(chips.allowlist, true); setClass(chips.dlp, true);
-                            pushAudit("✓ allow · chat → anthropic", true);
-                            if (s.allow) setClass(provider, true);
-                            showBadge("ALLOWED", true);
-                            return Promise.resolve();
-                        }
-                        dotWrap.style.opacity = 1;
-                        return move(275, s.y, 455, s.y, 700)
-                            .then(function () { return flash(chips.identity, 550); })
-                            .then(function () { return flash(chips.policy, 650); })
-                            .then(function () { return move(455, s.y, 580, 282, 450); })
-                            .then(function () { return move(580, 282, 660, 282, 350); })
-                            .then(function () { return flash(chips.allowlist, 500); })
-                            .then(function () { return flash(chips.dlp, 500); })
-                            .then(function () { showBadge(s.badge, s.allow); return wait(500); })
-                            .then(function () {
-                                if (s.allow) {
-                                    return move(660, 282, 935, 235, 700)
-                                        .then(function () { setClass(provider, true); return wait(450); })
-                                        .then(function () { pushAudit(s.line, true); });
-                                }
-                                pushAudit(s.line, false);
-                                return wait(400).then(function () { dotWrap.style.opacity = 0; return wait(500); });
-                            })
-                            .then(function () { dotWrap.style.opacity = 0; setClass(box, false); return wait(1000); });
-                    }
-                    var i = 0;
-                    if (reduced) { runScenario(SCEN[0], false); }
-                    else { (function loop() { var s = SCEN[i % SCEN.length]; i++; runScenario(s, true).then(function () { setTimeout(loop, 150); }); })(); }
-                })();
-                </script>
-
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
-                <div class="bg-darkcard p-5 rounded-xl border border-slate-800">
-                    <p class="text-brand font-mono text-xs mb-1">01</p>
-                    <h4 class="text-sm font-bold text-white mb-1">Sign in with your IdP</h4>
-                    <p class="text-xs text-slate-400">People use Okta/OIDC/SSO — no new passwords. Agents authenticate with workload keys or short-lived leases under their own identity.</p>
-                </div>
-                <div class="bg-darkcard p-5 rounded-xl border border-slate-800">
-                    <p class="text-brand font-mono text-xs mb-1">02</p>
-                    <h4 class="text-sm font-bold text-white mb-1">Approve policy &amp; DLP</h4>
-                    <p class="text-xs text-slate-400">An admin proposes, a super admin approves. Rules are Ed25519-signed, versioned, and rollback-able — nobody edits the enclave by hand.</p>
-                </div>
-                <div class="bg-darkcard p-5 rounded-xl border border-slate-800">
-                    <p class="text-brand font-mono text-xs mb-1">03</p>
-                    <h4 class="text-sm font-bold text-white mb-1">Agents, chat &amp; workflows</h4>
-                    <p class="text-xs text-slate-400">Every governed request — CLI egress, employee chat, scheduled workflow — enters through the control plane with identity attached.</p>
-                </div>
-                <div class="bg-darkcard p-5 rounded-xl border border-slate-800">
-                    <p class="text-brand font-mono text-xs mb-1">04</p>
-                    <h4 class="text-sm font-bold text-white mb-1">The enclave decides</h4>
-                    <p class="text-xs text-slate-400">Inside the Nitro Enclave, the exact action, target, and content are checked against the signed allowlist and DLP rules in isolated memory.</p>
-                </div>
-                <div class="bg-darkcard p-5 rounded-xl border border-slate-800">
-                    <p class="text-brand font-mono text-xs mb-1">05</p>
-                    <h4 class="text-sm font-bold text-white mb-1">Fail closed, then forward</h4>
-                    <p class="text-xs text-slate-400">The receipt and its attestation quote are verified — challenge binding, AWS root chain, PCR0 pin — before forwarding. Blocked requests never reach the target.</p>
-                </div>
-                <div class="bg-darkcard p-5 rounded-xl border border-slate-800">
-                    <p class="text-brand font-mono text-xs mb-1">06</p>
-                    <h4 class="text-sm font-bold text-white mb-1">Everything lands in evidence</h4>
-                    <p class="text-xs text-slate-400">Metering per workload, team, user, and model. Hash-chained audit, exports, and the model-coverage view your auditor can check.</p>
-                </div>
-            </div>
+            <p class="text-slate-400 text-center max-w-2xl mx-auto mb-12">The live diagram above is the real path every governed action takes — agent egress, employee chat, workflow step — in your VPC. Nothing reaches a target without passing it. Here's what ships around that loop.</p>
+            
             <p class="text-slate-400 text-center max-w-2xl mx-auto mb-8">One control plane for two AI surfaces: autonomous agent security and governed employee AI access. Policy, usage, routing, incidents, and evidence stay together.</p>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div class="bg-darkcard p-8 rounded-xl border border-slate-800 hover:border-brand/50 transition">
@@ -768,7 +778,6 @@
         </div>
     </section>
 
-
     <!-- Footer -->
     <footer class="py-8 px-6 border-t border-slate-800">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center">
@@ -826,7 +835,6 @@
 <!-- Goat counter analytics -->
 <script data-goatcounter="https://stats.kavros.ai/count"
        async src="/count.js"></script>
-
 
     <script>
         document.getElementById('menu-btn').addEventListener('click', function() {
