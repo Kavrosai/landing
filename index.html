@@ -289,24 +289,130 @@
         <div class="max-w-5xl mx-auto">
             <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-4">One enforcement loop</h2>
             <p class="text-slate-400 text-center max-w-2xl mx-auto mb-12">Every governed action — agent egress, employee chat, workflow step — runs the same loop, in your VPC. Nothing reaches a target without passing it.</p>
-            <div class="bg-darkbg p-8 rounded-xl border border-slate-800 font-mono text-sm text-slate-400 overflow-x-auto mb-12">
-                <div class="flex items-center gap-3 mb-4 flex-wrap">
-                    <span class="bg-slate-800 px-3 py-1 rounded text-brand">1. Agent acts</span>
-                    <span class="text-slate-600">→</span>
-                    <span class="bg-slate-800 px-3 py-1 rounded text-brand">2. Typed capability</span>
-                    <span class="text-slate-600">→</span>
-                    <span class="bg-slate-800 px-3 py-1 rounded text-brand">3. Signed policy</span>
-                    <span class="text-slate-600">→</span>
-                    <span class="bg-slate-800 px-3 py-1 rounded text-brand">4. Enclave + DLP evaluate</span>
-                    <span class="text-slate-600">→</span>
-                    <span class="bg-slate-800 px-3 py-1 rounded text-brand">5. Allow / block</span>
-                    <span class="text-slate-600">→</span>
-                    <span class="bg-slate-800 px-3 py-1 rounded text-brand">6. Evidence</span>
+            <div class="bg-darkbg p-4 md:p-6 rounded-xl border border-slate-800 mb-10 overflow-x-auto">
+                <svg viewBox="0 0 1150 600" class="min-w-[900px] w-full h-auto" font-family="Inter, sans-serif" role="img" aria-label="Architecture: identity provider, control plane, data plane enclave, providers, and audit evidence">
+                    <defs>
+                        <marker id="arr-brand" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#3b82f6"/></marker>
+                        <marker id="arr-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#22c55e"/></marker>
+                        <marker id="arr-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker>
+                        <marker id="arr-slate" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker>
+                    </defs>
+
+                    <!-- Identity provider -->
+                    <rect x="30" y="50" width="250" height="70" rx="10" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+                    <text x="155" y="79" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="700">Your identity provider</text>
+                    <text x="155" y="100" text-anchor="middle" fill="#94a3b8" font-size="11">Okta · OIDC · SAML</text>
+
+                    <!-- Dashboard -->
+                    <rect x="330" y="50" width="250" height="70" rx="10" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+                    <text x="455" y="79" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="700">Kavros dashboard</text>
+                    <text x="455" y="100" text-anchor="middle" fill="#94a3b8" font-size="11">approve policy &amp; DLP · two-person</text>
+
+                    <!-- Surfaces -->
+                    <rect x="30" y="170" width="250" height="60" rx="10" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+                    <text x="155" y="196" text-anchor="middle" fill="#ffffff" font-size="13.5" font-weight="700">AI agents</text>
+                    <text x="155" y="215" text-anchor="middle" fill="#94a3b8" font-size="11">workload keys · brokered leases</text>
+                    <rect x="30" y="252" width="250" height="60" rx="10" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+                    <text x="155" y="278" text-anchor="middle" fill="#ffffff" font-size="13.5" font-weight="700">Employee chat</text>
+                    <text x="155" y="297" text-anchor="middle" fill="#94a3b8" font-size="11">SSO users · BYOK models</text>
+                    <rect x="30" y="334" width="250" height="60" rx="10" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+                    <text x="155" y="360" text-anchor="middle" fill="#ffffff" font-size="13.5" font-weight="700">Workflows</text>
+                    <text x="155" y="379" text-anchor="middle" fill="#94a3b8" font-size="11">approved revisions · schedules</text>
+
+                    <!-- Control plane -->
+                    <rect x="330" y="170" width="250" height="224" rx="12" fill="#0f172a" stroke="#3b82f6" stroke-width="1.5"/>
+                    <text x="455" y="198" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="700">Control plane</text>
+                    <text x="455" y="230" text-anchor="middle" fill="#cbd5e1" font-size="11.5">Policy &amp; DLP service</text>
+                    <text x="455" y="252" text-anchor="middle" fill="#cbd5e1" font-size="11.5">Ed25519 policy signer</text>
+                    <text x="455" y="274" text-anchor="middle" fill="#cbd5e1" font-size="11.5">Identity · roles · workloads</text>
+                    <text x="455" y="296" text-anchor="middle" fill="#cbd5e1" font-size="11.5">Metering · quotas · budgets</text>
+                    <text x="455" y="318" text-anchor="middle" fill="#cbd5e1" font-size="11.5">Model routing (BYOK)</text>
+                    <text x="455" y="340" text-anchor="middle" fill="#cbd5e1" font-size="11.5">Model-coverage view</text>
+                    <text x="455" y="362" text-anchor="middle" fill="#cbd5e1" font-size="11.5">Incidents · kill switch</text>
+
+                    <!-- Data plane -->
+                    <rect x="640" y="170" width="250" height="224" rx="12" fill="#0f172a" stroke="#3b82f6" stroke-width="1.5"/>
+                    <text x="765" y="198" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="700">Data plane — your VPC</text>
+                    <rect x="656" y="212" width="218" height="132" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="4 3"/>
+                    <text x="765" y="236" text-anchor="middle" fill="#60a5fa" font-size="12.5" font-weight="700">AWS Nitro Enclave</text>
+                    <text x="765" y="260" text-anchor="middle" fill="#cbd5e1" font-size="11.5">Allowlist + DLP evaluation</text>
+                    <text x="765" y="282" text-anchor="middle" fill="#cbd5e1" font-size="11.5">Verifies signed policy</text>
+                    <text x="765" y="304" text-anchor="middle" fill="#cbd5e1" font-size="11.5">Signed decision receipts</text>
+                    <text x="765" y="326" text-anchor="middle" fill="#cbd5e1" font-size="11.5">Attestation quote · PCR0 pin</text>
+                    <text x="765" y="372" text-anchor="middle" fill="#94a3b8" font-size="11">fail closed before anything forwards</text>
+
+                    <!-- Targets -->
+                    <rect x="940" y="190" width="180" height="90" rx="10" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+                    <text x="1030" y="224" text-anchor="middle" fill="#ffffff" font-size="13.5" font-weight="700">Model providers</text>
+                    <text x="1030" y="244" text-anchor="middle" fill="#94a3b8" font-size="11">Anthropic · OpenAI</text>
+                    <text x="1030" y="262" text-anchor="middle" fill="#94a3b8" font-size="11">tools · APIs</text>
+
+                    <!-- Evidence band -->
+                    <rect x="330" y="470" width="560" height="84" rx="12" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+                    <text x="610" y="502" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="700">Audit &amp; evidence</text>
+                    <text x="610" y="524" text-anchor="middle" fill="#94a3b8" font-size="11.5">every decision hash-chained · metering per workload/team/user/model</text>
+                    <text x="610" y="542" text-anchor="middle" fill="#94a3b8" font-size="11.5">SOC 2-style exports · coverage view · verify it yourself</text>
+
+                    <!-- Arrows -->
+                    <line x1="280" y1="85" x2="330" y2="85" stroke="#3b82f6" stroke-width="2" marker-end="url(#arr-brand)"/>
+                    <line x1="455" y1="120" x2="455" y2="170" stroke="#3b82f6" stroke-width="2" marker-end="url(#arr-brand)"/>
+                    <line x1="280" y1="200" x2="330" y2="200" stroke="#3b82f6" stroke-width="2" marker-end="url(#arr-brand)"/>
+                    <line x1="280" y1="282" x2="330" y2="282" stroke="#3b82f6" stroke-width="2" marker-end="url(#arr-brand)"/>
+                    <line x1="280" y1="364" x2="330" y2="364" stroke="#3b82f6" stroke-width="2" marker-end="url(#arr-brand)"/>
+                    <line x1="580" y1="230" x2="640" y2="230" stroke="#22c55e" stroke-width="2" marker-end="url(#arr-green)"/>
+                    <text x="610" y="218" text-anchor="middle" fill="#22c55e" font-size="10.5">signed policy</text>
+                    <line x1="580" y1="310" x2="640" y2="310" stroke="#3b82f6" stroke-width="2" marker-end="url(#arr-brand)"/>
+                    <text x="610" y="298" text-anchor="middle" fill="#93c5fd" font-size="10.5">forward request</text>
+                    <line x1="890" y1="235" x2="940" y2="235" stroke="#22c55e" stroke-width="2" marker-end="url(#arr-green)"/>
+                    <text x="915" y="223" text-anchor="middle" fill="#22c55e" font-size="10.5">allow →</text>
+                    <line x1="890" y1="300" x2="940" y2="300" stroke="#ef4444" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arr-red)"/>
+                    <text x="903" y="318" text-anchor="middle" fill="#ef4444" font-size="10.5">✕ blocked</text>
+                    <line x1="765" y1="394" x2="720" y2="470" stroke="#64748b" stroke-width="2" marker-end="url(#arr-slate)"/>
+                    <line x1="455" y1="394" x2="510" y2="470" stroke="#64748b" stroke-width="2" marker-end="url(#arr-slate)"/>
+
+                    <!-- Step badges -->
+                    <g font-size="11" font-weight="700" text-anchor="middle">
+                        <circle cx="305" cy="85" r="11" fill="#020617" stroke="#3b82f6"/><text x="305" y="89" fill="#60a5fa">1</text>
+                        <circle cx="455" cy="145" r="11" fill="#020617" stroke="#3b82f6"/><text x="455" y="149" fill="#60a5fa">2</text>
+                        <circle cx="305" cy="364" r="11" fill="#020617" stroke="#3b82f6"/><text x="305" y="368" fill="#60a5fa">3</text>
+                        <circle cx="610" cy="310" r="11" fill="#020617" stroke="#3b82f6"/><text x="610" y="314" fill="#60a5fa">4</text>
+                        <circle cx="915" cy="268" r="11" fill="#020617" stroke="#3b82f6"/><text x="915" y="272" fill="#60a5fa">5</text>
+                        <circle cx="610" cy="445" r="11" fill="#020617" stroke="#3b82f6"/><text x="610" y="449" fill="#60a5fa">6</text>
+                    </g>
+                </svg>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
+                <div class="bg-darkcard p-5 rounded-xl border border-slate-800">
+                    <p class="text-brand font-mono text-xs mb-1">01</p>
+                    <h4 class="text-sm font-bold text-white mb-1">Sign in with your IdP</h4>
+                    <p class="text-xs text-slate-400">People use Okta/OIDC/SSO — no new passwords. Agents authenticate with workload keys or short-lived leases under their own identity.</p>
                 </div>
-                <p class="text-green-400 mb-2">// If allowed:</p>
-                <p class="mb-4">Action proceeds. Attestation document generated. Metering recorded.</p>
-                <p class="text-red-400 mb-2">// If not:</p>
-                <p>Blocked before the target is reached. Plain-language reason. Evidence logged.</p>
+                <div class="bg-darkcard p-5 rounded-xl border border-slate-800">
+                    <p class="text-brand font-mono text-xs mb-1">02</p>
+                    <h4 class="text-sm font-bold text-white mb-1">Approve policy &amp; DLP</h4>
+                    <p class="text-xs text-slate-400">An admin proposes, a super admin approves. Rules are Ed25519-signed, versioned, and rollback-able — nobody edits the enclave by hand.</p>
+                </div>
+                <div class="bg-darkcard p-5 rounded-xl border border-slate-800">
+                    <p class="text-brand font-mono text-xs mb-1">03</p>
+                    <h4 class="text-sm font-bold text-white mb-1">Agents, chat &amp; workflows</h4>
+                    <p class="text-xs text-slate-400">Every governed request — CLI egress, employee chat, scheduled workflow — enters through the control plane with identity attached.</p>
+                </div>
+                <div class="bg-darkcard p-5 rounded-xl border border-slate-800">
+                    <p class="text-brand font-mono text-xs mb-1">04</p>
+                    <h4 class="text-sm font-bold text-white mb-1">The enclave decides</h4>
+                    <p class="text-xs text-slate-400">Inside the Nitro Enclave, the exact action, target, and content are checked against the signed allowlist and DLP rules in isolated memory.</p>
+                </div>
+                <div class="bg-darkcard p-5 rounded-xl border border-slate-800">
+                    <p class="text-brand font-mono text-xs mb-1">05</p>
+                    <h4 class="text-sm font-bold text-white mb-1">Fail closed, then forward</h4>
+                    <p class="text-xs text-slate-400">The receipt and its attestation quote are verified — challenge binding, AWS root chain, PCR0 pin — before forwarding. Blocked requests never reach the target.</p>
+                </div>
+                <div class="bg-darkcard p-5 rounded-xl border border-slate-800">
+                    <p class="text-brand font-mono text-xs mb-1">06</p>
+                    <h4 class="text-sm font-bold text-white mb-1">Everything lands in evidence</h4>
+                    <p class="text-xs text-slate-400">Metering per workload, team, user, and model. Hash-chained audit, exports, and the model-coverage view your auditor can check.</p>
+                </div>
             </div>
             <p class="text-slate-400 text-center max-w-2xl mx-auto mb-8">One control plane for two AI surfaces: autonomous agent security and governed employee AI access. Policy, usage, routing, incidents, and evidence stay together.</p>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
