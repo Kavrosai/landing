@@ -33,10 +33,10 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://kavros.ai/og-image.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-    <style>body { background-color: #020617; }</style>
+    <style>body { background-color: #f8fafc; }</style>
 </head>
 
-<body class="text-slate-600 font-sans antialiased">
+<body class="bg-page text-slate-600 font-sans antialiased">
 
     <!-- Navbar -->
     <nav class="fixed w-full bg-white/80 backdrop-blur-md z-50 border-b border-slate-200">
@@ -50,9 +50,11 @@
                 <a href="index.html#products" class="hover:text-slate-900 transition">Products</a>
                 <a href="index.html#problem" class="hover:text-slate-900 transition">The Problem</a>
                 <a href="index.html#solution" class="hover:text-slate-900 transition">Solution</a>
+                <a href="index.html#pricing" class="hover:text-slate-900 transition">Pricing</a>
                 <a href="sandbox.html" class="hover:text-slate-900 transition">Sandbox</a>
                 <a href="blog.html" class="text-brand font-bold transition">Blog</a>
                 <a href="security.html" class="hover:text-slate-900 transition">Security</a>
+                <a href="https://docs.kavros.ai" class="hover:text-slate-900 transition">Docs</a>
                 <a href="sandbox.html" class="bg-brand hover:bg-blue-500 text-white px-4 py-2 rounded-md font-medium transition">Interactive Demo</a>
             </div>
             <!-- Mobile Hamburger Button -->
@@ -65,9 +67,11 @@
             <a href="index.html#products" class="block hover:text-slate-900 transition">Products</a>
             <a href="index.html#problem" class="block hover:text-slate-900 transition">The Problem</a>
             <a href="index.html#solution" class="block hover:text-slate-900 transition">Solution</a>
+            <a href="index.html#pricing" class="block hover:text-slate-900 transition">Pricing</a>
             <a href="sandbox.html" class="block hover:text-slate-900 transition">Sandbox</a>
-            <a href="blog.html" class="text-brand font-bold transition">Blog</a>
+            <a href="blog.html" class="block text-brand font-bold transition">Blog</a>
             <a href="security.html" class="block hover:text-slate-900 transition">Security</a>
+            <a href="https://docs.kavros.ai" class="block hover:text-slate-900 transition">Docs</a>
             <a href="sandbox.html" class="bg-brand hover:bg-blue-500 text-white px-4 py-2 rounded-md font-medium transition text-center">Interactive Demo</a>
         </div>
     </nav>
@@ -85,7 +89,7 @@
         <div class="max-w-3xl mx-auto space-y-6 text-slate-400 leading-relaxed">
 
             <a href="prove-what-your-agent-touched.html" class="block bg-card p-8 rounded-xl border border-brand/40 hover:border-brand transition mb-12">
-                <span class="text-xs font-mono text-brand bg-blue-900/20 px-2 py-1 rounded">Technical Brief · New</span>
+                <span class="text-xs font-mono text-blue-700 bg-blue-100 px-2 py-1 rounded">Technical Brief · New</span>
                 <h2 class="text-3xl font-extrabold text-slate-900 mt-4 mb-2 leading-tight">Can you prove what your AI agent touched?</h2>
                 <p class="text-slate-400 italic mb-4">The four questions every security review asks about AI agents — and the architecture that answers them with evidence, not screenshots. Includes the section most vendors skip: what we do NOT claim.</p>
                 <div class="flex items-center text-xs text-slate-500">
@@ -98,7 +102,7 @@
             </a>
 
                         <a href="plain-english-to-signed-scheduled-run.html" class="block bg-card p-8 rounded-xl border border-slate-200 hover:border-brand/50 transition">
-                <span class="text-xs font-mono text-brand bg-blue-900/20 px-2 py-1 rounded">Workflows · Part 1 of 2</span>
+                <span class="text-xs font-mono text-blue-700 bg-blue-100 px-2 py-1 rounded">Workflows · Part 1 of 2</span>
                 <h2 class="text-3xl font-extrabold text-slate-900 mt-4 mb-2 leading-tight">From plain English to a signed, scheduled run</h2>
                 <p class="text-slate-400 italic mb-4">How a non-programmer's request becomes an Ed25519-signed workflow revision — composed capabilities, human approval, a durable schedule that can't change anything, and evidence of every run.</p>
                 <div class="flex items-center text-xs text-slate-500">
@@ -111,7 +115,7 @@
             </a>
 
                         <a href="how-workflow-drift-is-caught.html" class="block bg-card p-8 rounded-xl border border-slate-200 hover:border-brand/50 transition">
-                <span class="text-xs font-mono text-brand bg-blue-900/20 px-2 py-1 rounded">Workflows · Part 2 of 2</span>
+                <span class="text-xs font-mono text-blue-700 bg-blue-100 px-2 py-1 rounded">Workflows · Part 2 of 2</span>
                 <h2 class="text-3xl font-extrabold text-slate-900 mt-4 mb-2 leading-tight">How workflow drift is caught: flagged, gated, suspended</h2>
                 <p class="text-slate-400 italic mb-4">Capability changes after approval are flagged at the governance gates; source schema drift suspends the capability — every call refused before any query executes. Both tiers, verified on a live deployment.</p>
                 <div class="flex items-center text-xs text-slate-500">
@@ -124,7 +128,7 @@
             </a>
 
                         <a href="cve-2026-21852.html" class="block bg-card p-8 rounded-xl border border-slate-200 hover:border-brand/50 transition">
-                <span class="text-xs font-mono text-brand bg-blue-900/20 px-2 py-1 rounded">Case Study</span>
+                <span class="text-xs font-mono text-blue-700 bg-blue-100 px-2 py-1 rounded">Case Study</span>
                 <h2 class="text-3xl font-extrabold text-slate-900 mt-4 mb-2 leading-tight">CVE-2026-21852: How Cursor's AI Agent Mode Was Compromised</h2>
                 <p class="text-slate-400 italic mb-4">Why prompt injection in agentic systems is fundamentally different from traditional injection attacks — and why your API gateway, WAF, and IAM can't see the problem.</p>
                 <div class="flex items-center text-xs text-slate-500">
