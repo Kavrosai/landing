@@ -131,22 +131,22 @@
             <div class="bg-page p-4 md:p-6 rounded-xl border border-slate-200 mb-10 overflow-x-auto">
                 <svg id="kg-diagram" viewBox="0 0 1150 620" class="min-w-[900px] w-full h-auto" font-family="Inter, sans-serif" role="img" aria-label="Live architecture: agents, chat, and workflows send every request through the Kavros control plane and the air-gapped AWS Nitro Enclave, which enforces signed policy and DLP and blocks violations before providers are reached.">
                     <style>
-                        .kg-caller rect { fill: #0f172a; stroke: #334155; stroke-width: 1.5; transition: all .3s; }
-                        .kg-caller.active rect { stroke: #3b82f6; fill: #132033; }
+                        .kg-caller rect { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; transition: all .3s; }
+                        .kg-caller.active rect { stroke: #3b82f6; fill: #eff6ff; }
                         .kg-caller text { transition: fill .3s; }
-                        .kg-chipG rect { fill: #0b1222; stroke: #334155; transition: all .3s; }
-                        .kg-chipG.active rect { stroke: #3b82f6; fill: #14243d; }
-                        .kg-chipG text { fill: #94a3b8; transition: fill .3s; }
-                        .kg-chipG.active text { fill: #e2e8f0; }
-                        .kg-provider rect { fill: #0f172a; stroke: #334155; stroke-width: 1.5; transition: all .3s; }
-                        .kg-provider.active rect { stroke: #22c55e; fill: #0f1f16; }
+                        .kg-chipG rect { fill: #f1f5f9; stroke: #e2e8f0; transition: all .3s; }
+                        .kg-chipG.active rect { stroke: #3b82f6; fill: #dbeafe; }
+                        .kg-chipG text { fill: #475569; transition: fill .3s; }
+                        .kg-chipG.active text { fill: #1d4ed8; }
+                        .kg-provider rect { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; transition: all .3s; }
+                        .kg-provider.active rect { stroke: #22c55e; fill: #f0fdf4; }
                         .kg-evband { transition: stroke .3s; }
                         .kg-evband.active { stroke: #3b82f6; }
                         #kg-badge { transition: opacity .3s; }
                         #kg-badge.kg-ok rect { stroke: #22c55e; fill: rgba(34,197,94,.12); }
-                        #kg-badge.kg-ok text { fill: #4ade80; }
+                        #kg-badge.kg-ok text { fill: #16a34a; }
                         #kg-badge.kg-no rect { stroke: #ef4444; fill: rgba(239,68,68,.12); }
-                        #kg-badge.kg-no text { fill: #f87171; }
+                        #kg-badge.kg-no text { fill: #dc2626; }
                     </style>
                     <defs>
                         <marker id="arr-brand" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#3b82f6"/></marker>
@@ -156,9 +156,9 @@
                     </defs>
 
                     <!-- Identity provider (top) -->
-                    <rect x="365" y="52" width="180" height="48" rx="10" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
-                    <text x="455" y="72" text-anchor="middle" fill="#ffffff" font-size="12.5" font-weight="700">Your identity provider</text>
-                    <text x="455" y="90" text-anchor="middle" fill="#94a3b8" font-size="10.5">Okta · OIDC · SAML · SCIM</text>
+                    <rect x="365" y="52" width="180" height="48" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+                    <text x="455" y="72" text-anchor="middle" fill="#0f172a" font-size="12.5" font-weight="700">Your identity provider</text>
+                    <text x="455" y="90" text-anchor="middle" fill="#64748b" font-size="10.5">Okta · OIDC · SAML · SCIM</text>
                     <line x1="455" y1="100" x2="455" y2="170" stroke="#3b82f6" stroke-width="2" marker-end="url(#arr-brand)"/>
                     <text x="465" y="140" fill="#64748b" font-size="10">SSO · teams &amp; roles</text>
 
@@ -166,26 +166,26 @@
                     <text x="155" y="152" text-anchor="middle" fill="#475569" font-size="10" letter-spacing="2">GOVERNED SURFACES</text>
                     <g id="kg-caller-agent" class="kg-caller">
                         <rect x="30" y="170" width="250" height="60" rx="10"/>
-                        <text x="155" y="196" text-anchor="middle" fill="#ffffff" font-size="13.5" font-weight="700">AI agents</text>
-                        <text x="155" y="215" text-anchor="middle" fill="#94a3b8" font-size="10.5">workload keys · leases</text>
+                        <text x="155" y="196" text-anchor="middle" fill="#0f172a" font-size="13.5" font-weight="700">AI agents</text>
+                        <text x="155" y="215" text-anchor="middle" fill="#64748b" font-size="10.5">workload keys · leases</text>
                     </g>
                     <g id="kg-caller-chat" class="kg-caller">
                         <rect x="30" y="252" width="250" height="60" rx="10"/>
-                        <text x="155" y="278" text-anchor="middle" fill="#ffffff" font-size="13.5" font-weight="700">Employee chat</text>
-                        <text x="155" y="297" text-anchor="middle" fill="#94a3b8" font-size="10.5">SSO users · BYOK models</text>
+                        <text x="155" y="278" text-anchor="middle" fill="#0f172a" font-size="13.5" font-weight="700">Employee chat</text>
+                        <text x="155" y="297" text-anchor="middle" fill="#64748b" font-size="10.5">SSO users · BYOK models</text>
                     </g>
                     <g id="kg-caller-workflow" class="kg-caller">
                         <rect x="30" y="334" width="250" height="60" rx="10"/>
-                        <text x="155" y="360" text-anchor="middle" fill="#ffffff" font-size="13.5" font-weight="700">Workflows</text>
-                        <text x="155" y="379" text-anchor="middle" fill="#94a3b8" font-size="10.5">approved revisions · schedules</text>
+                        <text x="155" y="360" text-anchor="middle" fill="#0f172a" font-size="13.5" font-weight="700">Workflows</text>
+                        <text x="155" y="379" text-anchor="middle" fill="#64748b" font-size="10.5">approved revisions · schedules</text>
                     </g>
                     <line x1="280" y1="200" x2="330" y2="200" stroke="#3b82f6" stroke-width="2" marker-end="url(#arr-brand)"/>
                     <line x1="280" y1="282" x2="330" y2="282" stroke="#3b82f6" stroke-width="2" marker-end="url(#arr-brand)"/>
                     <line x1="280" y1="364" x2="330" y2="364" stroke="#3b82f6" stroke-width="2" marker-end="url(#arr-brand)"/>
 
                     <!-- Control plane (center) -->
-                    <rect x="330" y="170" width="250" height="224" rx="12" fill="#0f172a" stroke="#3b82f6" stroke-width="1.5"/>
-                    <text x="455" y="198" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="700">Kavros control plane</text>
+                    <rect x="330" y="170" width="250" height="224" rx="12" fill="#ffffff" stroke="#3b82f6" stroke-width="1.5"/>
+                    <text x="455" y="198" text-anchor="middle" fill="#0f172a" font-size="14" font-weight="700">Kavros control plane</text>
                     <g id="kg-chip-identity" class="kg-chipG">
                         <rect x="345" y="212" width="220" height="28" rx="6"/>
                         <rect x="355" y="222" width="8" height="8" fill="#3b82f6"/>
@@ -205,15 +205,15 @@
 
                     <!-- Signed policy + forward arrows -->
                     <line x1="580" y1="226" x2="650" y2="226" stroke="#22c55e" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arr-green)"/>
-                    <text x="615" y="216" text-anchor="middle" fill="#22c55e" font-size="10">signed policy</text>
+                    <text x="615" y="216" text-anchor="middle" fill="#16a34a" font-size="10">signed policy</text>
                     <line x1="580" y1="282" x2="650" y2="282" stroke="#3b82f6" stroke-width="2" marker-end="url(#arr-brand)"/>
-                    <text x="615" y="272" text-anchor="middle" fill="#93c5fd" font-size="10">forward</text>
+                    <text x="615" y="272" text-anchor="middle" fill="#2563eb" font-size="10">forward</text>
 
                     <!-- Data plane + enclave (right of center) -->
-                    <rect x="650" y="170" width="250" height="224" rx="12" fill="#0f172a" stroke="#3b82f6" stroke-width="1.5"/>
-                    <text x="775" y="198" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="700">Data plane — your VPC</text>
-                    <rect x="666" y="210" width="218" height="136" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="4 3"/>
-                    <text x="775" y="232" text-anchor="middle" fill="#60a5fa" font-size="12.5" font-weight="700">AWS Nitro Enclave</text>
+                    <rect x="650" y="170" width="250" height="224" rx="12" fill="#ffffff" stroke="#3b82f6" stroke-width="1.5"/>
+                    <text x="775" y="198" text-anchor="middle" fill="#0f172a" font-size="14" font-weight="700">Data plane — your VPC</text>
+                    <rect x="666" y="210" width="218" height="136" rx="8" fill="#f8fafc" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="4 3"/>
+                    <text x="775" y="232" text-anchor="middle" fill="#2563eb" font-size="12.5" font-weight="700">AWS Nitro Enclave</text>
                     <g id="kg-chip-allowlist" class="kg-chipG">
                         <rect x="686" y="242" width="178" height="24" rx="5"/>
                         <text x="775" y="258" text-anchor="middle" font-size="10.5">Policy evaluation</text>
@@ -222,28 +222,28 @@
                         <rect x="686" y="272" width="178" height="24" rx="5"/>
                         <text x="775" y="288" text-anchor="middle" font-size="10.5">DLP inspection</text>
                     </g>
-                    <text x="775" y="316" text-anchor="middle" fill="#cbd5e1" font-size="10">signed receipts · attestation quote · PCR0 pin</text>
+                    <text x="775" y="316" text-anchor="middle" fill="#475569" font-size="10">signed receipts · attestation quote · PCR0 pin</text>
                     <text x="775" y="333" text-anchor="middle" fill="#64748b" font-size="9.5">fail closed before anything forwards</text>
 
                     <!-- Air-gap badge: no external access -->
                     <g>
-                        <rect x="686" y="352" width="178" height="34" rx="6" fill="rgba(34,211,238,.06)" stroke="#22d3ee" stroke-width="1" stroke-dasharray="3 3"/>
-                        <rect x="697" y="363" width="11" height="9" rx="1.5" fill="none" stroke="#22d3ee" stroke-width="1.3"/>
-                        <path d="M699.5,363 v-3 a3.5,3.5 0 0 1 7,0 v3" fill="none" stroke="#22d3ee" stroke-width="1.3"/>
-                        <text x="715" y="368" fill="#67e8f9" font-size="9" font-weight="700" letter-spacing="1">NO EXTERNAL ACCESS</text>
-                        <text x="715" y="381" fill="#94a3b8" font-size="9">policy cannot be tampered with</text>
+                        <rect x="686" y="352" width="178" height="34" rx="6" fill="rgba(34,211,238,.06)" stroke="#06b6d4" stroke-width="1" stroke-dasharray="3 3"/>
+                        <rect x="697" y="363" width="11" height="9" rx="1.5" fill="none" stroke="#06b6d4" stroke-width="1.3"/>
+                        <path d="M699.5,363 v-3 a3.5,3.5 0 0 1 7,0 v3" fill="none" stroke="#06b6d4" stroke-width="1.3"/>
+                        <text x="715" y="368" fill="#0e7490" font-size="9" font-weight="700" letter-spacing="1">NO EXTERNAL ACCESS</text>
+                        <text x="715" y="381" fill="#64748b" font-size="9">policy cannot be tampered with</text>
                     </g>
 
                     <!-- Providers (right) -->
                     <text x="1035" y="178" text-anchor="middle" fill="#475569" font-size="10" letter-spacing="2">TARGETS</text>
                     <g id="kg-provider" class="kg-provider">
                         <rect x="950" y="190" width="170" height="90" rx="10"/>
-                        <text x="1035" y="224" text-anchor="middle" fill="#ffffff" font-size="13.5" font-weight="700">Model providers</text>
-                        <text x="1035" y="244" text-anchor="middle" fill="#94a3b8" font-size="10.5">Anthropic · OpenAI</text>
-                        <text x="1035" y="262" text-anchor="middle" fill="#94a3b8" font-size="10.5">tools · APIs</text>
+                        <text x="1035" y="224" text-anchor="middle" fill="#0f172a" font-size="13.5" font-weight="700">Model providers</text>
+                        <text x="1035" y="244" text-anchor="middle" fill="#64748b" font-size="10.5">Anthropic · OpenAI</text>
+                        <text x="1035" y="262" text-anchor="middle" fill="#64748b" font-size="10.5">tools · APIs</text>
                     </g>
                     <line x1="900" y1="235" x2="950" y2="235" stroke="#22c55e" stroke-width="2" marker-end="url(#arr-green)"/>
-                    <text x="925" y="223" text-anchor="middle" fill="#22c55e" font-size="10">allow →</text>
+                    <text x="925" y="223" text-anchor="middle" fill="#16a34a" font-size="10">allow →</text>
                     <line x1="900" y1="300" x2="940" y2="300" stroke="#ef4444" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arr-red)"/>
                     <text x="920" y="318" text-anchor="middle" fill="#ef4444" font-size="10">✕ blocked</text>
 
@@ -256,19 +256,19 @@
                     <!-- Moving message dot -->
                     <g id="kg-dot-wrap" opacity="0">
                         <circle r="9" fill="#3b82f6" opacity="0.25"/>
-                        <circle r="4.5" fill="#93c5fd"/>
+                        <circle r="4.5" fill="#3b82f6"/>
                     </g>
 
                     <!-- Evidence band -->
-                    <rect id="kg-ev-band" class="kg-evband" x="330" y="460" width="570" height="112" rx="12" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
-                    <text x="615" y="486" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="700">Audit &amp; evidence</text>
+                    <rect id="kg-ev-band" class="kg-evband" x="330" y="460" width="570" height="112" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+                    <text x="615" y="486" text-anchor="middle" fill="#0f172a" font-size="14" font-weight="700">Audit &amp; evidence</text>
                     <text x="352" y="508" fill="#475569" font-size="8.5" letter-spacing="1.5">AUDIT LOG — EVERY DECISION</text>
-                    <text id="kg-ev-1" x="352" y="524" font-family="Menlo, monospace" font-size="9" fill="#334155">—</text>
-                    <text id="kg-ev-2" x="352" y="540" font-family="Menlo, monospace" font-size="9" fill="#334155">—</text>
-                    <text id="kg-ev-3" x="352" y="556" font-family="Menlo, monospace" font-size="9" fill="#334155">—</text>
-                    <text x="640" y="524" fill="#94a3b8" font-size="10.5">every decision hash-chained</text>
-                    <text x="640" y="540" fill="#94a3b8" font-size="10.5">metering per workload / team / user / model</text>
-                    <text x="640" y="556" fill="#94a3b8" font-size="10.5">SOC 2-style exports · coverage view · verify it yourself</text>
+                    <text id="kg-ev-1" x="352" y="524" font-family="Menlo, monospace" font-size="9" fill="#94a3b8">—</text>
+                    <text id="kg-ev-2" x="352" y="540" font-family="Menlo, monospace" font-size="9" fill="#94a3b8">—</text>
+                    <text id="kg-ev-3" x="352" y="556" font-family="Menlo, monospace" font-size="9" fill="#94a3b8">—</text>
+                    <text x="640" y="524" fill="#64748b" font-size="10.5">every decision hash-chained</text>
+                    <text x="640" y="540" fill="#64748b" font-size="10.5">metering per workload / team / user / model</text>
+                    <text x="640" y="556" fill="#64748b" font-size="10.5">SOC 2-style exports · coverage view · verify it yourself</text>
                     <line x1="455" y1="394" x2="500" y2="460" stroke="#64748b" stroke-width="2" marker-end="url(#arr-slate)"/>
                     <line x1="775" y1="394" x2="730" y2="460" stroke="#64748b" stroke-width="2" marker-end="url(#arr-slate)"/>
                 </svg>
@@ -297,7 +297,7 @@
                     function move(x1, y1, x2, y2, ms) { return new Promise(function (res) { var left = ms; (function step() { if (!paused) left -= 50; var k = Math.min(1, 1 - Math.max(left, 0) / ms); var e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2; var x = x1 + (x2 - x1) * e, y = y1 + (y2 - y1) * e; dotWrap.setAttribute("transform", "translate(" + x + "," + y + ")"); if (left > 0) setTimeout(step, 50); else res(); })(); }); }
                     function showBadge(text, ok) { badgeText.textContent = text; badge.setAttribute("class", ok ? "kg-ok" : "kg-no"); badge.style.opacity = 1; }
                     function hideBadge() { badge.style.opacity = 0; }
-                    function pushAudit(line, ok) { audits[0].textContent = audits[1].textContent; audits[1].textContent = audits[2].textContent; audits[2].textContent = line; audits[2].setAttribute("fill", ok ? "#4ade80" : "#f87171"); audits[1].setAttribute("fill", "#64748b"); audits[0].setAttribute("fill", "#334155"); setClass(evBand, true); setTimeout(function () { setClass(evBand, false); }, 700); }
+                    function pushAudit(line, ok) { audits[0].textContent = audits[1].textContent; audits[1].textContent = audits[2].textContent; audits[2].textContent = line; audits[2].setAttribute("fill", ok ? "#16a34a" : "#dc2626"); audits[1].setAttribute("fill", "#64748b"); audits[0].setAttribute("fill", "#94a3b8"); setClass(evBand, true); setTimeout(function () { setClass(evBand, false); }, 700); }
                     function resetChips() { Object.keys(chips).forEach(function (k) { setClass(chips[k], false); }); Object.keys(callers).forEach(function (k) { setClass(callers[k], false); }); setClass(provider, false); }
                     var SCEN = [
                         { c: "chat", y: 282, allow: true, line: "✓ allow · chat → anthropic · metered", badge: "ALLOWED" },
