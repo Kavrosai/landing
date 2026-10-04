@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Security | Kavros</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233b82f6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'></path></svg>">
+    <link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
     <link rel="canonical" href="https://kavros.ai/security.html">
     <meta property="og:image" content="https://kavros.ai/og-image.png">
     <meta name="twitter:card" content="summary_large_image">
@@ -13,7 +13,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = { theme: { extend: {
-            colors: { brand: '#3b82f6', darkbg: '#020617', darkcard: '#0f172a' },
+            colors: { brand: '#3b82f6', page: '#f8fafc', card: '#ffffff' },
             fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['Menlo', 'monospace'] }
         } } }
     </script>
@@ -21,40 +21,68 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 </head>
-<body class="bg-darkbg text-slate-300 font-sans antialiased">
-    <nav class="sticky top-0 bg-darkbg/90 backdrop-blur-md z-50 border-b border-slate-800">
-        <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
-            <a href="index.html" class="text-lg font-bold text-white">Kavros</a>
-            <div class="flex items-center gap-5 text-sm">
-                <a href="index.html" class="hover:text-white">Home</a>
-                <a href="https://docs.kavros.ai" class="hover:text-white">Docs</a>
-                <a href="sandbox.html" class="text-brand hover:text-white">Dashboard</a>
+<body class="bg-page text-slate-600 font-sans antialiased">
+    <nav class="fixed w-full bg-white/80 backdrop-blur-md z-50 border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2 text-xl font-bold text-slate-900">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                Kavros
+            </a>
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 text-sm items-center">
+                <a href="index.html#surfaces" class="hover:text-slate-900 transition">Surfaces</a>
+                <a href="index.html#products" class="hover:text-slate-900 transition">Products</a>
+                <a href="index.html#problem" class="hover:text-slate-900 transition">The Problem</a>
+                <a href="index.html#solution" class="hover:text-slate-900 transition">Solution</a>
+                <a href="index.html#pricing" class="hover:text-slate-900 transition">Pricing</a>
+                <a href="sandbox.html" class="hover:text-slate-900 transition">Sandbox</a>
+                <a href="blog.html" class="hover:text-slate-900 transition">Blog</a>
+                <a href="security.html" class="text-brand font-bold transition">Security</a>
+                <a href="https://docs.kavros.ai" class="hover:text-slate-900 transition">Docs</a>
+                <a href="sandbox.html" class="bg-brand hover:bg-blue-500 text-white px-4 py-2 rounded-md font-medium transition">Interactive Demo</a>
             </div>
+            <!-- Mobile Hamburger Button -->
+            <button id="menu-btn" class="md:hidden text-slate-600 focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden flex-col space-y-3 px-6 pb-4 text-sm">
+            <a href="index.html#surfaces" class="block hover:text-slate-900 transition">Surfaces</a>
+            <a href="index.html#products" class="block hover:text-slate-900 transition">Products</a>
+            <a href="index.html#problem" class="block hover:text-slate-900 transition">The Problem</a>
+            <a href="index.html#solution" class="block hover:text-slate-900 transition">Solution</a>
+            <a href="index.html#pricing" class="block hover:text-slate-900 transition">Pricing</a>
+            <a href="sandbox.html" class="block hover:text-slate-900 transition">Sandbox</a>
+            <a href="blog.html" class="block hover:text-slate-900 transition">Blog</a>
+            <a href="security.html" class="text-brand font-bold transition">Security</a>
+            <a href="https://docs.kavros.ai" class="block hover:text-slate-900 transition">Docs</a>
+            <a href="sandbox.html" class="bg-brand hover:bg-blue-500 text-white px-4 py-2 rounded-md font-medium transition text-center">Interactive Demo</a>
         </div>
     </nav>
-    <main class="max-w-4xl mx-auto px-6 py-16">
-        <span class="inline-block bg-slate-800 text-brand text-xs font-mono px-3 py-1 rounded-full mb-5 border border-slate-700">Enterprise security · reflects release 0.2.22, September 2026</span>
-        <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-5">Security boundaries you can inspect</h1>
-        <p class="text-lg text-slate-400 max-w-3xl mb-12">Kavros provides a self-hosted control plane for autonomous agents and employee AI access. Every model request Kavros mediates is evaluated inside an AWS Nitro Enclave whose measurement is pinned and human-verified, by code from a signed release, with evidence you can export and check yourself — inside your AWS environment.</p>
+    <main class="max-w-4xl mx-auto px-6 pt-28 pb-16">
+        <span class="inline-block bg-slate-100 text-brand text-xs font-mono px-3 py-1 rounded-full mb-5 border border-slate-300">Enterprise security · reflects release 0.2.22, September 2026</span>
+        <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-5">Security boundaries you can inspect</h1>
+        <p class="text-lg text-slate-500 max-w-3xl mb-12">Kavros provides a self-hosted control plane for autonomous agents and employee AI access. Every model request Kavros mediates is evaluated inside an AWS Nitro Enclave whose measurement is pinned and human-verified, by code from a signed release, with evidence you can export and check yourself — inside your AWS environment.</p>
 
         <div class="grid md:grid-cols-2 gap-5 mb-12">
-            <section class="bg-darkcard p-6 rounded-lg border border-slate-800">
-                <h2 class="text-xl font-bold text-white mb-2">Agent enforcement</h2>
-                <p class="text-sm text-slate-400">Authenticate workload traffic, evaluate outbound targets and DLP rules, and record the decision before the request continues.</p>
+            <section class="bg-card p-6 rounded-lg border border-slate-200">
+                <h2 class="text-xl font-bold text-slate-900 mb-2">Agent enforcement</h2>
+                <p class="text-sm text-slate-500">Authenticate workload traffic, evaluate outbound targets and DLP rules, and record the decision before the request continues.</p>
             </section>
-            <section class="bg-darkcard p-6 rounded-lg border border-slate-800">
-                <h2 class="text-xl font-bold text-white mb-2">Employee AI governance</h2>
-                <p class="text-sm text-slate-400">Give teams approved model access with OIDC SSO, BYOK providers, quotas, budgets, routing controls, usage visibility, and configurable Chat retention.</p>
+            <section class="bg-card p-6 rounded-lg border border-slate-200">
+                <h2 class="text-xl font-bold text-slate-900 mb-2">Employee AI governance</h2>
+                <p class="text-sm text-slate-500">Give teams approved model access with OIDC SSO, BYOK providers, quotas, budgets, routing controls, usage visibility, and configurable Chat retention.</p>
             </section>
         </div>
 
-        <section class="border-t border-slate-800 pt-10 mb-10">
-            <h2 class="text-2xl font-bold text-white mb-5">What Kavros provides</h2>
-            <ul class="space-y-3 text-sm text-slate-400 list-disc list-inside">
-                <li><strong class="text-slate-300">Enclave-attested enforcement.</strong> Outbound model and tool requests are evaluated inside an AWS Nitro Enclave. Every decision carries an enclave-signed receipt, and the receipt's attestation quote is fully appraised on the request path — signature chain to the AWS Nitro root of trust, fresh one-use challenge binding, and an exact match against the deployment's approved enclave measurement — before any byte is forwarded. A request whose quote fails any check is refused, never forwarded.</li>
-                <li><strong class="text-slate-300">Human-approved measurement registry.</strong> Each release's enclave measurement is registered and approved before deployment — automatically when it matches the measurement the runtime itself pins at deploy time, and routed to administrator review with a comparison gate whenever anything differs. The runtime refuses to trust a quote from any other enclave image.</li>
-                <li><strong class="text-slate-300">Signed releases with provenance.</strong> Release artifacts ship with a signed manifest, SBOM, and build provenance; deployment hosts verify checksums and pull only digest-pinned images from your own registry.</li>
-                <li><strong class="text-slate-300">Model coverage you can see.</strong> A coverage view shows every provider-bound model request Kavros observed, which governed surface sent it, and — explicitly — what Kavros cannot see, so a clean panel is never presented as a no-bypass claim.</li>
+        <section class="border-t border-slate-200 pt-10 mb-10">
+            <h2 class="text-2xl font-bold text-slate-900 mb-5">What Kavros provides</h2>
+            <ul class="space-y-3 text-sm text-slate-500 list-disc list-inside">
+                <li><strong class="text-slate-900">Enclave-attested enforcement.</strong> Outbound model and tool requests are evaluated inside an AWS Nitro Enclave. Every decision carries an enclave-signed receipt, and the receipt's attestation quote is fully appraised on the request path — signature chain to the AWS Nitro root of trust, fresh one-use challenge binding, and an exact match against the deployment's approved enclave measurement — before any byte is forwarded. A request whose quote fails any check is refused, never forwarded.</li>
+                <li><strong class="text-slate-900">Human-approved measurement registry.</strong> Each release's enclave measurement is registered and approved before deployment — automatically when it matches the measurement the runtime itself pins at deploy time, and routed to administrator review with a comparison gate whenever anything differs. The runtime refuses to trust a quote from any other enclave image.</li>
+                <li><strong class="text-slate-900">Signed releases with provenance.</strong> Release artifacts ship with a signed manifest, SBOM, and build provenance; deployment hosts verify checksums and pull only digest-pinned images from your own registry.</li>
+                <li><strong class="text-slate-900">Model coverage you can see.</strong> A coverage view shows every provider-bound model request Kavros observed, which governed surface sent it, and — explicitly — what Kavros cannot see, so a clean panel is never presented as a no-bypass claim.</li>
                 <li>Runtime policy proposals, two-person approval, signatures, version history, simulation, and rollback requests.</li>
                 <li>Hash-chained administrative audit logs with integrity verification and evidence exports.</li>
                 <li>Workload, team, user, model, and organization-level usage controls.</li>
@@ -62,33 +90,33 @@
             </ul>
         </section>
 
-        <section class="border-t border-slate-800 pt-10 mb-10">
-            <h2 class="text-2xl font-bold text-white mb-5">What attestation and coverage do not prove</h2>
-            <p class="text-sm text-slate-400 mb-4">Attestation provides evidence about enclave measurement and execution context. It does not prove that a customer policy is correct, that an allowed action is safe, that a model provider is trustworthy, or that surrounding customer infrastructure is uncompromised. A measured runtime can still be prompt-injected: untrusted content can attempt to redirect a model while every trusted instruction stays byte-for-byte unchanged. Kavros records the boundary truthfully — coverage counts what Kavros observed and labels what it did not.</p>
-            <p class="text-sm text-slate-400">Kavros supports compliance evidence collection. It does not make an organization SOC 2 compliant by itself.</p>
+        <section class="border-t border-slate-200 pt-10 mb-10">
+            <h2 class="text-2xl font-bold text-slate-900 mb-5">What attestation and coverage do not prove</h2>
+            <p class="text-sm text-slate-500 mb-4">Attestation provides evidence about enclave measurement and execution context. It does not prove that a customer policy is correct, that an allowed action is safe, that a model provider is trustworthy, or that surrounding customer infrastructure is uncompromised. A measured runtime can still be prompt-injected: untrusted content can attempt to redirect a model while every trusted instruction stays byte-for-byte unchanged. Kavros records the boundary truthfully — coverage counts what Kavros observed and labels what it did not.</p>
+            <p class="text-sm text-slate-500">Kavros supports compliance evidence collection. It does not make an organization SOC 2 compliant by itself.</p>
         </section>
 
-        <section class="border-t border-slate-800 pt-10 mb-10">
-            <h2 class="text-2xl font-bold text-white mb-5">Employee Chat privacy</h2>
-            <p class="text-sm text-slate-400">Chat messages are stored in the customer control-plane database for user history and usage attribution. Organization admins can configure unlimited retention or a 7, 30, 90, 365, or 730-day inactivity window. Expired chats and messages are deleted server-side, while usage records remain for metering and audit.</p>
+        <section class="border-t border-slate-200 pt-10 mb-10">
+            <h2 class="text-2xl font-bold text-slate-900 mb-5">Employee Chat privacy</h2>
+            <p class="text-sm text-slate-500">Chat messages are stored in the customer control-plane database for user history and usage attribution. Organization admins can configure unlimited retention or a 7, 30, 90, 365, or 730-day inactivity window. Expired chats and messages are deleted server-side, while usage records remain for metering and audit.</p>
         </section>
 
-        <section class="border-t border-slate-800 pt-10 mb-10">
-            <h2 class="text-2xl font-bold text-white mb-5">Procurement and compliance checklist</h2>
-            <p class="text-sm text-slate-400 mb-6">Capabilities enterprises evaluate during security review, all part of the self-hosted deployment.</p>
+        <section class="border-t border-slate-200 pt-10 mb-10">
+            <h2 class="text-2xl font-bold text-slate-900 mb-5">Procurement and compliance checklist</h2>
+            <p class="text-sm text-slate-500 mb-6">Capabilities enterprises evaluate during security review, all part of the self-hosted deployment.</p>
             <div class="grid md:grid-cols-2 gap-5">
-                <div class="bg-darkcard p-5 rounded-lg border border-slate-800">
-                    <h3 class="text-sm font-bold text-white mb-2">Identity and access</h3>
-                    <ul class="text-sm text-slate-400 list-disc list-inside space-y-1">
+                <div class="bg-card p-5 rounded-lg border border-slate-200">
+                    <h3 class="text-sm font-bold text-slate-900 mb-2">Identity and access</h3>
+                    <ul class="text-sm text-slate-500 list-disc list-inside space-y-1">
                         <li>OIDC single sign-on with per-organization identity providers</li>
                         <li>SCIM 2.0 user and group provisioning, with soft deactivation</li>
                         <li>TOTP multi-factor authentication, enforceable org-wide</li>
                         <li>Role-based access: Super Admin, Org Admin, Auditor</li>
                     </ul>
                 </div>
-                <div class="bg-darkcard p-5 rounded-lg border border-slate-800">
-                    <h3 class="text-sm font-bold text-white mb-2">Audit and evidence</h3>
-                    <ul class="text-sm text-slate-400 list-disc list-inside space-y-1">
+                <div class="bg-card p-5 rounded-lg border border-slate-200">
+                    <h3 class="text-sm font-bold text-slate-900 mb-2">Audit and evidence</h3>
+                    <ul class="text-sm text-slate-500 list-disc list-inside space-y-1">
                         <li>Hash-chained administrative audit log with integrity verification</li>
                         <li>SOC 2 evidence bundle export (JSON) and CSV exports</li>
                         <li>Policy approval history, incident timelines, attestation records</li>
@@ -97,18 +125,18 @@
                         <li>Model-coverage evidence: per-request provenance and explicit coverage gaps</li>
                     </ul>
                 </div>
-                <div class="bg-darkcard p-5 rounded-lg border border-slate-800">
-                    <h3 class="text-sm font-bold text-white mb-2">Data controls</h3>
-                    <ul class="text-sm text-slate-400 list-disc list-inside space-y-1">
+                <div class="bg-card p-5 rounded-lg border border-slate-200">
+                    <h3 class="text-sm font-bold text-slate-900 mb-2">Data controls</h3>
+                    <ul class="text-sm text-slate-500 list-disc list-inside space-y-1">
                         <li>Self-hosted: traffic and database stay in your AWS account</li>
                         <li>Configurable employee-chat retention (7 to 730 days)</li>
                         <li>Content policy rules with block, redact, warn, and audit actions</li>
                         <li>Workload API keys hashed at rest; provider keys encrypted at rest</li>
                     </ul>
                 </div>
-                <div class="bg-darkcard p-5 rounded-lg border border-slate-800">
-                    <h3 class="text-sm font-bold text-white mb-2">Deployment</h3>
-                    <ul class="text-sm text-slate-400 list-disc list-inside space-y-1">
+                <div class="bg-card p-5 rounded-lg border border-slate-200">
+                    <h3 class="text-sm font-bold text-slate-900 mb-2">Deployment</h3>
+                    <ul class="text-sm text-slate-500 list-disc list-inside space-y-1">
                         <li>Terraform module with hardened defaults (private hosts, no SSH, RDS deletion protection)</li>
                         <li>Nitro Enclave evaluation with per-request NSM attestation, verified on-path before forwarding</li>
                         <li>Signed release manifests with SBOM and provenance assets</li>
@@ -123,16 +151,24 @@
             </p>
         </section>
 
-        <section class="bg-slate-900 p-6 rounded-lg border border-slate-800">
-            <h2 class="text-xl font-bold text-white mb-2">Security review and disclosure</h2>
-            <p class="text-sm text-slate-400 mb-4">Request the detailed architecture and deployment security review materials, or report a vulnerability privately.</p>
+        <section class="bg-white p-6 rounded-lg border border-slate-200">
+            <h2 class="text-xl font-bold text-slate-900 mb-2">Security review and disclosure</h2>
+            <p class="text-sm text-slate-500 mb-4">Request the detailed architecture and deployment security review materials, or report a vulnerability privately.</p>
             <div class="flex flex-col sm:flex-row gap-3">
                 <a href="mailto:security@kavros.ai?subject=Kavros%20security%20review" class="bg-brand hover:bg-blue-500 text-white px-4 py-2 rounded-md font-bold text-sm text-center">Request security review</a>
-                <a href="mailto:security@kavros.ai?subject=Responsible%20disclosure" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-4 py-2 rounded-md font-bold text-sm text-center border border-slate-700">Report a vulnerability</a>
+                <a href="mailto:security@kavros.ai?subject=Responsible%20disclosure" class="bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-md font-bold text-sm text-center border border-slate-800">Report a vulnerability</a>
             </div>
         </section>
     </main>
-    <footer class="py-8 px-6 border-t border-slate-800 text-center text-sm text-slate-500">© 2026 Kavros. All rights reserved.</footer>
+    <footer class="py-8 px-6 border-t border-slate-200 text-center text-sm text-slate-500">© 2026 Kavros. All rights reserved.</footer>
+    <script>
+        document.getElementById('menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('flex');
+        });
+    </script>
+
     <!-- GoatCounter analytics (privacy-friendly, no cookies) -->
     <script data-goatcounter="https://stats.kavros.ai/count"
            async src="/count.js"></script>
