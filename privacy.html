@@ -64,7 +64,7 @@
         <h1 class="text-4xl font-extrabold text-slate-900 mb-4">Privacy overview</h1>
         <p class="text-slate-500 mb-10">This public overview explains the main data categories handled by Kavros. Customer-specific terms and deployment configuration are established during onboarding.</p>
         <div class="space-y-8 text-sm leading-relaxed text-slate-500">
-            <section><h2 class="text-xl font-bold text-slate-900 mb-2">Public website</h2><p>The public website may collect basic request metadata through GoatCounter analytics, such as page path, referrer, screen size, and browser bot indicators. Contact requests may include the information you choose to send to Kavros.</p></section>
+            <section><h2 class="text-xl font-bold text-slate-900 mb-2">Public website</h2><p>The public website may collect basic request metadata through GoatCounter analytics (privacy-friendly, no cookies, hosted in the EU), such as page path, referrer, screen size, and browser bot indicators. Contact requests may include the information you choose to send to Kavros.</p></section>
             <section><h2 class="text-xl font-bold text-slate-900 mb-2">Self-hosted deployments</h2><p>In a self-hosted deployment, the control plane, database, data plane, and enclave run in the customer AWS account. The customer controls the associated data, provider configuration, retention settings, backups, access roles, and network boundaries.</p></section>
             <section><h2 class="text-xl font-bold text-slate-900 mb-2">Employee Chat</h2><p>Chat messages and metadata are stored in the customer control-plane database to provide chat history and usage attribution. Organization administrators can configure unlimited retention or a supported inactivity window of 7, 30, 90, 365, or 730 days. Expired chats and their messages are deleted server-side. Usage records remain for metering and audit purposes.</p></section>
             <section><h2 class="text-xl font-bold text-slate-900 mb-2">Model providers</h2><p>When a customer configures Anthropic, OpenAI, or another supported provider, requests may be sent to that provider according to the customer’s configuration. Customers are responsible for reviewing provider terms, data-use settings, residency, and retention before enabling a model.</p></section>
@@ -82,7 +82,7 @@
     </script>
 
     <!-- GoatCounter analytics (privacy-friendly, no cookies) -->
-    <script data-goatcounter="https://stats.kavros.ai/count"
-           async src="/count.js"></script>
+    <script data-goatcounter="https://kavros.goatcounter.com/count"
+           async src="https://gc.zgo.at/count.js"></script>
 </body>
 </html>
