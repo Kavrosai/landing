@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fail closed, on purpose: when the gate can't be verified | Kavros</title>
+    <meta name="description" content="What the governed path actually does when evidence is missing: policy evaluation refuses, unverified quotes are never forwarded, unapproved policies fall back to the baseline floor, halted workloads get nothing. Including what this posture does not claim.">
+    <meta property="og:title" content="Fail closed, on purpose: when the gate can't be verified">
+    <meta property="og:description" content="Every control has a failure mode. The architectural question is which direction the failure faces — and what a governance vendor honestly cannot claim about its own.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://kavros.ai/fail-closed-posture.html">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: '#3b82f6',
+                        page: '#f8fafc',
+                        card: '#ffffff'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Menlo', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
+    <link rel="canonical" href="https://kavros.ai/fail-closed-posture.html">
+    <meta property="og:image" content="https://kavros.ai/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://kavros.ai/og-image.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>body { background-color: #f8fafc; }</style>
+</head>
+
+<body class="bg-page text-slate-600 font-sans antialiased">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full bg-white/80 backdrop-blur-md z-50 border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2 text-xl font-bold text-slate-900">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'></path></svg>
+                Kavros
+            </a>
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 text-sm items-center">
+                <a href="index.html#products" class="hover:text-slate-900 transition">Products</a>
+                <a href="index.html#problem" class="hover:text-slate-900 transition">The Problem</a>
+                <a href="index.html#solution" class="hover:text-slate-900 transition">Solution</a>
+                <a href="index.html#pricing" class="hover:text-slate-900 transition">Pricing</a>
+                <a href="sandbox.html" class="hover:text-slate-900 transition">Sandbox</a>
+                <a href="blog.html" class="text-brand font-bold transition">Blog</a>
+                <a href="comics.html" class="hover:text-slate-900 transition">Comics</a>
+                <a href="security.html" class="hover:text-slate-900 transition">Security</a>
+                <a href="https://docs.kavros.ai" class="hover:text-slate-900 transition">Docs</a>
+                <a href="sandbox.html" class="bg-brand hover:bg-blue-500 text-white px-4 py-2 rounded-md font-medium transition">Interactive Demo</a>
+            </div>
+            <!-- Mobile Hamburger Button -->
+            <button id="menu-btn" class="md:hidden text-slate-600 focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="hidden flex-col space-y-3 px-6 pb-4 text-sm">
+            <a href="index.html#products" class="block hover:text-slate-900 transition">Products</a>
+            <a href="index.html#problem" class="block hover:text-slate-900 transition">The Problem</a>
+            <a href="index.html#solution" class="block hover:text-slate-900 transition">Solution</a>
+            <a href="index.html#pricing" class="block hover:text-slate-900 transition">Pricing</a>
+            <a href="sandbox.html" class="block hover:text-slate-900 transition">Sandbox</a>
+            <a href="blog.html" class="block text-brand font-bold transition">Blog</a>
+            <a href="comics.html" class="block hover:text-slate-900 transition">Comics</a>
+            <a href="security.html" class="block hover:text-slate-900 transition">Security</a>
+            <a href="https://docs.kavros.ai" class="block hover:text-slate-900 transition">Docs</a>
+            <a href="sandbox.html" class="bg-brand hover:bg-blue-500 text-white px-4 py-2 rounded-md font-medium transition text-center">Interactive Demo</a>
+        </div>
+    </nav>
+
+    <article class="pb-16 px-6">
+        <div class="max-w-3xl mx-auto space-y-6 text-slate-400 leading-relaxed">
+
+            <p class="text-lg text-slate-600">A security control is only as good as what it does when it can't be sure.</p>
+            <p>Every control has a failure mode. The architectural question is not <em>whether</em> it will sometimes fail to verify something — a policy can't be fetched, a trust check can't complete, evidence goes stale at exactly the wrong moment. The question is which direction the failure faces: <strong class="text-slate-900">fail open</strong> — proceed, log, hope a human notices later — or <strong class="text-slate-900">fail closed</strong> — refuse, record, ask.</p>
+            <p>Services that proxy forty thousand requests a minute tend to fail open, because failing closed threatens availability. That's a defensible trade for a monitoring surface. It is not a defensible trade for a <em>gate</em>. This post states Kavros's default face on each governed path, and then — because a posture post that stops before naming its own blind spots is marketing, not engineering — what the posture does not claim.</p>
+
+            <h2 class="text-3xl font-bold text-slate-900 pt-8">The request path defaults to refusal</h2>
+            <p>On the governed path in your VPC, a request is evaluated before it can move: policy evaluation happens inside the enclave, DLP inspection runs before forward, and the data plane <strong class="text-slate-900">fails closed before anything forwards</strong>. A request that cannot be evaluated — missing evidence, invalid evidence, an unverifiable state — isn't put on the wire with a warning label. It doesn't proceed.</p>
+            <p>Concretely, on each failure the gate answers with refusal:</p>
+            <ul class="list-disc list-inside space-y-2 ml-4">
+                <li><strong class="text-slate-900">A quote that fails any check is refused, never forwarded.</strong> Attestation of the enclave is verified — valid signature path, current measurement, exact match against the deployment's approved enclave measurement — before any byte is forwarded.</li>
+                <li><strong class="text-slate-900">Unapproved images get no trust at all.</strong> The runtime refuses to trust a quote from any other enclave image. Measurements are registered and approved before deployment, automatically on match and through administrator review whenever anything differs — an observed measurement can never promote itself to "known good" by showing up.</li>
+                <li><strong class="text-slate-900">A tampered or unsigned policy doesn't widen anything.</strong> Policies are Ed25519-signed in the control plane and verified inside the enclave at enforcement time; a policy that can't be verified falls back to the <strong class="text-slate-900">baked-in baseline floor</strong>, not to "whatever the process asked for."</li>
+            </ul>
+
+            <h2 class="text-3xl font-bold text-slate-900 pt-8">When what you approved no longer exists</h2>
+            <p>Refusal at request time still leaves a quieter question: what happens when nothing in the request looks wrong, but the thing underneath changed? That's workflow drift, and it gets two mechanisms with deliberately different teeth — capability changes are flagged at the publish and schedule gates with a human confirming on the record, while source schema drift <strong class="text-slate-900">suspends the capability outright</strong>: every call refused before the database sees a query, a critical incident opened with the reason attached. Part 2 of the Workflows series describes both as they behaved in a live rehearsal, including the sentence we first got wrong about tier 1 and had to fix in our own copy.</p>
+
+            <h2 class="text-3xl font-bold text-slate-900 pt-8">The intentional stop</h2>
+            <p>Fail-closed posture isn't only about the system refusing when <em>it</em> is in doubt. It's also about the operator being able to stop it when <em>they</em> are. An out-of-process halt revokes active credential leases and refuses every request from a halted workload — quoting the operator's stated reason — until an administrator resumes it. No application redeploy, no key scavenger hunt, no "hope it behaves." The refusal is quotable: it doesn't lock you out, it tells you why, on the record, until a human says otherwise.</p>
+
+            <h2 class="text-3xl font-bold text-slate-900 pt-8">What this posture does not claim</h2>
+            <ul class="list-disc list-inside space-y-2 ml-4">
+                <li><strong class="text-slate-900">Fail closed on covered paths, not everywhere.</strong> A coverage view shows every provider-bound model request Kavros observed, which governed surface sent it, and — explicitly — what Kavros cannot see. A clean panel is never presented as a no-bypass claim. Any vendor who shows you a spotless dashboard without that section is showing you a claim of perfection; reject it.</li>
+                <li><strong class="text-slate-900">Attestation covers the governed egress gateway — not the model, not every tool.</strong> Hardware attestation evidences the enclave that evaluates egress; other tool execution is enforced at the application layer with signed manifests, grants, and DLP. Saying "everything runs in the enclave" would be false and we don't.</li>
+                <li><strong class="text-slate-900">Per-request cryptographic binding is roadmap, not shipped.</strong> Today's attestation quotes evidence the enclave's measured code and state; binding a quote to the exact request bytes is roadmap (F-04). The evidence of what happened lives in the hash-chained decision records either way — but the boundary between the two is the boundary, and we'd rather own it than blur it.</li>
+                <li><strong class="text-slate-900">Evidence is not compliance.</strong> Refusals and signature chaining produce verifiable records for auditors; they don't make an organization automatically compliant, and they don't certify the <em>correctness</em> of a policy — approval proves a human reviewed scope, not that the scope is right.</li>
+            </ul>
+
+            <h2 class="text-3xl font-bold text-slate-900 pt-8">The question to keep asking</h2>
+            <p>Ask any layer that touches your agents one lazy question: <strong class="text-slate-900">when you can't verify your evidence, what do you do?</strong> If the answer is "proceed and log," you have a recording device. Useful. Different product.</p>
+            <p>If the answer is a flowchart nobody can quote, ask the sharper version: which paths fail open — and is there a view that says so? There should be. Ours does, in coverage terms of what it can't see, because the alternative to admitting the boundary is pretending it's wider than it is.</p>
+            <p>The sandbox runs governed and ungoverned runs side by side — including the drift case — beside a real product video. And the 20-minute architecture assessment walks your workflow: its data, its destinations, and what its policy would say.</p>
+
+            <div class="flex flex-col md:flex-row justify-center gap-4 pt-8">
+                <a href="sandbox.html" class="bg-brand hover:bg-blue-500 text-white px-6 py-3 rounded-md font-bold transition">Run the governed vs ungoverned demo</a>
+                <a href="https://calendly.com/anoop-kulkarni/30min" target="_blank" class="bg-slate-100 hover:bg-slate-200 text-slate-600 px-6 py-3 rounded-md font-bold border border-slate-300 transition">Book the 20-minute assessment</a>
+            </div>
+
+            <p class="text-sm text-slate-500 pt-8 border-t border-slate-200">Related reading: <a href="plain-english-to-signed-scheduled-run.html" class="text-brand hover:text-blue-300">From plain English to a signed, scheduled run</a> · <a href="how-workflow-drift-is-caught.html" class="text-brand hover:text-blue-300">How workflow drift is caught</a> · <a href="prove-what-your-agent-touched.html" class="text-brand hover:text-blue-300">Can you prove what your AI agent touched?</a></p>
+        </div>
+    </article>
+
+    <script>
+        document.getElementById('menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('flex');
+        });
+    </script>
+
+<!-- Goat counter analytics -->
+<script data-goatcounter="https://kavros.goatcounter.com/count"
+       async src="/count.js"></script>
+
+</body>
+</html>
