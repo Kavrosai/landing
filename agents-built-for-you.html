@@ -90,7 +90,7 @@
             <p class="text-slate-500 leading-relaxed mb-8">You get the working agent and the evidence trail for it — the same boundary your security review would otherwise ask for, in place before the first invocation instead of after.</p>
 
             <figure class="bg-white border border-slate-200 rounded-xl p-4 md:p-6 mb-10 overflow-x-auto">
-                <svg viewBox="0 0 1080 700" class="min-w-[720px] w-full" role="img" aria-label="Architecture: the deployment-time conformance loop and the runtime boundary inside the customer's AWS account">
+                <svg viewBox="0 0 1080 700" class="hidden md:block min-w-[720px] w-full" role="img" aria-label="Architecture: the deployment-time conformance loop and the runtime boundary inside the customer's AWS account">
                     <defs>
                         <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
                             <path d="M0,0 L10,5 L0,10 z" fill="#475569"></path>
@@ -218,6 +218,112 @@
                     <text x="40" y="622" class="t10">Designed for. Shipped as fact when one real agent survives one real core update in one real customer account with the conformance suite green — not before.</text>
 
                 </svg>
+
+                <!-- Mobile variant: vertical stack, no horizontal scroll -->
+                <svg viewBox="0 0 360 1250" class="md:hidden w-full h-auto" role="img" aria-label="Vertical architecture diagram: deployment-time conformance loop, runtime plane inside the customer's AWS account, and the designed-for substrate update loop">
+                    <defs>
+                        <marker id="arrowm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                            <path d="M0,0 L10,5 L0,10 z" fill="#475569"></path>
+                        </marker>
+                    </defs>
+
+                    <!-- Mobile band 1: deploy time -->
+                    <rect x="8" y="8" width="344" height="428" rx="10" class="band"></rect>
+                    <text x="24" y="30" class="t12">Deploy time — when we ship your agent,</text>
+                    <text x="24" y="46" class="t12">and again whenever the base layer updates</text>
+
+                    <rect x="24" y="58" width="312" height="54" class="box"></rect>
+                    <text x="180" y="80" text-anchor="middle" class="t11">Your task</text>
+                    <text x="180" y="95" text-anchor="middle" class="t10">written by the founder</text>
+                    <line x1="180" y1="112" x2="180" y2="124" class="arrowline" marker-end="url(#arrowm)"></line>
+
+                    <rect x="24" y="126" width="312" height="54" class="box"></rect>
+                    <text x="180" y="148" text-anchor="middle" class="t11">Manifest (declarative)</text>
+                    <text x="180" y="163" text-anchor="middle" class="t10">tools · param allowlists · data classes · audience</text>
+                    <line x1="180" y1="180" x2="180" y2="192" class="arrowline" marker-end="url(#arrowm)"></line>
+
+                    <rect x="24" y="194" width="312" height="54" class="box"></rect>
+                    <text x="180" y="216" text-anchor="middle" class="t11">Conformance gate</text>
+                    <text x="180" y="231" text-anchor="middle" class="t10">runs all checks</text>
+                    <line x1="180" y1="248" x2="180" y2="260" class="arrowline" marker-end="url(#arrowm)"></line>
+
+                    <rect x="24" y="262" width="312" height="54" class="gate"></rect>
+                    <text x="180" y="284" text-anchor="middle" class="t11">Grant attached,</text>
+                    <text x="180" y="299" text-anchor="middle" class="brandtext">Ed25519 signed</text>
+                    <line x1="180" y1="316" x2="180" y2="328" class="arrowline" marker-end="url(#arrowm)"></line>
+
+                    <rect x="24" y="330" width="312" height="54" class="box"></rect>
+                    <text x="180" y="352" text-anchor="middle" class="t11">Runs in the plane</text>
+                    <text x="180" y="367" text-anchor="middle" class="t10">no direct tool access, no direct egress</text>
+
+                    <text x="24" y="404" class="t10">Custom code is consumed as source: glue is regenerated</text>
+                    <text x="24" y="420" class="t10">from the current core at every deploy, then re-checked.</text>
+
+                    <!-- Mobile band 2: runtime -->
+                    <rect x="8" y="452" width="344" height="486" rx="10" class="band"></rect>
+                    <text x="24" y="474" class="t12">Runtime — inside your AWS account</text>
+                    <text x="24" y="490" class="t10">Every path crosses the plane; nothing reaches around it.</text>
+
+                    <rect x="20" y="502" width="320" height="300" rx="10" fill="#f0f6ff" stroke="#3b82f6" stroke-width="2"></rect>
+                    <text x="34" y="522" class="brandtext">Kavros plane (your AWS account)</text>
+
+                    <rect x="34" y="532" width="292" height="36" class="blackbox"></rect>
+                    <text x="180" y="555" text-anchor="middle" class="t11">Plugin agent handler (we wrote it)</text>
+                    <line x1="180" y1="568" x2="180" y2="584" class="arrowline" marker-end="url(#arrowm)"></line>
+
+                    <rect x="34" y="588" width="292" height="36" class="box"></rect>
+                    <text x="180" y="610" text-anchor="middle" class="t10">Signed scope check — Ed25519 policy, per agent</text>
+                    <line x1="180" y1="624" x2="180" y2="640" class="arrowline" marker-end="url(#arrowm)"></line>
+
+                    <rect x="34" y="644" width="292" height="36" class="box"></rect>
+                    <text x="180" y="666" text-anchor="middle" class="t10">Tool invocation — only approved tools</text>
+                    <line x1="180" y1="680" x2="180" y2="696" class="arrowline" marker-end="url(#arrowm)"></line>
+
+                    <rect x="34" y="700" width="292" height="36" class="box"></rect>
+                    <text x="180" y="722" text-anchor="middle" class="t10">Pre-egress DLP — sensitive data stops here</text>
+                    <line x1="180" y1="736" x2="180" y2="752" class="arrowline" marker-end="url(#arrowm)"></line>
+
+                    <rect x="34" y="756" width="292" height="36" class="box"></rect>
+                    <text x="180" y="778" text-anchor="middle" class="t10">Receipt — hash-chained, sequenced</text>
+
+                    <line x1="180" y1="802" x2="180" y2="814" class="arrowline" marker-end="url(#arrowm)"></line>
+
+                    <rect x="20" y="816" width="320" height="56" class="box"></rect>
+                    <text x="180" y="836" text-anchor="middle" class="brandtext">Out-of-process halt</text>
+                    <text x="180" y="850" text-anchor="middle" class="t10">revokes the agent's credential lease mid-run,</text>
+                    <text x="180" y="864" text-anchor="middle" class="t10">no redeploy, independent of the agent's own process</text>
+                    <line x1="180" y1="872" x2="180" y2="886" class="arrowline" marker-end="url(#arrowm)"></line>
+
+                    <rect x="20" y="890" width="320" height="36" class="box"></rect>
+                    <text x="180" y="913" text-anchor="middle" class="t11">Auditor reads the hash-chained evidence</text>
+
+                    <!-- Mobile band 3: substrate update (designed for) -->
+                    <rect x="8" y="952" width="344" height="286" rx="10" fill="#fffbeb" stroke="#f59e0b" stroke-width="1.6" stroke-dasharray="8 5"></rect>
+                    <text x="24" y="974" class="t12">Base layer update — designed to stay automatic</text>
+
+                    <rect x="24" y="988" width="312" height="44" class="box"></rect>
+                    <text x="180" y="1006" text-anchor="middle" class="t11">Core update</text>
+                    <text x="180" y="1020" text-anchor="middle" class="t10">engine evolves at build speed</text>
+                    <line x1="180" y1="1032" x2="180" y2="1040" class="arrowline" marker-end="url(#arrowm)"></line>
+
+                    <rect x="24" y="1042" width="312" height="44" class="box"></rect>
+                    <text x="180" y="1060" text-anchor="middle" class="t11">Glue regenerated</text>
+                    <text x="180" y="1074" text-anchor="middle" class="t10">from the new core, per plugin</text>
+                    <line x1="180" y1="1086" x2="180" y2="1094" class="arrowline" marker-end="url(#arrowm)"></line>
+
+                    <rect x="24" y="1098" width="312" height="44" class="box"></rect>
+                    <text x="180" y="1116" text-anchor="middle" class="t11">Same conformance checks</text>
+                    <text x="180" y="1130" text-anchor="middle" class="t10">replay fixtures · re-verify receipts</text>
+                    <line x1="180" y1="1142" x2="180" y2="1150" class="arrowline" marker-end="url(#arrowm)"></line>
+
+                    <rect x="24" y="1154" width="312" height="44" class="box"></rect>
+                    <text x="180" y="1172" text-anchor="middle" class="t11">Customer agents untouched</text>
+                    <text x="180" y="1186" text-anchor="middle" class="t10">evidence verifiable before &amp; after</text>
+
+                    <text x="24" y="1216" class="t10">Designed for. Shipped as fact when one real agent</text>
+                    <text x="24" y="1230" class="t10">survives one real core update in one customer account.</text>
+                </svg>
+
                 <figcaption class="text-center text-sm text-slate-400 mt-4">The deployment-time loop and the runtime boundary. The custom code is fastest-moving; the plane is the thing that doesn't move without passing checks.</figcaption>
             </figure>
 
