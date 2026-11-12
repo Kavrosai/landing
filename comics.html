@@ -164,7 +164,7 @@
 
     <script>
         // ── Published comics ────────────────────────────────────────────────
-        // One entry per PUBLISHED comic, in publish order (oldest first).
+        // One entry per PUBLISHED comic, newest first.
         // The page only ever shows comics that have already been posted on
         // LinkedIn — future comics stay out of the HTML so nothing spoils.
         //
@@ -172,9 +172,20 @@
         //   1. Copy + compress the asset:
         //      sips -s format jpeg -s formatOptions 80 "$HOME/Desktop/kavros comics/KavrosEmployee2.jpeg" --out assets/comics/employee-02.jpg
         //   2. Add one entry here (copy a line, bump file/title/date/alt).
-        //   3. git add assets/comics/... comics.html && git commit && git push
-        //      (GitHub Pages deploys in about a minute.)
+        //   3. Open a PR — main is protected, direct pushes are rejected:
+        //      git checkout -b comics-employee-02 && git add assets/comics/... comics.html
+        //      git commit -m "Comics: employee-02" && git push -u origin comics-employee-02
+        //      gh pr create --fill --base main && gh pr merge --squash --delete-branch
+        //      (GitHub Pages deploys in about a minute; verify the id appears live.)
         const COMICS = [
+            {
+                series: 'humans',
+                id: 'employee_08',
+                date: 'Nov 12',
+                title: 'But it was already internal.',
+                file: '/assets/comics/employee-08.jpg',
+                alt: 'Comic: an employee pastes from the company’s internal notes into an AI tool. “It’s from our internal notes,” he tells a colleague with a clipboard, who asks “And where is it going?” In the second panel, over the same whiteboard marked INTERNAL, he answers: “Internal describes where it started. Not where I’m sending it.” — “Exactly.” A small sign on the laptop reads AI DESTINATION: internal data can still leave through an AI prompt, so govern where employee AI traffic can go.'
+            },
             {
                 series: 'agents',
                 id: 'agent_13',
